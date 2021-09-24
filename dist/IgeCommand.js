@@ -13,6 +13,7 @@ class IgeCommand {
     example;
     permission;
     botAllowed;
+    slash;
     /**
      * @param {CommandOptions} commandOptions
      */
@@ -27,6 +28,8 @@ class IgeCommand {
             commandOptions.permission = "everyone";
         if (!commandOptions.botAllowed)
             commandOptions.botAllowed = false;
+        if (!commandOptions.slash)
+            commandOptions.slash = true;
         this.name = commandOptions.name;
         this.category = commandOptions.category;
         this.description = commandOptions?.description;
@@ -35,6 +38,7 @@ class IgeCommand {
         this.example = commandOptions?.example;
         this.permission = commandOptions.permission;
         this.botAllowed = commandOptions.botAllowed;
+        this.slash = commandOptions.slash;
     }
 }
 exports.default = IgeCommand;

@@ -5,11 +5,12 @@ export default class IgeCommand {
     name: string;
     category: string;
     description: string;
-    aliases: [string];
-    usage: [string];
-    example: [string];
+    aliases: string[];
+    usage: string[];
+    example: string[];
     permission: string;
     botAllowed: boolean;
+    slash: boolean;
 
     /**
      * @param {CommandOptions} commandOptions 
@@ -20,6 +21,7 @@ export default class IgeCommand {
         if (!commandOptions.usage) throw new Error(Errors.MISSING_CMD_USAGE);
         if (!commandOptions.permission) commandOptions.permission = "everyone";
         if (!commandOptions.botAllowed) commandOptions.botAllowed = false;
+        if (!commandOptions.slash) commandOptions.slash = true;
 
         this.name = commandOptions.name;
         this.category = commandOptions.category;
@@ -29,6 +31,7 @@ export default class IgeCommand {
         this.example = commandOptions?.example;
         this.permission = commandOptions.permission;
         this.botAllowed = commandOptions.botAllowed;
+        this.slash = commandOptions.slash;
     }
 }
 
