@@ -1,19 +1,20 @@
 {
-  "name": "ige-djs",
+  "name": "@igecorp/ige-djs",
   "version": "0.0.1",
-  "description": "Ige-DJS is a discord.js extends module made by ValRedstone",
+  "description": "Ige-DJS is a discord.js extends module made by IgeCorp",
   "main": "dist/index.js",
   "typings": "./typings.d.ts",
   "scripts": {
     "compile": "tsc"
   },
-  "author": "ValRedstone",
+  "author": "IgeCorp",
   "license": "Apache-2.0",
   "keywords": [
-    "IgeVoid",
+    "IgeCorp",
     "IgeDjs",
     "discord.js",
-    "djs"
+    "djs",
+    "ige"
   ],
   "dependencies": {
     "colors": "^1.4.0",
@@ -25,5 +26,8 @@
     "@types/node": "^16.9.1",
     "ts-node-dev": "^1.1.8",
     "typescript": "^4.4.3"
+  },
+  "publishConfig": {
+    "access": "public"
   }
 }
