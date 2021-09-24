@@ -4,9 +4,6 @@
   "description": "Ige-DJS is a discord.js extends module made by IgeCorp",
   "main": "dist/index.js",
   "typings": "./typings.d.ts",
-  "scripts": {
-    "compile": "tsc"
-  },
   "author": "IgeCorp",
   "license": "Apache-2.0",
   "keywords": [
@@ -24,6 +21,7 @@
   },
   "devDependencies": {
     "@types/node": "^16.9.1",
+    "nodemon": "^2.0.13",
     "ts-node-dev": "^1.1.8",
     "typescript": "^4.4.3"
   },
