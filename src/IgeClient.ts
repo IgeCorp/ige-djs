@@ -10,7 +10,15 @@ import { connect } from "mongoose";
 /**
  * @example
  * ```js
- * const { IgeClient } = require("ige-djs")
+ * const { IgeClient } = require("@igecorp/ige-djs");
+ * 
+ * const client = new IgeCLient("discord bot token", { replies: true, prefix: "!" });
+ * 
+ * client.params({
+ *     commandsDir: "commands directory",
+ *     eventsDir: "events directory",
+ *     mongoUri: "mongodb database connection uri"
+ * });
  * ```
  */
 export default class IgeClient extends Client {
@@ -18,8 +26,8 @@ export default class IgeClient extends Client {
     prefix: string;
     
     /**
-     * @param {string} token
-     * @param {ClientOptions?} options
+     * @param {string} token Discord Bot Token
+     * @param {ClientOptions?} options Discord Client Options
      */
     constructor(token: string, options?: ClientOptions) {
         if (!token) throw new Error(Errors.MISSING_TOKEN);
@@ -42,7 +50,7 @@ export default class IgeClient extends Client {
     }
 
     /**
-     * @param {Options} options 
+     * @param {Options} options Bot options (commands dir, events dir, mongodb uri, ...)
      */
     async params(options: Options) {
         if (!options.commandsDir) throw new Error(Errors.MISSING_CMD_DIR);
