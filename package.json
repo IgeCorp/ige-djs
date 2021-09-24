@@ -1,6 +1,6 @@
 {
   "name": "@igecorp/ige-djs",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Ige-DJS is a discord.js extends module made by IgeCorp",
   "main": "dist/index.js",
   "typings": "./typings.d.ts",
@@ -29,5 +29,13 @@
   },
   "publishConfig": {
     "access": "public"
-  }
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/IgeCorp/ige-djs.git"
+  },
+  "bugs": {
+    "url": "https://github.com/IgeCorp/ige-djs/issues"
+  },
+  "homepage": "https://github.com/IgeCorp/ige-djs#readme"
 }
