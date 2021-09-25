@@ -70,13 +70,14 @@ class IgeClient extends discord_js_1.Client {
      */
     async _cmdsHandler(cmdDir) {
         fs_1.readdir(cmdDir, (_err, files) => {
-            const size = files.length;
-            let count = 0;
+            let size = files.length, count = 0;
             files.forEach(file => {
                 if (!file.endsWith(".js"))
                     return;
+                const command = require(`${cmdDir}/${file}`);
+                if (command.slash === true)
+                    return size = size - 1;
                 try {
-                    const command = require(`${cmdDir}/${file}`);
                     this.commands.set(command.name, command);
                     count = count + 1;
                 }

@@ -70,13 +70,15 @@ export default class IgeClient extends Client {
      */
     async _cmdsHandler(cmdDir: string) {
         readdir(cmdDir, (_err, files) => {
-            const size = files.length;
-            let count = 0;
+            let size = files.length,
+                count = 0;
             files.forEach(file => {
                 if (!file.endsWith(".js")) return;
-                try {
-                    const command = require(`${cmdDir}/${file}`);
+                const command = require(`${cmdDir}/${file}`);
+                
+                if (command.slash === true) return size = size-1;
 
+                try {
                     this.commands.set(command.name, command);
                     count = count+1;
                 } catch(err) {
