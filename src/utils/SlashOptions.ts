@@ -1,4 +1,4 @@
-interface CommandOptions {
+interface SlashOptions {
     name: string,
     category: string,
     description: string,
@@ -8,4 +8,4 @@ interface CommandOptions {
     permission: string
 }
 
-export default CommandOptions;
+export default SlashOptions;
