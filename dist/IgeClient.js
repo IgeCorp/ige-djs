@@ -25,6 +25,7 @@ const mongoose_1 = require("mongoose");
  */
 class IgeClient extends discord_js_1.Client {
     commands;
+    slashs;
     prefix;
     /**
      * @param {string} token Discord Bot Token
@@ -46,6 +47,7 @@ class IgeClient extends discord_js_1.Client {
             intents: Intents_1.default
         });
         this.commands = new discord_js_1.Collection();
+        this.slashs = new discord_js_1.Collection();
         this.prefix = options.prefix;
         this.login(token);
     }
@@ -55,12 +57,15 @@ class IgeClient extends discord_js_1.Client {
     async params(options) {
         if (!options.commandsDir)
             throw new Error(Errrors_1.default.MISSING_CMD_DIR);
+        if (!options.slashsDir)
+            throw new Error(Errrors_1.default.MISSING_SLASH_DIR);
         if (!options.eventsDir)
             throw new Error(Errrors_1.default.MISSING_EVT_DIR);
         if (!options.mongoUri)
             console.warn(colors_1.red(`WARNING: `) + Errrors_1.default.MISSING_MONGO_URI);
-        const cmdDir = `${process.cwd()}/${options.commandsDir}`, evtDir = `${process.cwd()}/${options.eventsDir}`;
+        const cmdDir = `${process.cwd()}/${options.commandsDir}`, slashDir = `${process.cwd()}/${options.slashsDir}`, evtDir = `${process.cwd()}/${options.eventsDir}`;
         this._cmdsHandler(cmdDir);
+        this._slashHandler(slashDir);
         this._evtsHandler(evtDir);
         if (options.mongoUri)
             this._createConnection(options.mongoUri);
@@ -74,10 +79,8 @@ class IgeClient extends discord_js_1.Client {
             files.forEach(file => {
                 if (!file.endsWith(".js"))
                     return;
-                const command = require(`${cmdDir}/${file}`);
-                if (command.slash === true)
-                    return size = size - 1;
                 try {
+                    const command = require(`${cmdDir}/${file}`);
                     this.commands.set(command.name, command);
                     count = count + 1;
                 }
@@ -87,6 +90,28 @@ class IgeClient extends discord_js_1.Client {
                 }
             });
             console.log(`${colors_1.green("Success")} | Loaded ${count}/${size} commands.`);
+        });
+    }
+    /**
+     * @param {string} slashDir
+     */
+    async _slashHandler(slashDir) {
+        fs_1.readdir(slashDir, (_err, files) => {
+            let size = files.length, count = 0;
+            files.forEach(file => {
+                if (!file.endsWith(".js"))
+                    return;
+                try {
+                    const slash = require(`${slashDir}/${file}`);
+                    this.slashs.set(slash.name, slash);
+                    count = count + 1;
+                }
+                catch (err) {
+                    const slashName = file.split(".")[0];
+                    console.log(`${colors_1.red("Error")} | Failed to load ${colors_1.blue(slashName)} slash command.\n${err.stack || err}`);
+                }
+            });
+            console.log(`${colors_1.green("Success")} | Loaded ${count}/${size} slashs commands.`);
         });
     }
     /**

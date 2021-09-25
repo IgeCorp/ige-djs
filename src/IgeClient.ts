@@ -23,6 +23,7 @@ import { connect } from "mongoose";
  */
 export default class IgeClient extends Client {
     commands: Collection<unknown, unknown>;
+    slashs: Collection<unknown, unknown>;
     prefix: string;
     
     /**
@@ -44,6 +45,7 @@ export default class IgeClient extends Client {
         });
 
         this.commands = new Collection();
+        this.slashs = new Collection();
         this.prefix = options.prefix;
 
         this.login(token);
@@ -54,13 +56,16 @@ export default class IgeClient extends Client {
      */
     async params(options: Options) {
         if (!options.commandsDir) throw new Error(Errors.MISSING_CMD_DIR);
+        if (!options.slashsDir) throw new Error(Errors.MISSING_SLASH_DIR);
         if (!options.eventsDir) throw new Error(Errors.MISSING_EVT_DIR);
         if (!options.mongoUri) console.warn(red(`WARNING: `) + Errors.MISSING_MONGO_URI);
 
         const cmdDir = `${process.cwd()}/${options.commandsDir}`,
+            slashDir = `${process.cwd()}/${options.slashsDir}`,
             evtDir = `${process.cwd()}/${options.eventsDir}`;
 
         this._cmdsHandler(cmdDir);
+        this._slashHandler(slashDir);
         this._evtsHandler(evtDir);
         if (options.mongoUri) this._createConnection(options.mongoUri);
     }
@@ -74,11 +79,9 @@ export default class IgeClient extends Client {
                 count = 0;
             files.forEach(file => {
                 if (!file.endsWith(".js")) return;
-                const command = require(`${cmdDir}/${file}`);
                 
-                if (command.slash === true) return size = size-1;
-
                 try {
+                    const command = require(`${cmdDir}/${file}`);
                     this.commands.set(command.name, command);
                     count = count+1;
                 } catch(err) {
@@ -87,6 +90,29 @@ export default class IgeClient extends Client {
                 }
             });
             console.log(`${green("Success")} | Loaded ${count}/${size} commands.`);
+        });
+    }
+
+    /**
+     * @param {string} slashDir 
+     */
+    async _slashHandler(slashDir: string) {
+        readdir(slashDir, (_err, files) => {
+            let size = files.length,
+                count = 0;
+            files.forEach(file => {
+                if (!file.endsWith(".js")) return;
+                
+                try {
+                    const slash = require(`${slashDir}/${file}`);
+                    this.slashs.set(slash.name, slash);
+                    count = count+1;
+                } catch(err) {
+                    const slashName = file.split(".")[0];
+                    console.log(`${red("Error")} | Failed to load ${blue(slashName)} slash command.\n${err.stack || err}`);
+                }
+            });
+            console.log(`${green("Success")} | Loaded ${count}/${size} slashs commands.`);
         });
     }
 

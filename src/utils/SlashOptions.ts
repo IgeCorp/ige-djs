@@ -5,8 +5,7 @@ interface CommandOptions {
     aliases: string[],
     usage: string[],
     example: string[],
-    permission: string,
-    botAllowed: boolean
+    permission: string
 }
 
 export default CommandOptions;
