@@ -1,7 +1,7 @@
 import SlashOptions from "./utils/SlashOptions";
 import Errors from "./utils/Errrors";
 
-export default class IgeCommand {
+export default class IgeSlash {
     name: string;
     description: string;
     aliases: string[];
@@ -29,4 +29,4 @@ export default class IgeCommand {
     }
 }
 
-module.exports = IgeCommand;
+module.exports = IgeSlash;

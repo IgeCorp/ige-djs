@@ -2,7 +2,7 @@ interface ClientOptions {
     replies: boolean,
     prefix: string,
     owner: string,
-    owners: object,
+    owners: string[],
     testGuild: string
 }
 
