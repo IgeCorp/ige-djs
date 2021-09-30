@@ -11,7 +11,14 @@ export default class IgeSlash {
     guildOnly: boolean;
 
     /**
-     * @param {SlashOptions} slashOptions 
+     * @param {SlashOptions} slashOptions The slash command options.
+     * @param {string} slashOptions.name The slash command name.
+     * @param {string} slashOptions.description The slash command description.
+     * @param {string[]} slashOptions.aliases The slash command aliases.
+     * @param {string[]} slashOptions.usage The slash command usages.
+     * @param {string[]} slashOptions.example The slash command examples.
+     * @param {string} slashOptions.permission The slash command permission.
+     * @param {boolean} slashOptions.guildOnly Set true or false if you want this command to one guild only.
      */
     constructor(slashOptions: SlashOptions) {
         if (!slashOptions.name) throw new Error(Errors.MISSING_CMD_NAME);

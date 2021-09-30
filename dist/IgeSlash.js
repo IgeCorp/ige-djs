@@ -4,7 +4,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const Errrors_1 = __importDefault(require("./utils/Errrors"));
-class IgeCommand {
+class IgeSlash {
     name;
     description;
     aliases;
@@ -13,7 +13,14 @@ class IgeCommand {
     permission;
     guildOnly;
     /**
-     * @param {SlashOptions} slashOptions
+     * @param {SlashOptions} slashOptions The slash command options.
+     * @param {string} slashOptions.name The slash command name.
+     * @param {string} slashOptions.description The slash command description.
+     * @param {string[]} slashOptions.aliases The slash command aliases.
+     * @param {string[]} slashOptions.usage The slash command usages.
+     * @param {string[]} slashOptions.example The slash command examples.
+     * @param {string} slashOptions.permission The slash command permission.
+     * @param {boolean} slashOptions.guildOnly Set true or false if you want this command to one guild only.
      */
     constructor(slashOptions) {
         if (!slashOptions.name)
@@ -33,5 +40,5 @@ class IgeCommand {
         this.guildOnly = slashOptions.guildOnly;
     }
 }
-exports.default = IgeCommand;
-module.exports = IgeCommand;
+exports.default = IgeSlash;
+module.exports = IgeSlash;

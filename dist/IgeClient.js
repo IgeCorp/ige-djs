@@ -36,8 +36,13 @@ class IgeClient extends discord_js_1.Client {
     owners;
     testGuild;
     /**
-     * @param {string} token Discord Bot Token
-     * @param {ClientOptions?} options Discord Client Options
+     * @param {string} token The discord client token
+     * @param {ClientOptions} options Discord client options (replies, prefix, owner, ...)
+     * @param {boolean} options.replies Its a boolean value to set if the bot mention or no a user when it reply a message.
+     * @param {string} options.prefix The client prefix.
+     * @param {string} options.owner The client owner user ID.
+     * @param {string[]} options.owners Other client owners id (don't use if the client have one owner).
+     * @param {string} options.testGuild The client test guild id.
      */
     constructor(token, options) {
         if (!token)
@@ -68,7 +73,11 @@ class IgeClient extends discord_js_1.Client {
         this.login(token);
     }
     /**
-     * @param {Options} options Bot options (commands dir, events dir, mongodb uri, ...)
+     * @param {Options} options The client options (commands/slashs/events directory, mongo uri)
+     * @param {string} options.commandsDir The client commands directory.
+     * @param {string} options.slashsDir The client slashs commands directory.
+     * @param {string} options.eventsDir The client events directory.
+     * @param {string} options.mongoUri Mongodb connection uri.
      */
     async params(options) {
         if (!options.commandsDir)
