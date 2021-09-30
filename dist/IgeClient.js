@@ -14,7 +14,12 @@ const mongoose_1 = require("mongoose");
  * ```js
  * const { IgeClient } = require("@igecorp/ige-djs");
  *
- * const client = new IgeCLient("discord bot token", { replies: true, prefix: "!" });
+ * const client = new IgeCLient("discord bot token", {
+ *     replies: true,
+ *     prefix: "!",
+ *     owner: "client owner id",
+ *     testGuild: "test guild id"
+ * });
  *
  * client.params({
  *     commandsDir: "commands directory",
@@ -27,6 +32,9 @@ class IgeClient extends discord_js_1.Client {
     commands;
     slashs;
     prefix;
+    owner;
+    owners;
+    testGuild;
     /**
      * @param {string} token Discord Bot Token
      * @param {ClientOptions?} options Discord Client Options
@@ -38,6 +46,10 @@ class IgeClient extends discord_js_1.Client {
             throw new Error(Errrors_1.default.MISSING_CLIENT_OPTIONS);
         if (!options.prefix)
             throw new Error(Errrors_1.default.MISSING_PREFIX);
+        if (!options.owner)
+            throw new Error(Errrors_1.default.MISSING_OWNER_ID);
+        if (!options.testGuild)
+            throw new Error(Errrors_1.default.MISSING_GUILD_ID);
         super({
             partials: ["USER", "CHANNEL", "GUILD_MEMBER", "MESSAGE", "REACTION"],
             allowedMentions: {
@@ -49,6 +61,10 @@ class IgeClient extends discord_js_1.Client {
         this.commands = new discord_js_1.Collection();
         this.slashs = new discord_js_1.Collection();
         this.prefix = options.prefix;
+        this.owner = options.owner;
+        if (options.owners)
+            this.owners = options.owners;
+        this.testGuild = options.testGuild;
         this.login(token);
     }
     /**

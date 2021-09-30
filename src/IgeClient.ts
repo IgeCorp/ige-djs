@@ -12,7 +12,12 @@ import { connect } from "mongoose";
  * ```js
  * const { IgeClient } = require("@igecorp/ige-djs");
  * 
- * const client = new IgeCLient("discord bot token", { replies: true, prefix: "!" });
+ * const client = new IgeCLient("discord bot token", {
+ *     replies: true,
+ *     prefix: "!",
+ *     owner: "client owner id",
+ *     testGuild: "test guild id"
+ * });
  * 
  * client.params({
  *     commandsDir: "commands directory",
@@ -25,6 +30,9 @@ export default class IgeClient extends Client {
     commands: Collection<unknown, unknown>;
     slashs: Collection<unknown, unknown>;
     prefix: string;
+    owner: string;
+    owners!: object;
+    testGuild: string;
     
     /**
      * @param {string} token Discord Bot Token
@@ -34,6 +42,8 @@ export default class IgeClient extends Client {
         if (!token) throw new Error(Errors.MISSING_TOKEN);
         if (!options) throw new Error(Errors.MISSING_CLIENT_OPTIONS);
         if (!options.prefix) throw new Error(Errors.MISSING_PREFIX);
+        if (!options.owner) throw new Error(Errors.MISSING_OWNER_ID);
+        if (!options.testGuild) throw new Error(Errors.MISSING_GUILD_ID);
 
         super({
             partials: ["USER","CHANNEL","GUILD_MEMBER","MESSAGE","REACTION"],
@@ -47,6 +57,10 @@ export default class IgeClient extends Client {
         this.commands = new Collection();
         this.slashs = new Collection();
         this.prefix = options.prefix;
+
+        this.owner = options.owner;
+        if (options.owners) this.owners = options.owners;
+        this.testGuild = options.testGuild;
 
         this.login(token);
     }

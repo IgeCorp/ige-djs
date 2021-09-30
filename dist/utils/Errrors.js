@@ -4,6 +4,8 @@ const Errors = {
     MISSING_TOKEN: "Missing Discord Bot Token",
     MISSING_CLIENT_OPTIONS: "Missing Discord Bot Options",
     MISSING_PREFIX: "Missing Client Default Prefix",
+    MISSING_OWNER_ID: "Missing Client Owner ID",
+    MISSING_GUILD_ID: "Missing Test Guild ID",
     MISSING_CMD_DIR: "Missing Command Directory",
     MISSING_SLASH_DIR: "Missing Slash Command Directory",
     MISSING_EVT_DIR: "Missing Event Directory",
