@@ -3,6 +3,19 @@ import IgeClient from "./src/IgeClient";
 import IgeCommand from "./src/IgeCommand";
 import IgeSlash from "./src/IgeSlash";
 
+/**
+ * @example
+ * ```js
+ * const { IgeClient } = require("@igecorp/ige-djs");
+ * 
+ * const client = new IgeCLient("discord bot token", {
+ *     replies: true,
+ *     prefix: "!",
+ *     owner: "client owner id",
+ *     testGuild: "test guild id"
+ * });
+ * ```
+ */
 export default class IgeClient extends Client {
     commands: Collection<unknown, unknown>;
     slashs: Collection<unknown, unknown>;
@@ -24,6 +37,15 @@ export default class IgeClient extends Client {
     constructor(token: string, options?: ClientOptions);
 
     /**
+     * @example
+     * ```js
+     * client.params({
+     *     commandsDir: "commands",
+     *     slashsDir: "slashs",
+     *     eventsDir: "events",
+     *     mongoUri: "mongodb connection uri"
+     * });
+     * ```
      * @param {Options} options The client options (commands/slashs/events directory, mongo uri)
      * @param {string} options.commandsDir The client commands directory.
      * @param {string} options.slashsDir The client slashs commands directory.
@@ -34,6 +56,27 @@ export default class IgeClient extends Client {
     async params(options: Options);
 }
 
+/**
+ * @example
+ * ```js
+ * const { IgeCommand } = require("@igecorp/ige-djs");
+ * 
+ * class ping extends IgeCommand {
+ *     constructor() {
+ *         super({
+ *             name: "ping",
+ *             category: "utilities",
+ *             description: "Get the bot latency",
+ *             aliases: ["pingbot", "botping"],
+ *             usage: "ping",
+ *             example: ["ping", "pingbot", "botping"],
+ *             permission: "everyone",
+ *             botAllowed: false
+ *         })
+ *     }
+ * }
+ * ```
+ */
 export class IgeCommand {
     name: string;
     category: string;
@@ -58,6 +101,26 @@ export class IgeCommand {
      constructor(commandOptions: CommandOptions);
 }
 
+/**
+ * @example
+ * ```js
+ * const { IgeSlash } = require("@igecorp/ige-djs");
+ * 
+ * class ping extends IgeSlash {
+ *     constructor() {
+ *         super({
+ *             name: "ping",
+ *             description: "Get the bot latency",
+ *             aliases: ["pingbot", "botping"],
+ *             usage: "ping",
+ *             example: ["ping", "pingbot", "botping"],
+ *             permission: "everyone",
+ *             guildOnly: false
+ *         })
+ *     }
+ * }
+ * ```
+ */
 export class IgeSlash {
     name: string;
     description: string;

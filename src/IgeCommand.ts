@@ -1,6 +1,27 @@
 import CommandOptions from "./utils/CommandOptions";
 import Errors from "./utils/Errrors";
 
+/**
+ * @example
+ * ```js
+ * const { IgeCommand } = require("@igecorp/ige-djs");
+ * 
+ * class ping extends IgeCommand {
+ *     constructor() {
+ *         super({
+ *             name: "ping",
+ *             category: "utilities",
+ *             description: "Get the bot latency",
+ *             aliases: ["pingbot", "botping"],
+ *             usage: "ping",
+ *             example: ["ping", "pingbot", "botping"],
+ *             permission: "everyone",
+ *             botAllowed: false
+ *         })
+ *     }
+ * }
+ * ```
+ */
 export default class IgeCommand {
     name: string;
     category: string;

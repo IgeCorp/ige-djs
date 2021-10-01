@@ -4,6 +4,26 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const Errrors_1 = __importDefault(require("./utils/Errrors"));
+/**
+ * @example
+ * ```js
+ * const { IgeSlash } = require("@igecorp/ige-djs");
+ *
+ * class ping extends IgeSlash {
+ *     constructor() {
+ *         super({
+ *             name: "ping",
+ *             description: "Get the bot latency",
+ *             aliases: ["pingbot", "botping"],
+ *             usage: "ping",
+ *             example: ["ping", "pingbot", "botping"],
+ *             permission: "everyone",
+ *             guildOnly: false
+ *         })
+ *     }
+ * }
+ * ```
+ */
 class IgeSlash {
     name;
     description;

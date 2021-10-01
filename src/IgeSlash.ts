@@ -1,6 +1,26 @@
 import SlashOptions from "./utils/SlashOptions";
 import Errors from "./utils/Errrors";
 
+/**
+ * @example
+ * ```js
+ * const { IgeSlash } = require("@igecorp/ige-djs");
+ * 
+ * class ping extends IgeSlash {
+ *     constructor() {
+ *         super({
+ *             name: "ping",
+ *             description: "Get the bot latency",
+ *             aliases: ["pingbot", "botping"],
+ *             usage: "ping",
+ *             example: ["ping", "pingbot", "botping"],
+ *             permission: "everyone",
+ *             guildOnly: false
+ *         })
+ *     }
+ * }
+ * ```
+ */
 export default class IgeSlash {
     name: string;
     description: string;

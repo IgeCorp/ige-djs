@@ -20,12 +20,6 @@ const mongoose_1 = require("mongoose");
  *     owner: "client owner id",
  *     testGuild: "test guild id"
  * });
- *
- * client.params({
- *     commandsDir: "commands directory",
- *     eventsDir: "events directory",
- *     mongoUri: "mongodb database connection uri"
- * });
  * ```
  */
 class IgeClient extends discord_js_1.Client {
@@ -73,6 +67,15 @@ class IgeClient extends discord_js_1.Client {
         this.login(token);
     }
     /**
+     * @example
+     * ```js
+     * client.params({
+     *     commandsDir: "commands",
+     *     slashsDir: "slashs",
+     *     eventsDir: "events",
+     *     mongoUri: "mongodb connection uri"
+     * });
+     * ```
      * @param {Options} options The client options (commands/slashs/events directory, mongo uri)
      * @param {string} options.commandsDir The client commands directory.
      * @param {string} options.slashsDir The client slashs commands directory.

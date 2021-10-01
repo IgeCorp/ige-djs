@@ -4,6 +4,27 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const Errrors_1 = __importDefault(require("./utils/Errrors"));
+/**
+ * @example
+ * ```js
+ * const { IgeCommand } = require("@igecorp/ige-djs");
+ *
+ * class ping extends IgeCommand {
+ *     constructor() {
+ *         super({
+ *             name: "ping",
+ *             category: "utilities",
+ *             description: "Get the bot latency",
+ *             aliases: ["pingbot", "botping"],
+ *             usage: "ping",
+ *             example: ["ping", "pingbot", "botping"],
+ *             permission: "everyone",
+ *             botAllowed: false
+ *         })
+ *     }
+ * }
+ * ```
+ */
 class IgeCommand {
     name;
     category;
