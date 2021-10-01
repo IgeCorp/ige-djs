@@ -20,7 +20,7 @@ import { connect } from "mongoose";
  * });
  * ```
  */
-export default class IgeClient extends Client {
+export class IgeClient extends Client {
     commands: Collection<unknown, unknown>;
     slashs: Collection<unknown, unknown>;
     prefix: string;

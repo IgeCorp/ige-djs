@@ -21,7 +21,7 @@ import Errors from "./utils/Errrors";
  * }
  * ```
  */
-export default class IgeSlash {
+export class IgeSlash {
     name: string;
     description: string;
     aliases: string[];
