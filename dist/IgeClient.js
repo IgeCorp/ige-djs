@@ -3,7 +3,6 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.IgeClient = void 0;
 const discord_js_1 = require("discord.js");
 const Errrors_1 = __importDefault(require("./utils/Errrors"));
 const Intents_1 = __importDefault(require("./utils/Intents"));
@@ -179,5 +178,5 @@ class IgeClient extends discord_js_1.Client {
         });
     }
 }
-exports.IgeClient = IgeClient;
+exports.default = IgeClient;
 module.exports = IgeClient;

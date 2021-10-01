@@ -3,7 +3,6 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.IgeCommand = void 0;
 const Errrors_1 = __importDefault(require("./utils/Errrors"));
 /**
  * @example
@@ -67,5 +66,5 @@ class IgeCommand {
         this.botAllowed = commandOptions.botAllowed;
     }
 }
-exports.IgeCommand = IgeCommand;
+exports.default = IgeCommand;
 module.exports = IgeCommand;
