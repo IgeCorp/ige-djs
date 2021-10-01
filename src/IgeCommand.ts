@@ -22,7 +22,7 @@ import Errors from "./utils/Errrors";
  * }
  * ```
  */
-export class IgeCommand {
+export default class IgeCommand {
     name: string;
     category: string;
     description: string;
