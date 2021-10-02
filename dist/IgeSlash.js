@@ -48,7 +48,7 @@ class IgeSlash {
         this.description = slashOptions.description;
         this.type = slashOptions.type || "CHAT_INPUT";
         this.options = slashOptions.options || null;
-        this.defaultPermission = slashOptions.defaultPermission || false;
+        this.defaultPermission = slashOptions.defaultPermission || true;
         this.guildOnly = slashOptions.guildOnly || false;
     }
 }
