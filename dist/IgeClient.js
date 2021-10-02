@@ -69,10 +69,7 @@ class IgeClient extends discord_js_1.Client {
         if (options.owners)
             this.owners = options.owners;
         this.testGuild = options.testGuild;
-        this.login(token).then(async () => {
-            await this.application?.commands.set(this._slashsArray);
-        });
-        console.log(this._slashsArray);
+        this.login(token);
     }
     /**
      * @example
@@ -151,6 +148,7 @@ class IgeClient extends discord_js_1.Client {
             }
         });
         console.log(`${colors_1.green("Success")} | Loaded ${count}/${size} slash commands.`);
+        await this.application?.commands.set(this._slashsArray);
     }
     /**
      * @param {string} evtDir
