@@ -6,6 +6,11 @@ import Intents from "./utils/Intents";
 import { readdir } from "fs";
 import { blue, green, red } from "colors";
 import { connect } from "mongoose";
+import { glob } from "glob";
+import { promisify } from "util";
+
+const globPromise = promisify(glob),
+    arrayOfSlashCommands: any[] = [];
 
 /**
  * @example
@@ -61,7 +66,11 @@ export default class IgeClient extends Client {
         if (options.owners) this.owners = options.owners;
         this.testGuild = options.testGuild;
 
-        this.login(token);
+        this.login(token).then(async () => {
+            await this.application?.commands.set(arrayOfSlashCommands);
+        });
+
+        console.log(this.slashs);
     }
 
     /**
@@ -123,23 +132,30 @@ export default class IgeClient extends Client {
      * @param {string} slashDir 
      */
     async _slashHandler(slashDir: string) {
-        readdir(slashDir, (_err, files) => {
-            let size = files.length,
-                count = 0;
-            files.forEach(file => {
-                if (!file.endsWith(".js")) return;
-                
-                try {
-                    const slash = require(`${slashDir}/${file}`);
-                    this.slashs.set(slash.name, slash);
-                    count = count+1;
-                } catch(err) {
-                    const slashName = file.split(".")[0];
-                    console.log(`${red("Error")} | Failed to load ${blue(slashName)} slash command.\n${err.stack || err}`);
-                }
-            });
-            console.log(`${green("Success")} | Loaded ${count}/${size} slashs commands.`);
+        const slashCommands = await globPromise(
+            `${slashDir}/*.js`
+        );
+        
+        let size = slashCommands.length,
+            count = 0;
+
+        slashCommands.map(async (value) => {
+            const file = require(value);
+            try {
+                this.slashs.set(file.name, value);
+
+                if(['MESSAGE', 'USER'].includes(file.type)) delete file.description;
+                if(file.userPermissions) file.defaultPermission = false;
+                arrayOfSlashCommands.push(file);
+
+                count = count+1;
+            } catch (err) {
+                const slashName = file.split(".")[0];
+                throw new Error(`${red("Error")} | Failed to load ${blue(slashName)} slash command.\n${err.stack || err}`);
+            }
         });
+
+        console.log(`${green("Success")} | Loaded ${count}/${size} slash commands.`);
     }
 
     /**
