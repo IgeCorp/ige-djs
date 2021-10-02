@@ -143,6 +143,7 @@ class IgeClient extends discord_js_1.Client {
                     console.log(`${colors_1.red("Error")} | Failed to load ${colors_1.blue(slashName)} slash command.\n${err.stack || err}`);
                 }
             });
+            console.log(arrayOfSlash);
             await this.application?.commands.set(arrayOfSlash);
             console.log(`${colors_1.green("Success")} | Loaded ${count}/${size} slashs commands.`);
         });

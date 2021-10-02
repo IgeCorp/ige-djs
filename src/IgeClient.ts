@@ -144,6 +144,8 @@ export default class IgeClient extends Client {
                 }
             });
 
+            console.log(arrayOfSlash);
+
             await this.application?.commands.set(arrayOfSlash);
 
             console.log(`${green("Success")} | Loaded ${count}/${size} slashs commands.`);
