@@ -127,7 +127,7 @@ export default class IgeClient extends Client {
      * @param {string} slashDir 
      */
     async _slashHandler(slashDir: string) {
-        readdir(slashDir, (_err, files) => {
+        readdir(slashDir, async (_err, files) => {
             let size = files.length,
                 count = 0;
             files.forEach(async file => {
@@ -135,19 +135,17 @@ export default class IgeClient extends Client {
                 try {
                     const command = require(`${slashDir}/${file}`);
                     this.slashs.set(command.name, command);
-                    await this.application?.commands.create({
-                        name: command.name,
-                        description: command.description,
-                        type: command?.type,
-                        options: command?.options,
-                        defaultPermission: command?.defaultPermission
-                    }, command.guildOnly ? this.testGuild : "");
                     count = count+1;
                 } catch(err) {
                     const slashName = file.split(".")[0];
                     console.log(`${red("Error")} | Failed to load ${blue(slashName)} slash command.\n${err.stack || err}`);
                 }
             });
+
+            const data = this.slashs.toJSON()
+
+            await this.application?.commands.set(data);
+
             console.log(`${green("Success")} | Loaded ${count}/${size} slashs commands.`);
         });
     }

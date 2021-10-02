@@ -127,7 +127,7 @@ class IgeClient extends discord_js_1.Client {
      * @param {string} slashDir
      */
     async _slashHandler(slashDir) {
-        fs_1.readdir(slashDir, (_err, files) => {
+        fs_1.readdir(slashDir, async (_err, files) => {
             let size = files.length, count = 0;
             files.forEach(async (file) => {
                 if (!file.endsWith(".js"))
@@ -135,13 +135,6 @@ class IgeClient extends discord_js_1.Client {
                 try {
                     const command = require(`${slashDir}/${file}`);
                     this.slashs.set(command.name, command);
-                    await this.application?.commands.create({
-                        name: command.name,
-                        description: command.description,
-                        type: command?.type,
-                        options: command?.options,
-                        defaultPermission: command?.defaultPermission
-                    }, command.guildOnly ? this.testGuild : "");
                     count = count + 1;
                 }
                 catch (err) {
@@ -149,6 +142,8 @@ class IgeClient extends discord_js_1.Client {
                     console.log(`${colors_1.red("Error")} | Failed to load ${colors_1.blue(slashName)} slash command.\n${err.stack || err}`);
                 }
             });
+            const data = this.slashs.toJSON();
+            await this.application?.commands.set(data);
             console.log(`${colors_1.green("Success")} | Loaded ${count}/${size} slashs commands.`);
         });
     }

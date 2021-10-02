@@ -14,11 +14,10 @@ const Errrors_1 = __importDefault(require("./utils/Errrors"));
  *         super({
  *             name: "ping",
  *             description: "Get the bot latency",
- *             aliases: ["pingbot", "botping"],
- *             usage: "ping",
- *             example: ["ping", "pingbot", "botping"],
- *             permission: "everyone",
- *             guildOnly: false
+ *             type: "MESSAGE",
+ *             options: null,
+ *             defaultPermission: false
+ *             guildOnly: true
  *         })
  *     }
  * }
@@ -35,6 +34,9 @@ class IgeSlash {
      * @param {SlashOptions} slashOptions The slash command options.
      * @param {string} slashOptions.name The slash command name.
      * @param {string} slashOptions.description The slash command description.
+     * @param {string} slashOptions.type The slash command type (CHAT_IMPUT, USER, MESSAGE).
+     * @param {string} slashOptions.options The slash command options.
+     * @param {string} slashOptions.defaultPermission The slash command defaultPermission.
      * @param {boolean} slashOptions.guildOnly Set true or false if you want this command to one guild only.
      */
     constructor(slashOptions) {
