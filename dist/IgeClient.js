@@ -9,6 +9,9 @@ const Intents_1 = __importDefault(require("./utils/Intents"));
 const fs_1 = require("fs");
 const colors_1 = require("colors");
 const mongoose_1 = require("mongoose");
+const glob_1 = require("glob");
+const util_1 = require("util");
+const globPromise = util_1.promisify(glob_1.glob), arrayOfSlashCommands = [];
 /**
  * @example
  * ```js
@@ -64,7 +67,10 @@ class IgeClient extends discord_js_1.Client {
         if (options.owners)
             this.owners = options.owners;
         this.testGuild = options.testGuild;
-        this.login(token);
+        this.login(token).then(async () => {
+            await this.application?.commands.set(arrayOfSlashCommands);
+        });
+        console.log(this.slashs);
     }
     /**
      * @example
@@ -124,23 +130,25 @@ class IgeClient extends discord_js_1.Client {
      * @param {string} slashDir
      */
     async _slashHandler(slashDir) {
-        fs_1.readdir(slashDir, (_err, files) => {
-            let size = files.length, count = 0;
-            files.forEach(file => {
-                if (!file.endsWith(".js"))
-                    return;
-                try {
-                    const slash = require(`${slashDir}/${file}`);
-                    this.slashs.set(slash.name, slash);
-                    count = count + 1;
-                }
-                catch (err) {
-                    const slashName = file.split(".")[0];
-                    console.log(`${colors_1.red("Error")} | Failed to load ${colors_1.blue(slashName)} slash command.\n${err.stack || err}`);
-                }
-            });
-            console.log(`${colors_1.green("Success")} | Loaded ${count}/${size} slashs commands.`);
+        const slashCommands = await globPromise(`${slashDir}/*.js`);
+        let size = slashCommands.length, count = 0;
+        slashCommands.map(async (value) => {
+            const file = require(value);
+            try {
+                this.slashs.set(file.name, value);
+                if (['MESSAGE', 'USER'].includes(file.type))
+                    delete file.description;
+                if (file.userPermissions)
+                    file.defaultPermission = false;
+                arrayOfSlashCommands.push(file);
+                count = count + 1;
+            }
+            catch (err) {
+                const slashName = file.split(".")[0];
+                throw new Error(`${colors_1.red("Error")} | Failed to load ${colors_1.blue(slashName)} slash command.\n${err.stack || err}`);
+            }
         });
+        console.log(`${colors_1.green("Success")} | Loaded ${count}/${size} slash commands.`);
     }
     /**
      * @param {string} evtDir
