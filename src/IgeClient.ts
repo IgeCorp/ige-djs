@@ -9,8 +9,7 @@ import { connect } from "mongoose";
 import { glob } from "glob";
 import { promisify } from "util";
 
-const globPromise = promisify(glob),
-    arrayOfSlashCommands: any[] = [];
+const globPromise = promisify(glob);
 
 /**
  * @example
@@ -32,6 +31,7 @@ export default class IgeClient extends Client {
     owner: string;
     owners!: object;
     testGuild: string;
+    private _slashsArray: any[];
     
     /**
      * @param {string} token The discord client token
@@ -62,15 +62,17 @@ export default class IgeClient extends Client {
         this.slashs = new Collection();
         this.prefix = options.prefix;
 
+        this._slashsArray = [];
+
         this.owner = options.owner;
         if (options.owners) this.owners = options.owners;
         this.testGuild = options.testGuild;
 
         this.login(token).then(async () => {
-            await this.application?.commands.set(arrayOfSlashCommands);
+            await this.application?.commands.set(this._slashsArray);
         });
 
-        console.log(this.slashs);
+        console.log(this._slashsArray);
     }
 
     /**
@@ -146,7 +148,7 @@ export default class IgeClient extends Client {
 
                 if(['MESSAGE', 'USER'].includes(file.type)) delete file.description;
                 if(file.userPermissions) file.defaultPermission = false;
-                arrayOfSlashCommands.push(file);
+                this._slashsArray.push(file);
 
                 count = count+1;
             } catch (err) {

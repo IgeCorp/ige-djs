@@ -11,7 +11,7 @@ const colors_1 = require("colors");
 const mongoose_1 = require("mongoose");
 const glob_1 = require("glob");
 const util_1 = require("util");
-const globPromise = util_1.promisify(glob_1.glob), arrayOfSlashCommands = [];
+const globPromise = util_1.promisify(glob_1.glob);
 /**
  * @example
  * ```js
@@ -32,6 +32,7 @@ class IgeClient extends discord_js_1.Client {
     owner;
     owners;
     testGuild;
+    _slashsArray;
     /**
      * @param {string} token The discord client token
      * @param {ClientOptions} options Discord client options (replies, prefix, owner, ...)
@@ -63,14 +64,15 @@ class IgeClient extends discord_js_1.Client {
         this.commands = new discord_js_1.Collection();
         this.slashs = new discord_js_1.Collection();
         this.prefix = options.prefix;
+        this._slashsArray = [];
         this.owner = options.owner;
         if (options.owners)
             this.owners = options.owners;
         this.testGuild = options.testGuild;
         this.login(token).then(async () => {
-            await this.application?.commands.set(arrayOfSlashCommands);
+            await this.application?.commands.set(this._slashsArray);
         });
-        console.log(this.slashs);
+        console.log(this._slashsArray);
     }
     /**
      * @example
@@ -140,7 +142,7 @@ class IgeClient extends discord_js_1.Client {
                     delete file.description;
                 if (file.userPermissions)
                     file.defaultPermission = false;
-                arrayOfSlashCommands.push(file);
+                this._slashsArray.push(file);
                 count = count + 1;
             }
             catch (err) {
