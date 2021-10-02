@@ -44,7 +44,7 @@ export default class IgeSlash {
 
         this.name = slashOptions.name;
         this.description = slashOptions.description;
-        this.type = slashOptions.type || "MESSAGE";
+        this.type = slashOptions.type || "CHAT_INPUT";
         this.options = slashOptions.options || null;
         this.defaultPermission = slashOptions.defaultPermission || false;
         this.guildOnly = slashOptions.guildOnly || false;

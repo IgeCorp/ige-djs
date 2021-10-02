@@ -1,4 +1,4 @@
-import { Client, Collection } from "discord.js";
+import { ApplicationCommandOptionData, ApplicationCommandType, Client, Collection } from "discord.js";
 import IgeClient from "./src/IgeClient";
 import IgeCommand from "./src/IgeCommand";
 import IgeSlash from "./src/IgeSlash";
@@ -111,11 +111,10 @@ export class IgeCommand {
  *         super({
  *             name: "ping",
  *             description: "Get the bot latency",
- *             aliases: ["pingbot", "botping"],
- *             usage: "ping",
- *             example: ["ping", "pingbot", "botping"],
- *             permission: "everyone",
- *             guildOnly: false
+ *             type: "MESSAGE",
+ *             options: null,
+ *             defaultPermission: false
+ *             guildOnly: true
  *         })
  *     }
  * }
@@ -124,20 +123,18 @@ export class IgeCommand {
 export class IgeSlash {
     name: string;
     description: string;
-    aliases: string[];
-    usage: string[];
-    example: string[];
-    permission: string;
+    type: ApplicationCommandType;
+    options: ApplicationCommandOptionData;
+    defaultPermission: boolean;
     guildOnly: boolean;
 
     /**
      * @param {SlashOptions} slashOptions The slash command options.
      * @param {string} slashOptions.name The slash command name.
      * @param {string} slashOptions.description The slash command description.
-     * @param {string[]} slashOptions.aliases The slash command aliases.
-     * @param {string[]} slashOptions.usage The slash command usages.
-     * @param {string[]} slashOptions.example The slash command examples.
-     * @param {string} slashOptions.permission The slash command permission.
+     * @param {string} slashOptions.type The slash command type (CHAT_IMPUT, USER, MESSAGE).
+     * @param {string} slashOptions.options The slash command options.
+     * @param {string} slashOptions.defaultPermission The slash command defaultPermission.
      * @param {boolean} slashOptions.guildOnly Set true or false if you want this command to one guild only.
      */
     constructor(slashOptions: SlashOptions);
