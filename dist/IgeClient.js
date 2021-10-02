@@ -32,7 +32,6 @@ class IgeClient extends discord_js_1.Client {
     owner;
     owners;
     testGuild;
-    _slashsArray;
     /**
      * @param {string} token The discord client token
      * @param {ClientOptions} options Discord client options (replies, prefix, owner, ...)
@@ -64,7 +63,6 @@ class IgeClient extends discord_js_1.Client {
         this.commands = new discord_js_1.Collection();
         this.slashs = new discord_js_1.Collection();
         this.prefix = options.prefix;
-        this._slashsArray = [];
         this.owner = options.owner;
         if (options.owners)
             this.owners = options.owners;
@@ -129,27 +127,24 @@ class IgeClient extends discord_js_1.Client {
      * @param {string} slashDir
      */
     async _slashHandler(slashDir) {
-        const slashCommands = await globPromise(`${slashDir}/*.js`);
-        let size = slashCommands.length, count = 0;
-        slashCommands.map(async (value) => {
-            const file = require(value);
-            try {
-                this.slashs.set(file.name, value);
-                if (['MESSAGE', 'USER'].includes(file.type))
-                    delete file.description;
-                if (file.userPermissions)
-                    file.defaultPermission = false;
-                this._slashsArray.push(file);
-                count = count + 1;
-            }
-            catch (err) {
-                const slashName = file.split(".")[0];
-                throw new Error(`${colors_1.red("Error")} | Failed to load ${colors_1.blue(slashName)} slash command.\n${err.stack || err}`);
-            }
+        fs_1.readdir(slashDir, (_err, files) => {
+            let size = files.length, count = 0;
+            files.forEach(async (file) => {
+                if (!file.endsWith(".js"))
+                    return;
+                try {
+                    const command = require(`${slashDir}/${file}`);
+                    this.slashs.set(command.name, command);
+                    await this.application?.commands.set(command.name, command);
+                    count = count + 1;
+                }
+                catch (err) {
+                    const slashName = file.split(".")[0];
+                    console.log(`${colors_1.red("Error")} | Failed to load ${colors_1.blue(slashName)} slash command.\n${err.stack || err}`);
+                }
+            });
+            console.log(`${colors_1.green("Success")} | Loaded ${count}/${size} slashs commands.`);
         });
-        console.log(`${colors_1.green("Success")} | Loaded ${count}/${size} slash commands.`);
-        console.log(this._slashsArray);
-        await this.application?.commands.set(this._slashsArray);
     }
     /**
      * @param {string} evtDir

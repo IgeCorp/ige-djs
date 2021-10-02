@@ -1,4 +1,4 @@
-import { ApplicationCommandData, Client, Collection } from "discord.js";
+import { Client, Collection } from "discord.js";
 import Errors from "./utils/Errrors";
 import ClientOptions from "./utils/ClientOptions";
 import Options from "./utils/Options";
@@ -31,7 +31,6 @@ export default class IgeClient extends Client {
     owner: string;
     owners!: object;
     testGuild: string;
-    private _slashsArray: ApplicationCommandData[];
     
     /**
      * @param {string} token The discord client token
@@ -61,8 +60,6 @@ export default class IgeClient extends Client {
         this.commands = new Collection();
         this.slashs = new Collection();
         this.prefix = options.prefix;
-
-        this._slashsArray = [];
 
         this.owner = options.owner;
         if (options.owners) this.owners = options.owners;
