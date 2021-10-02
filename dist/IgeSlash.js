@@ -47,6 +47,8 @@ class IgeSlash {
             throw new Error(Errrors_1.default.MISSING_CMD_NAME);
         if (!slashOptions.usage)
             throw new Error(Errrors_1.default.MISSING_CMD_USAGE);
+        if (!slashOptions.description)
+            throw new Error(Errrors_1.default.MISSING_SLASH_DESC);
         if (!slashOptions.permission)
             slashOptions.permission = "everyone";
         if (!slashOptions.guildOnly)

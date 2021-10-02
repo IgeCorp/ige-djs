@@ -43,6 +43,7 @@ export default class IgeSlash {
     constructor(slashOptions: SlashOptions) {
         if (!slashOptions.name) throw new Error(Errors.MISSING_CMD_NAME);
         if (!slashOptions.usage) throw new Error(Errors.MISSING_CMD_USAGE);
+        if (!slashOptions.description) throw new Error(Errors.MISSING_SLASH_DESC);
         if (!slashOptions.permission) slashOptions.permission = "everyone";
         if (!slashOptions.guildOnly) slashOptions.guildOnly = false;
 

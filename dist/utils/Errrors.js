@@ -12,6 +12,7 @@ const Errors = {
     MISSING_MONGO_URI: "Mongodb Connection Uri Not Provided",
     MISSING_CMD_NAME: "Missing Command Name",
     MISSING_CMD_CAT: "Missing Command Category",
-    MISSING_CMD_USAGE: "Missing Command Usage"
+    MISSING_CMD_USAGE: "Missing Command Usage",
+    MISSING_SLASH_DESC: "Missing Slash Command Description"
 };
 exports.default = Errors;
