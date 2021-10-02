@@ -135,7 +135,13 @@ class IgeClient extends discord_js_1.Client {
                 try {
                     const command = require(`${slashDir}/${file}`);
                     this.slashs.set(command.name, command);
-                    await this.application?.commands.set(command.name, command);
+                    await this.application?.commands.create({
+                        name: command.name,
+                        description: command.description,
+                        type: command?.type,
+                        options: command?.options,
+                        defaultPermission: command?.defaultPermission
+                    }, command.guildOnly ? this.testGuild : "");
                     count = count + 1;
                 }
                 catch (err) {

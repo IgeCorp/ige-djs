@@ -1,10 +1,11 @@
+import { ApplicationCommandOptionData, ApplicationCommandType } from "discord.js";
+
 interface SlashOptions {
     name: string,
     description: string,
-    aliases: string[],
-    usage: string[],
-    example: string[],
-    permission: string,
+    type: ApplicationCommandType,
+    options: ApplicationCommandOptionData,
+    defaultPermission: boolean,
     guildOnly: boolean
 }
 
