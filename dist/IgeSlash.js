@@ -44,14 +44,12 @@ class IgeSlash {
             throw new Error(Errrors_1.default.MISSING_CMD_NAME);
         if (!slashOptions.description)
             throw new Error(Errrors_1.default.MISSING_SLASH_DESC);
-        if (!slashOptions.guildOnly)
-            slashOptions.guildOnly = false;
         this.name = slashOptions.name;
         this.description = slashOptions.description;
-        this.type = slashOptions.type;
-        this.options = slashOptions.options;
-        this.defaultPermission = slashOptions.defaultPermission;
-        this.guildOnly = slashOptions.guildOnly;
+        this.type = slashOptions.type || "MESSAGE";
+        this.options = slashOptions.options || null;
+        this.defaultPermission = slashOptions.defaultPermission || false;
+        this.guildOnly = slashOptions.guildOnly || false;
     }
 }
 exports.default = IgeSlash;
