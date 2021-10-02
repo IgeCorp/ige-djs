@@ -130,34 +130,23 @@ export default class IgeClient extends Client {
      * @param {string} slashDir 
      */
     async _slashHandler(slashDir: string) {
-        const slashCommands = await globPromise(
-            `${slashDir}/*.js`
-        );
-        
-        let size = slashCommands.length,
-            count = 0;
-
-        slashCommands.map(async (value) => {
-            const file = require(value);
-            try {
-                this.slashs.set(file.name, value);
-
-                if(['MESSAGE', 'USER'].includes(file.type)) delete file.description;
-                if(file.userPermissions) file.defaultPermission = false;
-                this._slashsArray.push(file);
-
-                count = count+1;
-            } catch (err) {
-                const slashName = file.split(".")[0];
-                throw new Error(`${red("Error")} | Failed to load ${blue(slashName)} slash command.\n${err.stack || err}`);
-            }
+        readdir(slashDir, (_err, files) => {
+            let size = files.length,
+                count = 0;
+            files.forEach(async file => {
+                if (!file.endsWith(".js")) return;
+                try {
+                    const command = require(`${slashDir}/${file}`);
+                    this.slashs.set(command.name, command);
+                    await this.application?.commands.set(command.name, command);
+                    count = count+1;
+                } catch(err) {
+                    const slashName = file.split(".")[0];
+                    console.log(`${red("Error")} | Failed to load ${blue(slashName)} slash command.\n${err.stack || err}`);
+                }
+            });
+            console.log(`${green("Success")} | Loaded ${count}/${size} slashs commands.`);
         });
-
-        console.log(`${green("Success")} | Loaded ${count}/${size} slash commands.`);
-
-        console.log(this._slashsArray);
-
-        await this.application?.commands.set(this._slashsArray);
     }
 
     /**
