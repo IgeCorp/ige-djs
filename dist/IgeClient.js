@@ -11,7 +11,7 @@ const colors_1 = require("colors");
 const mongoose_1 = require("mongoose");
 const glob_1 = require("glob");
 const util_1 = require("util");
-const globPromise = util_1.promisify(glob_1.glob);
+const globPromise = util_1.promisify(glob_1.glob), arrayOfSlash = [];
 /**
  * @example
  * ```js
@@ -135,6 +135,7 @@ class IgeClient extends discord_js_1.Client {
                 try {
                     const command = require(`${slashDir}/${file}`);
                     this.slashs.set(command.name, command);
+                    arrayOfSlash.push(command);
                     count = count + 1;
                 }
                 catch (err) {
@@ -142,8 +143,7 @@ class IgeClient extends discord_js_1.Client {
                     console.log(`${colors_1.red("Error")} | Failed to load ${colors_1.blue(slashName)} slash command.\n${err.stack || err}`);
                 }
             });
-            const data = this.slashs.toJSON();
-            await this.application?.commands.set(data);
+            await this.application?.commands.set(arrayOfSlash);
             console.log(`${colors_1.green("Success")} | Loaded ${count}/${size} slashs commands.`);
         });
     }

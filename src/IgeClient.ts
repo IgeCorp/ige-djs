@@ -9,7 +9,8 @@ import { connect } from "mongoose";
 import { glob } from "glob";
 import { promisify } from "util";
 
-const globPromise = promisify(glob);
+const globPromise = promisify(glob),
+    arrayOfSlash: any[] = [];
 
 /**
  * @example
@@ -135,6 +136,7 @@ export default class IgeClient extends Client {
                 try {
                     const command = require(`${slashDir}/${file}`);
                     this.slashs.set(command.name, command);
+                    arrayOfSlash.push(command);
                     count = count+1;
                 } catch(err) {
                     const slashName = file.split(".")[0];
@@ -142,9 +144,7 @@ export default class IgeClient extends Client {
                 }
             });
 
-            const data = this.slashs.toJSON()
-
-            await this.application?.commands.set(data);
+            await this.application?.commands.set(arrayOfSlash);
 
             console.log(`${green("Success")} | Loaded ${count}/${size} slashs commands.`);
         });
