@@ -66,7 +66,11 @@ export default class IgeClient extends Client {
         if (options.owners) this.owners = options.owners;
         this.testGuild = options.testGuild;
 
-        this.login(token);
+        this.login(token).then(async () => {
+            console.log(arrayOfSlash);
+
+            await this.application?.commands.set(arrayOfSlash);
+        });
     }
 
     /**
@@ -143,10 +147,6 @@ export default class IgeClient extends Client {
                     console.log(`${red("Error")} | Failed to load ${blue(slashName)} slash command.\n${err.stack || err}`);
                 }
             });
-
-            console.log(arrayOfSlash);
-
-            await this.application?.commands.set(arrayOfSlash);
 
             console.log(`${green("Success")} | Loaded ${count}/${size} slashs commands.`);
         });
