@@ -6,11 +6,6 @@ import Intents from "./utils/Intents";
 import { readdir } from "fs";
 import { blue, green, red } from "colors";
 import { connect } from "mongoose";
-import { glob } from "glob";
-import { promisify } from "util";
-
-const globPromise = promisify(glob),
-    arrayOfSlash: any[] = [];
 
 /**
  * @example
@@ -136,7 +131,6 @@ export default class IgeClient extends Client {
                 try {
                     const command = require(`${slashDir}/${file}`);
                     this.slashs.set(command.name, command);
-                    arrayOfSlash.push(command);
                     count = count+1;
                 } catch(err) {
                     const slashName = file.split(".")[0];

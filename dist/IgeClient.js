@@ -9,9 +9,6 @@ const Intents_1 = __importDefault(require("./utils/Intents"));
 const fs_1 = require("fs");
 const colors_1 = require("colors");
 const mongoose_1 = require("mongoose");
-const glob_1 = require("glob");
-const util_1 = require("util");
-const globPromise = util_1.promisify(glob_1.glob), arrayOfSlash = [];
 /**
  * @example
  * ```js
@@ -135,7 +132,6 @@ class IgeClient extends discord_js_1.Client {
                 try {
                     const command = require(`${slashDir}/${file}`);
                     this.slashs.set(command.name, command);
-                    arrayOfSlash.push(command);
                     count = count + 1;
                 }
                 catch (err) {
