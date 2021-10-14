@@ -227,14 +227,35 @@
   font-weight: 600;
 }
 
-.module-title {
-  font-size: larger;
+.text-center {
   text-align: center;
 }
 
+.px-8 {
+  padding-left: 2rem;
+  padding-right: 2rem;
+}
+
+.max-w-3xl {
+  max-width: 48rem;
+}
+
+.module-title {
+  font-size: larger;
+}
+
 .module-desc {
-  font-size: small;
-  text-align: center;
+  font-size: medium;
+  color: #fff;
+}
+
+.content {
+  margin-left: 10px;
+  color: lightgrey
+}
+
+.strong-content {
+  font-size: larger;
 }
 
 .text-gray-200 {
@@ -274,6 +295,10 @@
   display: flex;
 }
 
+.flex-col {
+  flex-direction: column;
+}
+
 .items-center {
   align-items: center;
 }
@@ -305,7 +330,11 @@
 
 .copy-btn:focus {
   outline: none;
-  background-color: darkblue;
+  background-color: rgba(88,101,242,var(--tw-bg-opacity));;
+}
+
+.allButton {
+  margin-top: 5px;
 }
 
 .mb-1 {
@@ -318,7 +347,29 @@
 }
 
 .middle {
-  height: 60%;
+  height: 66%;
+  background-color: #222033;
+}
+
+.pt-10 {
+  padding-top: 2.5rem;
+}
+
+.pb-4 {
+  padding-bottom: 1rem;
+}
+
+.footer-link {
+  color: white;
+  text-decoration: none;
+}
+
+.footer-link:hover {
+  color: white;
+}
+
+footer {
+  height: (100% - 60%);
 }
 
 button {
