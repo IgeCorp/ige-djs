@@ -1,5 +1,4 @@
 <!DOCTYPE html>
-<!-- Created by CodingLab |www.youtube.com/CodingLabYT-->
 <html lang="en" dir="ltr">
     <head>
         <meta charset="UTF-8">
@@ -64,36 +63,51 @@
                 This documentation is in beta version
                 <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
             </div>
-            <div class="home-content bg-discord-blurple-500 py-20">
-                <i class='bx bx-menu' ></i>
-                <span class="text">
-                    <div class="module-title">
-                        IgeDJS module
-                    </div>
-                    
-                    <div class="module-desc">
-                        IgeDJS is a simplified module version of discord.js
+            <div class="home-content items-center bg-discord-blurple-500 py-20">
+                <i class='bx bx-menu'></i>
+                <div class="max-w-3xl sm:mx-auto px-8 sm:px-16 flex flex-col gap-10 md:px-12">
+                    <span class="text-center text">
+                        <div class="module-title">
+                            IgeDJS module
+                        </div>
+                    </span>
+    
+                    <code class="allButton text-gray-200 bg-discord-blurple-560 p-4 md:text-lg mx-auto rounded-md shadow flex items-center">
+                        <span id="npmmodule" class="hover:text-white mr-2">npm install @igecorp/ige-djs</span>
+                        <button class="focus:outline-none copy-btn" aria-describedat="typped" onclick="copyModuleInstall()">
+                            <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="1.6em" height="1.6em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 24 24" class="inline-block fill-current text-gray-200 cursor-pointer hover:text-white mb-1" aria-hidden="true">
+                                <g fill="none">
+                                    <path d="M8 5H6a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-1M8 5a2 2 0 0 0 2 2h2a2 2 0 0 0 2-2M8 5a2 2 0 0 1 2-2h2a2 2 0 0 1 2 2m0 0h2a2 2 0 0 1 2 2v3m2 4H10m0 0l3-3m-3 3l3 3" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
+                                </g>
+                            </svg>
+                        </button>
+                    </code>
+                </div>
+            </div>
+
+            <div class="middle">
+                <div class="module-desc">
+                    <br>
+                    <div class="content">
+                        <strong class="strong-content">About</strong>
+
+                        <p>IgeDJS is a simplified module version of discord.js
                         <br>
                         but it content has a handler for your discord bot commands and slashs commands,
                         <br>
-                        if you want to use it download it with to button at the right.
+                        if you want to use it download it with to button at the right.</p>
                     </div>
-                </span>
+                </div>
+            </div>
 
-                <code class="text-gray-200 bg-discord-blurple-560 p-4 md:text-lg mx-auto rounded-md shadow flex items-center">
-                    <span id="npmmodule" class="hover:text-white mr-2">npm install @igecorp/ige-djs</span>
-                    <button class="focus:outline-none copy-btn" aria-describedat="typped" onclick="copyModuleInstall()">
-                        <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="1.2em" height="1.2em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 24 24" class="inline-block fill-current text-gray-200 cursor-pointer hover:text-white mb-1" aria-hidden="true">
-                            <g fill="none">
-                                <path d="M8 5H6a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-1M8 5a2 2 0 0 0 2 2h2a2 2 0 0 0 2-2M8 5a2 2 0 0 1 2-2h2a2 2 0 0 1 2 2m0 0h2a2 2 0 0 1 2 2v3m2 4H10m0 0l3-3m-3 3l3 3" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
-                            </g>
-                        </svg>
-                    </button>
-                </code>
-            </div>
-            <div class="middle bg-discord-blurple-560">
-                aaa
-            </div>
+            <footer class="bg-discord-blurple-560">
+                <div class="max-w-3xl mx-auto text-center px-16 pt-10 pb-4 text-gray-200">
+                    <strong>
+                        <a href="#" class="footer-link">ige-djs</a>
+                    </strong>
+                    <p class="mb-4">IgeDJS is a npm module extends of discord.js with a special handler and classes for your client commands.</p>
+                </div>
+            </footer>
         </section>
         <script>
             let arrow = document.querySelectorAll(".arrow");
