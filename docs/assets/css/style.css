@@ -335,6 +335,7 @@
 
 .allButton {
   margin-top: 5px;
+  height: 10px;
 }
 
 .mb-1 {
@@ -347,7 +348,7 @@
 }
 
 .middle {
-  height: 66%;
+  height: 66.1%;
   background-color: #222033;
 }
 
@@ -369,7 +370,7 @@
 }
 
 footer {
-  height: (100% - 60%);
+  height: (100%-67%);
 }
 
 button {
@@ -396,7 +397,7 @@ button {
   border-image: initial;
 }
 
-@media (max-width: 420px) {
+@media (max-width: 470px) {
   .sidebar.close .nav-links li .sub-menu{
     display: none;
   }
