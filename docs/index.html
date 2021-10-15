@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" manifest="ige-djs.manifest">
+<html lang="en">
     <head>
         <meta charset="UTF-8">
         <link rel="stylesheet" href="assets/css/style.css">
@@ -73,7 +73,7 @@
                     </span>
     
                     <code class="allButton text-gray-200 bg-discord-blurple-560 p-4 md:text-lg mx-auto rounded-md shadow flex items-center">
-                        <span id="npmmodule" class="hover:text-white mr-2">npm install @igecorp/ige-djs</span>
+                        <div id="npmmodule" class="hover:text-white mr-2">npm install @igecorp/ige-djs</div>
                         <button class="focus:outline-none copy-btn" aria-describedat="typped" onclick="copyModuleInstall()">
                             <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="1.6em" height="1.6em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 24 24" class="inline-block fill-current text-gray-200 cursor-pointer hover:text-white mb-1" aria-hidden="true">
                                 <g fill="none">
@@ -109,6 +109,14 @@
                 </div>
             </footer>
         </section>
+        <script>
+            const checkSize = () => {
+                if ((Number(window.screen.height) < 430) && (Number(window.screen.width) < 725))
+                return alert("Your screen height and width are to small, please use a larger screen.\nREQUIRED\nmin height: 430px\nmin width: 725px");
+            }
+
+            window.onload = checkSize;
+        </script>
         <script>
             let arrow = document.querySelectorAll(".arrow");
             for (var i = 0; i < arrow.length; i++) {
