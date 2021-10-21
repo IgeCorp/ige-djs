@@ -77,12 +77,14 @@ class IgeClient extends discord_js_1.Client {
      * });
      * ```
      * @param {Options} options The client options (commands/slashs/events directory, mongo uri)
+     * @param {boolean} options.typescript Set default to true, set it to false to use javascript files.
      * @param {string} options.commandsDir The client commands directory.
      * @param {string} options.slashsDir The client slashs commands directory.
      * @param {string} options.eventsDir The client events directory.
      * @param {string} options.mongoUri Mongodb connection uri.
      */
     async params(options) {
+        let useTs;
         if (!options.commandsDir)
             throw new Error(Errrors_1.default.MISSING_CMD_DIR);
         if (!options.slashsDir)
@@ -91,21 +93,24 @@ class IgeClient extends discord_js_1.Client {
             throw new Error(Errrors_1.default.MISSING_EVT_DIR);
         if (!options.mongoUri)
             console.warn(colors_1.red(`WARNING: `) + Errrors_1.default.MISSING_MONGO_URI);
+        (options?.typescript === true) ? useTs = true : useTs = false;
         const cmdDir = `${process.cwd()}/${options.commandsDir}`, slashDir = `${process.cwd()}/${options.slashsDir}`, evtDir = `${process.cwd()}/${options.eventsDir}`;
-        this._cmdsHandler(cmdDir);
-        this._slashHandler(slashDir);
-        this._evtsHandler(evtDir);
+        this._cmdsHandler(cmdDir, useTs);
+        this._slashHandler(slashDir, useTs);
+        this._evtsHandler(evtDir, useTs);
         if (options.mongoUri)
             this._createConnection(options.mongoUri);
     }
     /**
      * @param {string} cmdDir
+     * @param {boolean} useTs
      */
-    async _cmdsHandler(cmdDir) {
+    async _cmdsHandler(cmdDir, useTs) {
+        let fileType = (useTs === true) ? ".ts" : ".js";
         fs_1.readdir(cmdDir, (_err, files) => {
             let size = files.length, count = 0;
             files.forEach(file => {
-                if (!file.endsWith(".js"))
+                if (!file.endsWith(fileType))
                     return;
                 try {
                     const command = require(`${cmdDir}/${file}`);
@@ -122,12 +127,14 @@ class IgeClient extends discord_js_1.Client {
     }
     /**
      * @param {string} slashDir
+     * @param {boolean} useTs
      */
-    async _slashHandler(slashDir) {
+    async _slashHandler(slashDir, useTs) {
+        let fileType = (useTs === true) ? ".ts" : ".js";
         fs_1.readdir(slashDir, async (_err, files) => {
             let size = files.length, count = 0;
             files.forEach(async (file) => {
-                if (!file.endsWith(".js"))
+                if (!file.endsWith(fileType))
                     return;
                 try {
                     const command = require(`${slashDir}/${file}`);
@@ -144,13 +151,15 @@ class IgeClient extends discord_js_1.Client {
     }
     /**
      * @param {string} evtDir
+     * @param {boolean} useTs
      */
-    async _evtsHandler(evtDir) {
+    async _evtsHandler(evtDir, useTs) {
+        let fileType = (useTs === true) ? ".ts" : ".js";
         fs_1.readdir(evtDir, (_err, files) => {
             const size = files.length;
             let count = 0;
             files.forEach((file) => {
-                if (!file.endsWith(".js"))
+                if (!file.endsWith(fileType))
                     return;
                 try {
                     const event = require(`${evtDir}/${file}`);

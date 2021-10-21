@@ -47,6 +47,7 @@ export class IgeClient extends Client {
      * });
      * ```
      * @param {Options} options The client options (commands/slashs/events directory, mongo uri)
+     * @param {boolean} options.typescript Set default to true, set it to false to use javascript files.
      * @param {string} options.commandsDir The client commands directory.
      * @param {string} options.slashsDir The client slashs commands directory.
      * @param {string} options.eventsDir The client events directory.
@@ -157,6 +158,7 @@ interface ClientOptions {
 }
 
 interface Options {
+    typescript: boolean,
     commandsDir: string,
     slashsDir: string,
     eventsDir: string,
