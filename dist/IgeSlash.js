@@ -42,10 +42,10 @@ class IgeSlash {
             throw new Error(Errrors_1.default.MISSING_SLASH_DESC);
         this.name = slashOptions.name;
         this.description = slashOptions.description;
-        this.type = slashOptions.type || "CHAT_INPUT";
-        this.options = slashOptions.options || null;
-        this.defaultPermission = slashOptions.defaultPermission || true;
-        this.guildOnly = slashOptions.guildOnly || false;
+        this.type = slashOptions?.type || "CHAT_INPUT";
+        this.options = slashOptions?.options;
+        this.defaultPermission = slashOptions?.defaultPermission || true;
+        this.guildOnly = slashOptions?.guildOnly || false;
     }
 }
 exports.default = IgeSlash;

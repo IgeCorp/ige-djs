@@ -17,7 +17,7 @@ interface SlashOptions {
     /**
      * @description The slash command options (choices, ...)
      */
-    options: SlashsCommandsOptions[],
+    options?: SlashsCommandsOptions[],
     /**
      * @description The slash command defaultPermission.
      */
