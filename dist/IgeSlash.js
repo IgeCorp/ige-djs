@@ -32,22 +32,10 @@ class IgeSlash {
     guildOnly;
     /**
      * @param {SlashOptions} slashOptions The slash command options.
-     * @param {string} slashOptions.name The slash command name.
-     * @param {string} slashOptions.description The slash command description.
-     * @param {string} slashOptions.type The slash command type (CHAT_IMPUT, USER, MESSAGE).
-     * @param {SlashsCommandsOptions[]} slashOptions.options The slash command options.
-     * @param {string} slashOptions.defaultPermission The slash command defaultPermission.
-     * @param {ApplicationCommandOptionType} slashOptions.options.type The type of the option
-     * @param {string} slashsOptions.options.name The name of the option
-     * @param {string} slashOptions.options.description The description of the option
-     * @param {boolean} slashOptions.options.required Whether the option is required
-     * @param {SlashsCommandsOptionsChoices[]} slashOptions.options.choices The choices of the option for the user to pick from
-     * @param {string} slashOptions.options.choices.name The name of the choice
-     * @param {string|number} slashOptions.options.choices.value The value of the choice
-     * @param {SlashsCommandsOptions[]} slashOptions.options.options Additional options if this option is a subcommand (group)
-     * @param {boolean} slashOptions.guildOnly Set true or false if you want this command to one guild only.
      */
     constructor(slashOptions) {
+        if (!slashOptions)
+            throw new Error(Errrors_1.default.MISSING_SLASH_OPTIONS);
         if (!slashOptions.name)
             throw new Error(Errrors_1.default.MISSING_CMD_NAME);
         if (!slashOptions.description)

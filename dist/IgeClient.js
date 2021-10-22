@@ -32,11 +32,6 @@ class IgeClient extends discord_js_1.Client {
     /**
      * @param {string} token The discord client token
      * @param {ClientOptions} options Discord client options (replies, prefix, owner, ...)
-     * @param {boolean} options.replies Its a boolean value to set if the bot mention or no a user when it reply a message.
-     * @param {string} options.prefix The client prefix.
-     * @param {string} options.owner The client owner user ID.
-     * @param {string[]} options.owners Other client owners id (don't use if the client have one owner).
-     * @param {string} options.testGuild The client test guild id.
      */
     constructor(token, options) {
         if (!token)
@@ -77,13 +72,10 @@ class IgeClient extends discord_js_1.Client {
      * });
      * ```
      * @param {Options} options The client options (commands/slashs/events directory, mongo uri)
-     * @param {boolean} options.typescript Set default to true, set it to false to use javascript files.
-     * @param {string} options.commandsDir The client commands directory.
-     * @param {string} options.slashsDir The client slashs commands directory.
-     * @param {string} options.eventsDir The client events directory.
-     * @param {string} options.mongoUri Mongodb connection uri.
      */
     async params(options) {
+        if (!options)
+            throw new Error(Errrors_1.default.MISSING_OPTIONS);
         let useTs;
         if (!options.commandsDir)
             throw new Error(Errrors_1.default.MISSING_CMD_DIR);
@@ -91,7 +83,7 @@ class IgeClient extends discord_js_1.Client {
             throw new Error(Errrors_1.default.MISSING_SLASH_DIR);
         if (!options.eventsDir)
             throw new Error(Errrors_1.default.MISSING_EVT_DIR);
-        if (!options.mongoUri)
+        if (!options?.mongoUri)
             console.warn(colors_1.red(`WARNING: `) + Errrors_1.default.MISSING_MONGO_URI);
         (options?.typescript === true) ? useTs = true : useTs = false;
         const cmdDir = `${process.cwd()}/${options.commandsDir}`, slashDir = `${process.cwd()}/${options.slashsDir}`, evtDir = `${process.cwd()}/${options.eventsDir}`;

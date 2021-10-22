@@ -21,20 +21,15 @@ export class IgeClient extends Client {
     slashs: Collection<unknown, unknown>;
     prefix: string;
     owner: string;
-    owners!: object;
+    owners?: object;
     testGuild: string;
 
     /**
      * @param {string} token The discord client token
      * @param {ClientOptions} options Discord client options (replies, prefix, owner, ...)
-     * @param {boolean} options.replies Its a boolean value to set if the bot mention or no a user when it reply a message.
-     * @param {string} options.prefix The client prefix.
-     * @param {string} options.owner The client owner user ID.
-     * @param {string[]} options.owners Other client owners id (don't use if the client have one owner).
-     * @param {string} options.testGuild The client test guild id.
      */
 
-    constructor(token: string, options?: ClientOptions);
+    constructor(token: string, options: ClientOptions);
 
     /**
      * @example
@@ -47,11 +42,6 @@ export class IgeClient extends Client {
      * });
      * ```
      * @param {Options} options The client options (commands/slashs/events directory, mongo uri)
-     * @param {boolean} options.typescript Set default to true, set it to false to use javascript files.
-     * @param {string} options.commandsDir The client commands directory.
-     * @param {string} options.slashsDir The client slashs commands directory.
-     * @param {string} options.eventsDir The client events directory.
-     * @param {string} options.mongoUri Mongodb connection uri.
      */
 
     async params(options: Options);
@@ -81,23 +71,15 @@ export class IgeClient extends Client {
 export class IgeCommand {
     name: string;
     category: string;
-    description: string;
-    aliases: string[];
+    description?: string;
+    aliases?: string[];
     usage: string[];
-    example: string[];
-    permission: string;
-    botAllowed: boolean;
+    example?: string[];
+    permission?: string;
+    botAllowed?: boolean;
 
     /**
      * @param {CommandOptions} commandOptions The command options (name, category, usage, description, ...)
-     * @param {string} commandOptions.name The command name.
-     * @param {string} commandOptions.category The command category.
-     * @param {string} commandOptions.description The command description.
-     * @param {string[]} commandOptions.aliases The command aliases.
-     * @param {string[]} commandOptions.usage The command usages.
-     * @param {string[]} commandOptions.example The command examples.
-     * @param {string} commandOptions.permission The command permission.
-     * @param {boolean} commandOptions.botAllowed Set true or false to define if a bot can use this command.
      */
      constructor(commandOptions: CommandOptions);
 }
@@ -124,77 +106,159 @@ export class IgeCommand {
 export class IgeSlash {
     name: string;
     description: string;
-    type: ApplicationCommandType;
-    options: SlashsCommandsOptions[];
-    defaultPermission: boolean;
-    guildOnly: boolean;
+    type?: ApplicationCommandType;
+    options?: SlashsCommandsOptions[];
+    defaultPermission?: boolean;
+    guildOnly?: boolean;
 
     /**
      * @param {SlashOptions} slashOptions The slash command options.
-     * @param {string} slashOptions.name The slash command name.
-     * @param {string} slashOptions.description The slash command description.
-     * @param {string} slashOptions.type The slash command type (CHAT_IMPUT, USER, MESSAGE).
-     * @param {SlashsCommandsOptions[]} slashOptions.options The slash command options.
-     * @param {string} slashOptions.defaultPermission The slash command defaultPermission.
-     * @param {ApplicationCommandOptionType} slashOptions.options.type The type of the option
-     * @param {string} slashsOptions.options.name The name of the option
-     * @param {string} slashOptions.options.description The description of the option
-     * @param {boolean} slashOptions.options.required Whether the option is required
-     * @param {SlashsCommandsOptionsChoices[]} slashOptions.options.choices The choices of the option for the user to pick from
-     * @param {string} slashOptions.options.choices.name The name of the choice
-     * @param {string|number} slashOptions.options.choices.value The value of the choice
-     * @param {SlashsCommandsOptions[]} slashOptions.options.options Additional options if this option is a subcommand (group)
-     * @param {boolean} slashOptions.guildOnly Set true or false if you want this command to one guild only.
      */
     constructor(slashOptions: SlashOptions);
 }
 
 interface ClientOptions {
+    /**
+     * @description Its a boolean value to set if the bot mention or no a user when it reply a message.
+     */
     replies: boolean,
+    /**
+     * @description The client prefix.
+     */
     prefix: string,
+    /**
+     * @description The client owner user ID.
+     */
     owner: string,
-    owners: string[],
+    /**
+     * @description Other client owners id (don't use if the client have one owner).
+     */
+    owners?: string[],
+    /**
+     * @description The client test guild id.
+     */
     testGuild: string
 }
 
 interface Options {
-    typescript: boolean,
+    /**
+     * @description Set default to true, set it to false to use javascript files.
+     */
+    typescript?: boolean,
+    /**
+     * @description The client commands directory.
+     */
     commandsDir: string,
+    /**
+     * @description The client slashs commands directory.
+     */
     slashsDir: string,
+    /**
+     * @description The client events directory.
+     */
     eventsDir: string,
-    mongoUri: string
+    /**
+     * @description Mongodb connection uri.
+     */
+    mongoUri?: string
 }
 
 interface CommandOptions {
+    /**
+     * @description The command name
+     */
     name: string,
+    /**
+     * @description The command category.
+     */
     category: string,
-    description: string,
-    aliases: string[],
+    /**
+     * @description The command description.
+     */
+    description?: string,
+    /**
+     * @description The command aliases.
+     */
+    aliases?: string[],
+    /**
+     * @description The command usages.
+     */
     usage: string[],
-    example: string[],
-    permission: string,
-    botAllowed: boolean
+    /**
+     * @description The command example.
+     */
+    example?: string[],
+    /**
+     * @description The command permission.
+     */
+    permission?: string,
+    /**
+     * @description Set true or false to define if a bot can use this command.
+     */
+    botAllowed?: boolean
 }
 
 interface SlashOptions {
+    /**
+     * @description The slash command name.
+     */
     name: string,
+    /**
+     * @description The slash command description.
+     */
     description: string,
-    type: ApplicationCommandType,
+    /**
+     * @description The slash command type (CHAT_IMPUT, USER, MESSAGE).
+     */
+    type?: ApplicationCommandType,
+    /**
+     * @description The slash command options (choices, ...)
+     */
     options: SlashsCommandsOptions[],
-    defaultPermission: boolean,
-    guildOnly: boolean
+    /**
+     * @description The slash command defaultPermission.
+     */
+    defaultPermission?: boolean,
+    /**
+     * @description Set true or false if you want this command to one guild only.
+     */
+    guildOnly?: boolean
 }
 
 interface SlashsCommandsOptions {
+    /**
+     * @description The type of the option
+     */
     type: ApplicationCommandOptionType,
+    /**
+     * @description The name of the option
+     */
     name: string,
+    /**
+     * @description The description of the option
+     */
     description: string,
+    /**
+     * @description Whether the option is required
+     */
     required: boolean,
-    choices: SlashsCommandsOptionsChoices[],
-    options: SlashsCommandsOptions
+    /**
+     * @description The choices of the option for the user to pick from
+     */
+    choices?: SlashsCommandsOptionsChoices[],
+    /**
+     * @description Additional options if this option is a subcommand (group)
+     */
+    options?: SlashsCommandsOptions
 }
 
 interface SlashsCommandsOptionsChoices {
+    /**
+     * @description The name of the choice
+     */
     name: string,
+    /**
+     * @description The value of the choice
+     */
     value: string | number
 }

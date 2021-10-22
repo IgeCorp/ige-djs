@@ -25,25 +25,18 @@ import Errors from "./utils/Errrors";
 export default class IgeCommand {
     name: string;
     category: string;
-    description: string;
-    aliases: string[];
+    description?: string;
+    aliases?: string[];
     usage: string[];
-    example: string[];
-    permission: string;
-    botAllowed: boolean;
+    example?: string[];
+    permission?: string;
+    botAllowed?: boolean;
 
     /**
      * @param {CommandOptions} commandOptions The command options (name, category, usage, description, ...)
-     * @param {string} commandOptions.name The command name.
-     * @param {string} commandOptions.category The command category.
-     * @param {string} commandOptions.description The command description.
-     * @param {string[]} commandOptions.aliases The command aliases.
-     * @param {string[]} commandOptions.usage The command usages.
-     * @param {string[]} commandOptions.example The command examples.
-     * @param {string} commandOptions.permission The command permission.
-     * @param {boolean} commandOptions.botAllowed Set true or false to define if a bot can use this command.
      */
     constructor(commandOptions: CommandOptions) {
+        if (!commandOptions) throw new Error(Errors.MISSING_CMD_OPTIONS);
         if (!commandOptions.name) throw new Error(Errors.MISSING_CMD_NAME);
         if (!commandOptions.category) throw new Error(Errors.MISSING_CMD_CAT);
         if (!commandOptions.usage) throw new Error(Errors.MISSING_CMD_USAGE);

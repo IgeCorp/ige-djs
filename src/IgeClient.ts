@@ -25,19 +25,14 @@ export default class IgeClient extends Client {
     slashs: Collection<unknown, unknown>;
     prefix: string;
     owner: string;
-    owners!: object;
+    owners?: object;
     testGuild: string;
     
     /**
      * @param {string} token The discord client token
      * @param {ClientOptions} options Discord client options (replies, prefix, owner, ...)
-     * @param {boolean} options.replies Its a boolean value to set if the bot mention or no a user when it reply a message.
-     * @param {string} options.prefix The client prefix.
-     * @param {string} options.owner The client owner user ID.
-     * @param {string[]} options.owners Other client owners id (don't use if the client have one owner).
-     * @param {string} options.testGuild The client test guild id.
      */
-    constructor(token: string, options?: ClientOptions) {
+    constructor(token: string, options: ClientOptions) {
         if (!token) throw new Error(Errors.MISSING_TOKEN);
         if (!options) throw new Error(Errors.MISSING_CLIENT_OPTIONS);
         if (!options.prefix) throw new Error(Errors.MISSING_PREFIX);
@@ -75,18 +70,14 @@ export default class IgeClient extends Client {
      * });
      * ```
      * @param {Options} options The client options (commands/slashs/events directory, mongo uri)
-     * @param {boolean} options.typescript Set default to true, set it to false to use javascript files.
-     * @param {string} options.commandsDir The client commands directory.
-     * @param {string} options.slashsDir The client slashs commands directory.
-     * @param {string} options.eventsDir The client events directory.
-     * @param {string} options.mongoUri Mongodb connection uri.
      */
     async params(options: Options) {
+        if (!options) throw new Error(Errors.MISSING_OPTIONS)
         let useTs;
         if (!options.commandsDir) throw new Error(Errors.MISSING_CMD_DIR);
         if (!options.slashsDir) throw new Error(Errors.MISSING_SLASH_DIR);
         if (!options.eventsDir) throw new Error(Errors.MISSING_EVT_DIR);
-        if (!options.mongoUri) console.warn(red(`WARNING: `) + Errors.MISSING_MONGO_URI);
+        if (!options?.mongoUri) console.warn(red(`WARNING: `) + Errors.MISSING_MONGO_URI);
         (options?.typescript === true) ? useTs = true : useTs = false;
 
         const cmdDir = `${process.cwd()}/${options.commandsDir}`,

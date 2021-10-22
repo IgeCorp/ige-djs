@@ -36,16 +36,10 @@ class IgeCommand {
     botAllowed;
     /**
      * @param {CommandOptions} commandOptions The command options (name, category, usage, description, ...)
-     * @param {string} commandOptions.name The command name.
-     * @param {string} commandOptions.category The command category.
-     * @param {string} commandOptions.description The command description.
-     * @param {string[]} commandOptions.aliases The command aliases.
-     * @param {string[]} commandOptions.usage The command usages.
-     * @param {string[]} commandOptions.example The command examples.
-     * @param {string} commandOptions.permission The command permission.
-     * @param {boolean} commandOptions.botAllowed Set true or false to define if a bot can use this command.
      */
     constructor(commandOptions) {
+        if (!commandOptions)
+            throw new Error(Errrors_1.default.MISSING_CMD_OPTIONS);
         if (!commandOptions.name)
             throw new Error(Errrors_1.default.MISSING_CMD_NAME);
         if (!commandOptions.category)
