@@ -10,7 +10,7 @@ interface ClientOptions {
     /**
      * @description The client owner user ID.
      */
-    owner: string[],
+    owner: string | string[];
     /**
      * @description The client test guild id.
      */

@@ -20,7 +20,7 @@ export class IgeClient extends Client {
     commands: Collection<unknown, unknown>;
     slashs: Collection<unknown, unknown>;
     prefix: string;
-    owner: string[];
+    owner: string | string[];
     testGuild: string;
 
     /**
@@ -128,7 +128,7 @@ interface ClientOptions {
     /**
      * @description The client owner user ID.
      */
-    owner: string[],
+    owner: string | string[];
     /**
      * @description The client test guild id.
      */
