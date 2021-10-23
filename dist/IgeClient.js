@@ -27,7 +27,6 @@ class IgeClient extends discord_js_1.Client {
     slashs;
     prefix;
     owner;
-    owners;
     testGuild;
     /**
      * @param {string} token The discord client token
@@ -56,8 +55,6 @@ class IgeClient extends discord_js_1.Client {
         this.slashs = new discord_js_1.Collection();
         this.prefix = options.prefix;
         this.owner = options.owner;
-        if (options.owners)
-            this.owners = options.owners;
         this.testGuild = options.testGuild;
         this.login(token);
     }
@@ -84,7 +81,7 @@ class IgeClient extends discord_js_1.Client {
         if (!options.eventsDir)
             throw new Error(Errrors_1.default.MISSING_EVT_DIR);
         if (!options?.mongoUri)
-            console.warn(colors_1.red(`WARNING: `) + Errrors_1.default.MISSING_MONGO_URI);
+            console.warn((0, colors_1.red)(`WARNING: `) + Errrors_1.default.MISSING_MONGO_URI);
         (options?.typescript === true) ? useTs = true : useTs = false;
         const cmdDir = `${process.cwd()}/${options.commandsDir}`, slashDir = `${process.cwd()}/${options.slashsDir}`, evtDir = `${process.cwd()}/${options.eventsDir}`;
         this._cmdsHandler(cmdDir, useTs);
@@ -99,7 +96,7 @@ class IgeClient extends discord_js_1.Client {
      */
     async _cmdsHandler(cmdDir, useTs) {
         let fileType = (useTs === true) ? ".ts" : ".js";
-        fs_1.readdir(cmdDir, (_err, files) => {
+        (0, fs_1.readdir)(cmdDir, (_err, files) => {
             let size = files.length, count = 0;
             files.forEach(file => {
                 if (!file.endsWith(fileType))
@@ -111,10 +108,10 @@ class IgeClient extends discord_js_1.Client {
                 }
                 catch (err) {
                     const cmdName = file.split(".")[0];
-                    console.log(`${colors_1.red("Error")} | Failed to load ${colors_1.blue(cmdName)} command.\n${err.stack || err}`);
+                    console.log(`${(0, colors_1.red)("Error")} | Failed to load ${(0, colors_1.blue)(cmdName)} command.\n${err}`);
                 }
             });
-            console.log(`${colors_1.green("Success")} | Loaded ${count}/${size} commands.`);
+            console.log(`${(0, colors_1.green)("Success")} | Loaded ${count}/${size} commands.`);
         });
     }
     /**
@@ -123,7 +120,7 @@ class IgeClient extends discord_js_1.Client {
      */
     async _slashHandler(slashDir, useTs) {
         let fileType = (useTs === true) ? ".ts" : ".js";
-        fs_1.readdir(slashDir, async (_err, files) => {
+        (0, fs_1.readdir)(slashDir, async (_err, files) => {
             let size = files.length, count = 0;
             files.forEach(async (file) => {
                 if (!file.endsWith(fileType))
@@ -135,10 +132,10 @@ class IgeClient extends discord_js_1.Client {
                 }
                 catch (err) {
                     const slashName = file.split(".")[0];
-                    console.log(`${colors_1.red("Error")} | Failed to load ${colors_1.blue(slashName)} slash command.\n${err.stack || err}`);
+                    console.log(`${(0, colors_1.red)("Error")} | Failed to load ${(0, colors_1.blue)(slashName)} slash command.\n${err}`);
                 }
             });
-            console.log(`${colors_1.green("Success")} | Loaded ${count}/${size} slashs commands.`);
+            console.log(`${(0, colors_1.green)("Success")} | Loaded ${count}/${size} slashs commands.`);
         });
     }
     /**
@@ -147,7 +144,7 @@ class IgeClient extends discord_js_1.Client {
      */
     async _evtsHandler(evtDir, useTs) {
         let fileType = (useTs === true) ? ".ts" : ".js";
-        fs_1.readdir(evtDir, (_err, files) => {
+        (0, fs_1.readdir)(evtDir, (_err, files) => {
             const size = files.length;
             let count = 0;
             files.forEach((file) => {
@@ -162,18 +159,18 @@ class IgeClient extends discord_js_1.Client {
                 }
                 catch (err) {
                     let eventName = file.split(".")[0];
-                    throw new Error(`${colors_1.red("Error")} | Failed to load ${colors_1.blue(eventName)} event\n${err.stack || err}`);
+                    throw new Error(`${(0, colors_1.red)("Error")} | Failed to load ${(0, colors_1.blue)(eventName)} event\n${err}`);
                 }
             });
-            console.log(`${colors_1.green("Success")} | Loaded ${count}/${size} events.`);
+            console.log(`${(0, colors_1.green)("Success")} | Loaded ${count}/${size} events.`);
         });
     }
     /**
      * @param {string} mongoUri
      */
     async _createConnection(mongoUri) {
-        mongoose_1.connect(mongoUri).then(() => {
-            console.log(`[${colors_1.green("Success")}] Connected to MongoDB database.`);
+        (0, mongoose_1.connect)(mongoUri).then(() => {
+            console.log(`[${(0, colors_1.green)("Success")}] Connected to MongoDB database.`);
         }).catch((err) => {
             throw new Error(err);
         });

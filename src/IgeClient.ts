@@ -24,8 +24,7 @@ export default class IgeClient extends Client {
     commands: Collection<unknown, unknown>;
     slashs: Collection<unknown, unknown>;
     prefix: string;
-    owner: string;
-    owners?: object;
+    owner: string[];
     testGuild: string;
     
     /**
@@ -53,7 +52,6 @@ export default class IgeClient extends Client {
         this.prefix = options.prefix;
 
         this.owner = options.owner;
-        if (options.owners) this.owners = options.owners;
         this.testGuild = options.testGuild;
 
         this.login(token);
@@ -108,7 +106,7 @@ export default class IgeClient extends Client {
                     count = count+1;
                 } catch(err) {
                     const cmdName = file.split(".")[0];
-                    console.log(`${red("Error")} | Failed to load ${blue(cmdName)} command.\n${err.stack || err}`);
+                    console.log(`${red("Error")} | Failed to load ${blue(cmdName)} command.\n${err}`);
                 }
             });
             console.log(`${green("Success")} | Loaded ${count}/${size} commands.`);
@@ -132,7 +130,7 @@ export default class IgeClient extends Client {
                     count = count+1;
                 } catch(err) {
                     const slashName = file.split(".")[0];
-                    console.log(`${red("Error")} | Failed to load ${blue(slashName)} slash command.\n${err.stack || err}`);
+                    console.log(`${red("Error")} | Failed to load ${blue(slashName)} slash command.\n${err}`);
                 }
             });
 
@@ -160,7 +158,7 @@ export default class IgeClient extends Client {
                     count = count+1;
                 } catch(err) {
                     let eventName = file.split(".")[0];
-                    throw new Error(`${red("Error")} | Failed to load ${blue(eventName)} event\n${err.stack || err}`);
+                    throw new Error(`${red("Error")} | Failed to load ${blue(eventName)} event\n${err}`);
                 }
             });
             console.log(`${green("Success")} | Loaded ${count}/${size} events.`);
