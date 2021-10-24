@@ -35,8 +35,8 @@ export default class IgeSlash {
      */
     constructor(slashOptions: SlashOptions) {
         if (!slashOptions) throw new Error(Errors.MISSING_SLASH_OPTIONS);
-        if (!slashOptions.name) throw new Error(Errors.MISSING_CMD_NAME);
-        if (!slashOptions.description) throw new Error(Errors.MISSING_SLASH_DESC);
+        if (!slashOptions.name) throw new TypeError(Errors.MISSING_SLASH_NAME);
+        if (!slashOptions.description) throw new TypeError(Errors.MISSING_SLASH_DESC);
 
         this.name = slashOptions.name;
         this.description = slashOptions.description;

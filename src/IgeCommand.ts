@@ -37,9 +37,9 @@ export default class IgeCommand {
      */
     constructor(commandOptions: CommandOptions) {
         if (!commandOptions) throw new Error(Errors.MISSING_CMD_OPTIONS);
-        if (!commandOptions.name) throw new Error(Errors.MISSING_CMD_NAME);
-        if (!commandOptions.category) throw new Error(Errors.MISSING_CMD_CAT);
-        if (!commandOptions.usage) throw new Error(Errors.MISSING_CMD_USAGE);
+        if (!commandOptions.name) throw new TypeError(Errors.MISSING_CMD_NAME);
+        if (!commandOptions.category) throw new TypeError(Errors.MISSING_CMD_CAT);
+        if (!commandOptions.usage) throw new TypeError(Errors.MISSING_CMD_USAGE);
         if (!commandOptions.permission) commandOptions.permission = "everyone";
         if (!commandOptions.botAllowed) commandOptions.botAllowed = false;
 

@@ -32,11 +32,11 @@ export default class IgeClient extends Client {
      * @param {ClientOptions} options Discord client options (replies, prefix, owner, ...)
      */
     constructor(token: string, options: ClientOptions) {
-        if (!token) throw new Error(Errors.MISSING_TOKEN);
-        if (!options) throw new Error(Errors.MISSING_CLIENT_OPTIONS);
-        if (!options.prefix) throw new Error(Errors.MISSING_PREFIX);
-        if (!options.owner) throw new Error(Errors.MISSING_OWNER_ID);
-        if (!options.testGuild) throw new Error(Errors.MISSING_GUILD_ID);
+        if (!token) throw new TypeError(Errors.MISSING_TOKEN);
+        if (!options) throw new TypeError(Errors.MISSING_CLIENT_OPTIONS);
+        if (!options.prefix) throw new TypeError(Errors.MISSING_PREFIX);
+        if (!options.owner) throw new TypeError(Errors.MISSING_OWNER_ID);
+        if (!options.testGuild) throw new TypeError(Errors.MISSING_GUILD_ID);
 
         super({
             partials: ["USER","CHANNEL","GUILD_MEMBER","MESSAGE","REACTION"],
@@ -49,8 +49,8 @@ export default class IgeClient extends Client {
 
         this.commands = new Collection();
         this.slashs = new Collection();
-        this.prefix = options.prefix;
 
+        this.prefix = options.prefix;
         this.owner = options.owner;
         this.testGuild = options.testGuild;
 
@@ -72,9 +72,9 @@ export default class IgeClient extends Client {
     async params(options: Options) {
         if (!options) throw new Error(Errors.MISSING_OPTIONS)
         let useTs;
-        if (!options.commandsDir) throw new Error(Errors.MISSING_CMD_DIR);
-        if (!options.slashsDir) throw new Error(Errors.MISSING_SLASH_DIR);
-        if (!options.eventsDir) throw new Error(Errors.MISSING_EVT_DIR);
+        if (!options.commandsDir) throw new TypeError(Errors.MISSING_CMD_DIR);
+        if (!options.slashsDir) throw new TypeError(Errors.MISSING_SLASH_DIR);
+        if (!options.eventsDir) throw new TypeError(Errors.MISSING_EVT_DIR);
         if (!options?.mongoUri) console.warn(red(`WARNING: `) + Errors.MISSING_MONGO_URI);
         (options?.typescript === true) ? useTs = true : useTs = false;
 
@@ -98,7 +98,7 @@ export default class IgeClient extends Client {
             let size = files.length,
                 count = 0;
             files.forEach(file => {
-                if (!file.endsWith(fileType)) return;
+                if (!file.endsWith(fileType)) return size = size-1;
                 
                 try {
                     const command = require(`${cmdDir}/${file}`);
@@ -123,7 +123,7 @@ export default class IgeClient extends Client {
             let size = files.length,
                 count = 0;
             files.forEach(async file => {
-                if (!file.endsWith(fileType)) return;
+                if (!file.endsWith(fileType)) return size = size-1;;
                 try {
                     const command = require(`${slashDir}/${file}`);
                     this.slashs.set(command.name, command);
@@ -145,10 +145,10 @@ export default class IgeClient extends Client {
     async _evtsHandler(evtDir: string, useTs: boolean) {
         let fileType = (useTs === true) ? ".ts" : ".js"
         readdir(evtDir, (_err, files) => {
-            const size = files.length;
-            let count = 0;
+            let size = files.length,
+                count = 0;
             files.forEach((file) => {
-                if (!file.endsWith(fileType)) return;
+                if (!file.endsWith(fileType)) return size = size-1;;
                 try {
                     const event = require(`${evtDir}/${file}`);
                     let eventName = file.split(".")[0];
@@ -170,7 +170,7 @@ export default class IgeClient extends Client {
      */
     async _createConnection(mongoUri: string) {
         connect(mongoUri).then(() => {
-            console.log(`[${green("Success")}] Connected to MongoDB database.`);
+            console.log(`[${green("Success")}] | Connected to MongoDB database.`);
         }).catch((err) => {
             throw new Error(err);
         });

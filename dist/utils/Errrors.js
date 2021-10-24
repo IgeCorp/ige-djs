@@ -16,6 +16,7 @@ const Errors = {
     MISSING_CMD_CAT: "Missing Command Category",
     MISSING_CMD_USAGE: "Missing Command Usage",
     MISSING_SLASH_OPTIONS: "Missing Slash Command Options",
+    MISSING_SLASH_NAME: "Missing Slash Command Name",
     MISSING_SLASH_DESC: "Missing Slash Command Description"
 };
 exports.default = Errors;

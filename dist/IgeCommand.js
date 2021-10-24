@@ -41,11 +41,11 @@ class IgeCommand {
         if (!commandOptions)
             throw new Error(Errrors_1.default.MISSING_CMD_OPTIONS);
         if (!commandOptions.name)
-            throw new Error(Errrors_1.default.MISSING_CMD_NAME);
+            throw new TypeError(Errrors_1.default.MISSING_CMD_NAME);
         if (!commandOptions.category)
-            throw new Error(Errrors_1.default.MISSING_CMD_CAT);
+            throw new TypeError(Errrors_1.default.MISSING_CMD_CAT);
         if (!commandOptions.usage)
-            throw new Error(Errrors_1.default.MISSING_CMD_USAGE);
+            throw new TypeError(Errrors_1.default.MISSING_CMD_USAGE);
         if (!commandOptions.permission)
             commandOptions.permission = "everyone";
         if (!commandOptions.botAllowed)

@@ -34,15 +34,15 @@ class IgeClient extends discord_js_1.Client {
      */
     constructor(token, options) {
         if (!token)
-            throw new Error(Errrors_1.default.MISSING_TOKEN);
+            throw new TypeError(Errrors_1.default.MISSING_TOKEN);
         if (!options)
-            throw new Error(Errrors_1.default.MISSING_CLIENT_OPTIONS);
+            throw new TypeError(Errrors_1.default.MISSING_CLIENT_OPTIONS);
         if (!options.prefix)
-            throw new Error(Errrors_1.default.MISSING_PREFIX);
+            throw new TypeError(Errrors_1.default.MISSING_PREFIX);
         if (!options.owner)
-            throw new Error(Errrors_1.default.MISSING_OWNER_ID);
+            throw new TypeError(Errrors_1.default.MISSING_OWNER_ID);
         if (!options.testGuild)
-            throw new Error(Errrors_1.default.MISSING_GUILD_ID);
+            throw new TypeError(Errrors_1.default.MISSING_GUILD_ID);
         super({
             partials: ["USER", "CHANNEL", "GUILD_MEMBER", "MESSAGE", "REACTION"],
             allowedMentions: {
@@ -75,11 +75,11 @@ class IgeClient extends discord_js_1.Client {
             throw new Error(Errrors_1.default.MISSING_OPTIONS);
         let useTs;
         if (!options.commandsDir)
-            throw new Error(Errrors_1.default.MISSING_CMD_DIR);
+            throw new TypeError(Errrors_1.default.MISSING_CMD_DIR);
         if (!options.slashsDir)
-            throw new Error(Errrors_1.default.MISSING_SLASH_DIR);
+            throw new TypeError(Errrors_1.default.MISSING_SLASH_DIR);
         if (!options.eventsDir)
-            throw new Error(Errrors_1.default.MISSING_EVT_DIR);
+            throw new TypeError(Errrors_1.default.MISSING_EVT_DIR);
         if (!options?.mongoUri)
             console.warn((0, colors_1.red)(`WARNING: `) + Errrors_1.default.MISSING_MONGO_URI);
         (options?.typescript === true) ? useTs = true : useTs = false;
@@ -100,7 +100,7 @@ class IgeClient extends discord_js_1.Client {
             let size = files.length, count = 0;
             files.forEach(file => {
                 if (!file.endsWith(fileType))
-                    return;
+                    return size = size - 1;
                 try {
                     const command = require(`${cmdDir}/${file}`);
                     this.commands.set(command.name, command);
@@ -124,7 +124,8 @@ class IgeClient extends discord_js_1.Client {
             let size = files.length, count = 0;
             files.forEach(async (file) => {
                 if (!file.endsWith(fileType))
-                    return;
+                    return size = size - 1;
+                ;
                 try {
                     const command = require(`${slashDir}/${file}`);
                     this.slashs.set(command.name, command);
@@ -145,11 +146,11 @@ class IgeClient extends discord_js_1.Client {
     async _evtsHandler(evtDir, useTs) {
         let fileType = (useTs === true) ? ".ts" : ".js";
         (0, fs_1.readdir)(evtDir, (_err, files) => {
-            const size = files.length;
-            let count = 0;
+            let size = files.length, count = 0;
             files.forEach((file) => {
                 if (!file.endsWith(fileType))
-                    return;
+                    return size = size - 1;
+                ;
                 try {
                     const event = require(`${evtDir}/${file}`);
                     let eventName = file.split(".")[0];
@@ -170,7 +171,7 @@ class IgeClient extends discord_js_1.Client {
      */
     async _createConnection(mongoUri) {
         (0, mongoose_1.connect)(mongoUri).then(() => {
-            console.log(`[${(0, colors_1.green)("Success")}] Connected to MongoDB database.`);
+            console.log(`[${(0, colors_1.green)("Success")}] | Connected to MongoDB database.`);
         }).catch((err) => {
             throw new Error(err);
         });

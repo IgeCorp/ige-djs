@@ -1,6 +1,6 @@
 {
   "name": "@igecorp/ige-djs",
-  "version": "0.0.9-dev-0.0.5",
+  "version": "0.0.9",
   "description": "Ige-DJS is a discord.js extends module made by IgeCorp",
   "main": "dist/index.js",
   "typings": "./typings.d.ts",

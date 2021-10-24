@@ -37,9 +37,9 @@ class IgeSlash {
         if (!slashOptions)
             throw new Error(Errrors_1.default.MISSING_SLASH_OPTIONS);
         if (!slashOptions.name)
-            throw new Error(Errrors_1.default.MISSING_CMD_NAME);
+            throw new TypeError(Errrors_1.default.MISSING_SLASH_NAME);
         if (!slashOptions.description)
-            throw new Error(Errrors_1.default.MISSING_SLASH_DESC);
+            throw new TypeError(Errrors_1.default.MISSING_SLASH_DESC);
         this.name = slashOptions.name;
         this.description = slashOptions.description;
         this.type = slashOptions?.type || "CHAT_INPUT";
