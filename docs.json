@@ -1,0 +1,237 @@
+{
+  "meta": {
+    "generator": "0.10.0",
+    "format": 20,
+    "date": 1636821820122
+  },
+  "custom": null,
+  "classes": [
+    {
+      "name": "IgeClient",
+      "construct": {
+        "name": "IgeClient",
+        "params": [
+          {
+            "name": "token",
+            "description": "The discord client token",
+            "type": [
+              [
+                [
+                  "string"
+                ]
+              ]
+            ]
+          },
+          {
+            "name": "options",
+            "description": "Discord client options (replies, prefix, owner, ...)",
+            "type": [
+              [
+                [
+                  "ClientOptions"
+                ]
+              ]
+            ]
+          }
+        ]
+      },
+      "methods": [
+        {
+          "name": "params",
+          "examples": [
+            "```js\nclient.params({\n    commandsDir: \"commands\",\n    slashsDir: \"slashs\",\n    eventsDir: \"events\",\n    mongoUri: \"mongodb connection uri\"\n});\n```"
+          ],
+          "params": [
+            {
+              "name": "options",
+              "description": "The client options (commands/slashs/events directory, mongo uri)",
+              "type": [
+                [
+                  [
+                    "Options"
+                  ]
+                ]
+              ]
+            }
+          ],
+          "async": true,
+          "meta": {
+            "line": 73,
+            "file": "IgeClient.js",
+            "path": "test/src"
+          }
+        },
+        {
+          "name": "_cmdsHandler",
+          "params": [
+            {
+              "name": "cmdDir",
+              "type": [
+                [
+                  [
+                    "string"
+                  ]
+                ]
+              ]
+            },
+            {
+              "name": "useTs",
+              "type": [
+                [
+                  [
+                    "boolean"
+                  ]
+                ]
+              ]
+            }
+          ],
+          "async": true,
+          "meta": {
+            "line": 97,
+            "file": "IgeClient.js",
+            "path": "test/src"
+          }
+        },
+        {
+          "name": "_slashHandler",
+          "params": [
+            {
+              "name": "slashDir",
+              "type": [
+                [
+                  [
+                    "string"
+                  ]
+                ]
+              ]
+            },
+            {
+              "name": "useTs",
+              "type": [
+                [
+                  [
+                    "boolean"
+                  ]
+                ]
+              ]
+            }
+          ],
+          "async": true,
+          "meta": {
+            "line": 121,
+            "file": "IgeClient.js",
+            "path": "test/src"
+          }
+        },
+        {
+          "name": "_evtsHandler",
+          "params": [
+            {
+              "name": "evtDir",
+              "type": [
+                [
+                  [
+                    "string"
+                  ]
+                ]
+              ]
+            },
+            {
+              "name": "useTs",
+              "type": [
+                [
+                  [
+                    "boolean"
+                  ]
+                ]
+              ]
+            }
+          ],
+          "async": true,
+          "meta": {
+            "line": 146,
+            "file": "IgeClient.js",
+            "path": "test/src"
+          }
+        },
+        {
+          "name": "_createConnection",
+          "params": [
+            {
+              "name": "mongoUri",
+              "type": [
+                [
+                  [
+                    "string"
+                  ]
+                ]
+              ]
+            }
+          ],
+          "async": true,
+          "meta": {
+            "line": 172,
+            "file": "IgeClient.js",
+            "path": "test/src"
+          }
+        }
+      ],
+      "meta": {
+        "line": 25,
+        "file": "IgeClient.js",
+        "path": "test/src"
+      }
+    },
+    {
+      "name": "IgeCommand",
+      "construct": {
+        "name": "IgeCommand",
+        "params": [
+          {
+            "name": "commandOptions",
+            "description": "The command options (name, category, usage, description, ...)",
+            "type": [
+              [
+                [
+                  "CommandOptions"
+                ]
+              ]
+            ]
+          }
+        ]
+      },
+      "meta": {
+        "line": 28,
+        "file": "IgeCommand.js",
+        "path": "test/src"
+      }
+    },
+    {
+      "name": "IgeSlash",
+      "construct": {
+        "name": "IgeSlash",
+        "params": [
+          {
+            "name": "slashOptions",
+            "description": "The slash command options.",
+            "type": [
+              [
+                [
+                  "SlashOptions"
+                ]
+              ]
+            ]
+          }
+        ]
+      },
+      "meta": {
+        "line": 26,
+        "file": "IgeSlash.js",
+        "path": "test/src"
+      }
+    }
+  ],
+  "interfaces": [],
+  "typedefs": [],
+  "externals": []
+}
