@@ -1,9 +1,0 @@
-CACHE manifest
-#This is a comment
-
-CACHE
-index.html
-assets/css/style.css
-
-FALLBACK:
-/api ige-djs.html
