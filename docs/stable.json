@@ -2,7 +2,7 @@
   "meta": {
     "generator": "0.10.0",
     "format": 20,
-    "date": 1636890808658
+    "date": 1636891121634
   },
   "custom": {
     "general": {
@@ -16,8 +16,8 @@
         }
       }
     },
-    "classes": {
-      "name": "Classes",
+    "class": {
+      "name": "Class",
       "files": {
         "IgeClient": {
           "name": "IgeClient",
