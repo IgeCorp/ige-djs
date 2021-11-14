@@ -2,7 +2,7 @@
   "meta": {
     "generator": "0.10.0",
     "format": 20,
-    "date": 1636888274447
+    "date": 1636890808658
   },
   "custom": {
     "general": {
@@ -12,7 +12,30 @@
           "name": "Welcome",
           "type": "md",
           "content": "# IgeDJS\n\n## IgeDJS is a [npm](https://npmjs.com) module\n\n### Installation\n\n#### Latest version\n\n```shell\nnpm i @igecorp/ige-djs\n```\n\n#### Dev Version\n\n```shell\nnpm i https://github.com/IgeCorp/ige-djs\n```\n\n### Example\n\n#### Login CLient\n\n`index.js`\n\n```js\nconst IgeDJS = require(\"@igecorp/ige-djs\");\n\nconst client = new IgeDJS.IgeClient(\"Discord Bot Token\", { replies: true, prefix: \"!\" }); //Replace \"replies: true\" by \"replies: false\" if you don't want any mentions.\n\nclient.param({\n    commandsDir: \"commands\", //Replace it by your client commands directory.\n    eventsDir: \"events\" //Replace it by your client events directory.\n});\n```\n\n`events/ready.js`\n\n```js\nmodule.exports = async (client) => {\n    console.log(`${client.user.tag} is ready.`);\n\n    client.user.setActivity(`I'm using @igecorp/ige-djs npm module !`, { type: \"PLAYING\" });\n}\n```\n\n`events/messageCreate.js`\n\n```js\nmodule.exports = async (client, message) => {\n    if (message.content.indexOf(prefix) !== 0) return;\n\n    const args = message.content.slice(prefix.length).trim().split(/ +/g);\n    const command = args.shift().toLowerCase();\n\n    if (!command) return;\n    \n    const cmd = client.commands.get(command) || client.commands.find(x => x.aliases.includes(command));\n\n    if (!cmd) return message.reply({ content: `I have not command named ${command}.` });\n\n    cmd.run(message, args, client);\n}\n```\n\n`commands/ping.js`\n\n```js\nconst IgeDJS = require(\"@igecorp/ige-djs\");\n\nclass ping extends IgeDJS.IgeCommand {\n    constructor() {\n        super({\n            name: \"ping\",\n            category: \"utility\",\n            usage: \"ping\"\n        });\n    }\n\n    async run(message) {\n        message.channel.send(`Pong: \\`${Date.now() - message.createdTimestamp}ms\\``);\n    }\n}\n```\n\n\u00a9 2021 Copyright: IgeCorp\n",
-          "path": "../README.md"
+          "path": "test/README.md"
+        }
+      }
+    },
+    "classes": {
+      "name": "Classes",
+      "files": {
+        "IgeClient": {
+          "name": "IgeClient",
+          "type": "js",
+          "content": "\"use strict\";\nvar __importDefault = (this && this.__importDefault) || function (mod) {\n    return (mod && mod.__esModule) ? mod : { \"default\": mod };\n};\nObject.defineProperty(exports, \"__esModule\", { value: true });\nconst discord_js_1 = require(\"discord.js\");\nconst Errrors_1 = __importDefault(require(\"./utils/Errrors\"));\nconst Intents_1 = __importDefault(require(\"./utils/Intents\"));\nconst fs_1 = require(\"fs\");\nconst colors_1 = require(\"colors\");\nconst mongoose_1 = require(\"mongoose\");\n/**\n * @example\n * ```js\n * const { IgeClient } = require(\"@igecorp/ige-djs\");\n *\n * const client = new IgeCLient(\"discord bot token\", {\n *     replies: true,\n *     prefix: \"!\",\n *     owner: \"client owner id\",\n *     testGuild: \"test guild id\"\n * });\n * ```\n */\nclass IgeClient extends discord_js_1.Client {\n    commands;\n    slashs;\n    prefix;\n    owner;\n    testGuild;\n    /**\n     * @param {string} token The discord client token\n     * @param {ClientOptions} options Discord client options (replies, prefix, owner, ...)\n     */\n    constructor(token, options) {\n        if (!token)\n            throw new TypeError(Errrors_1.default.MISSING_TOKEN);\n        if (!options)\n            throw new TypeError(Errrors_1.default.MISSING_CLIENT_OPTIONS);\n        if (!options.prefix)\n            throw new TypeError(Errrors_1.default.MISSING_PREFIX);\n        if (!options.owner)\n            throw new TypeError(Errrors_1.default.MISSING_OWNER_ID);\n        if (!options.testGuild)\n            throw new TypeError(Errrors_1.default.MISSING_GUILD_ID);\n        super({\n            partials: [\"USER\", \"CHANNEL\", \"GUILD_MEMBER\", \"MESSAGE\", \"REACTION\"],\n            allowedMentions: {\n                repliedUser: options.replies || false\n            },\n            failIfNotExists: false,\n            intents: Intents_1.default\n        });\n        this.commands = new discord_js_1.Collection();\n        this.slashs = new discord_js_1.Collection();\n        this.prefix = options.prefix;\n        this.owner = options.owner;\n        this.testGuild = options.testGuild;\n        this.login(token);\n    }\n    /**\n     * @example\n     * ```js\n     * client.params({\n     *     commandsDir: \"commands\",\n     *     slashsDir: \"slashs\",\n     *     eventsDir: \"events\",\n     *     mongoUri: \"mongodb connection uri\"\n     * });\n     * ```\n     * @param {Options} options The client options (commands/slashs/events directory, mongo uri)\n     */\n    async params(options) {\n        if (!options)\n            throw new Error(Errrors_1.default.MISSING_OPTIONS);\n        let useTs;\n        if (!options.commandsDir)\n            throw new TypeError(Errrors_1.default.MISSING_CMD_DIR);\n        if (!options.slashsDir)\n            throw new TypeError(Errrors_1.default.MISSING_SLASH_DIR);\n        if (!options.eventsDir)\n            throw new TypeError(Errrors_1.default.MISSING_EVT_DIR);\n        if (!options?.mongoUri)\n            console.warn((0, colors_1.red)(`WARNING: `) + Errrors_1.default.MISSING_MONGO_URI);\n        (options?.typescript === true) ? useTs = true : useTs = false;\n        const cmdDir = `${process.cwd()}/${options.commandsDir}`, slashDir = `${process.cwd()}/${options.slashsDir}`, evtDir = `${process.cwd()}/${options.eventsDir}`;\n        this._cmdsHandler(cmdDir, useTs);\n        this._slashHandler(slashDir, useTs);\n        this._evtsHandler(evtDir, useTs);\n        if (options.mongoUri)\n            this._createConnection(options.mongoUri);\n    }\n    /**\n     * @param {string} cmdDir\n     * @param {boolean} useTs\n     */\n    async _cmdsHandler(cmdDir, useTs) {\n        let fileType = (useTs === true) ? \".ts\" : \".js\";\n        (0, fs_1.readdir)(cmdDir, (_err, files) => {\n            let size = files.length, count = 0;\n            files.forEach(file => {\n                if (!file.endsWith(fileType))\n                    return size = size - 1;\n                try {\n                    const command = require(`${cmdDir}/${file}`);\n                    this.commands.set(command.name, command);\n                    count = count + 1;\n                }\n                catch (err) {\n                    const cmdName = file.split(\".\")[0];\n                    console.log(`${(0, colors_1.red)(\"Error\")} | Failed to load ${(0, colors_1.blue)(cmdName)} command.\\n${err}`);\n                }\n            });\n            console.log(`${(0, colors_1.green)(\"Success\")} | Loaded ${count}/${size} commands.`);\n        });\n    }\n    /**\n     * @param {string} slashDir\n     * @param {boolean} useTs\n     */\n    async _slashHandler(slashDir, useTs) {\n        let fileType = (useTs === true) ? \".ts\" : \".js\";\n        (0, fs_1.readdir)(slashDir, async (_err, files) => {\n            let size = files.length, count = 0;\n            files.forEach(async (file) => {\n                if (!file.endsWith(fileType))\n                    return size = size - 1;\n                ;\n                try {\n                    const command = require(`${slashDir}/${file}`);\n                    this.slashs.set(command.name, command);\n                    count = count + 1;\n                }\n                catch (err) {\n                    const slashName = file.split(\".\")[0];\n                    console.log(`${(0, colors_1.red)(\"Error\")} | Failed to load ${(0, colors_1.blue)(slashName)} slash command.\\n${err}`);\n                }\n            });\n            console.log(`${(0, colors_1.green)(\"Success\")} | Loaded ${count}/${size} slashs commands.`);\n        });\n    }\n    /**\n     * @param {string} evtDir\n     * @param {boolean} useTs\n     */\n    async _evtsHandler(evtDir, useTs) {\n        let fileType = (useTs === true) ? \".ts\" : \".js\";\n        (0, fs_1.readdir)(evtDir, (_err, files) => {\n            let size = files.length, count = 0;\n            files.forEach((file) => {\n                if (!file.endsWith(fileType))\n                    return size = size - 1;\n                ;\n                try {\n                    const event = require(`${evtDir}/${file}`);\n                    let eventName = file.split(\".\")[0];\n                    this.on(eventName, event.bind(null, this));\n                    delete require.cache[require.resolve(`${evtDir}/${file}`)];\n                    count = count + 1;\n                }\n                catch (err) {\n                    let eventName = file.split(\".\")[0];\n                    throw new Error(`${(0, colors_1.red)(\"Error\")} | Failed to load ${(0, colors_1.blue)(eventName)} event\\n${err}`);\n                }\n            });\n            console.log(`${(0, colors_1.green)(\"Success\")} | Loaded ${count}/${size} events.`);\n        });\n    }\n    /**\n     * @param {string} mongoUri\n     */\n    async _createConnection(mongoUri) {\n        (0, mongoose_1.connect)(mongoUri).then(() => {\n            console.log(`[${(0, colors_1.green)(\"Success\")}] | Connected to MongoDB database.`);\n        }).catch((err) => {\n            throw new Error(err);\n        });\n    }\n}\nexports.default = IgeClient;\nmodule.exports = IgeClient;\n",
+          "path": "test/src/IgeClient.js"
+        },
+        "IgeCommand": {
+          "name": "IgeCommand",
+          "type": "js",
+          "content": "\"use strict\";\nvar __importDefault = (this && this.__importDefault) || function (mod) {\n    return (mod && mod.__esModule) ? mod : { \"default\": mod };\n};\nObject.defineProperty(exports, \"__esModule\", { value: true });\nconst Errrors_1 = __importDefault(require(\"./utils/Errrors\"));\n/**\n * @example\n * ```js\n * const { IgeCommand } = require(\"@igecorp/ige-djs\");\n *\n * class ping extends IgeCommand {\n *     constructor() {\n *         super({\n *             name: \"ping\",\n *             category: \"utilities\",\n *             description: \"Get the bot latency\",\n *             aliases: [\"pingbot\", \"botping\"],\n *             usage: \"ping\",\n *             example: [\"ping\", \"pingbot\", \"botping\"],\n *             permission: \"everyone\",\n *             botAllowed: false\n *         })\n *     }\n * }\n * ```\n */\nclass IgeCommand {\n    name;\n    category;\n    description;\n    aliases;\n    usage;\n    example;\n    permission;\n    botAllowed;\n    /**\n     * @param {CommandOptions} commandOptions The command options (name, category, usage, description, ...)\n     */\n    constructor(commandOptions) {\n        if (!commandOptions)\n            throw new Error(Errrors_1.default.MISSING_CMD_OPTIONS);\n        if (!commandOptions.name)\n            throw new TypeError(Errrors_1.default.MISSING_CMD_NAME);\n        if (!commandOptions.category)\n            throw new TypeError(Errrors_1.default.MISSING_CMD_CAT);\n        if (!commandOptions.usage)\n            throw new TypeError(Errrors_1.default.MISSING_CMD_USAGE);\n        if (!commandOptions.permission)\n            commandOptions.permission = \"everyone\";\n        if (!commandOptions.botAllowed)\n            commandOptions.botAllowed = false;\n        this.name = commandOptions.name;\n        this.category = commandOptions.category;\n        this.description = commandOptions?.description;\n        this.aliases = commandOptions?.aliases;\n        this.usage = commandOptions.usage;\n        this.example = commandOptions?.example;\n        this.permission = commandOptions.permission;\n        this.botAllowed = commandOptions.botAllowed;\n    }\n}\nexports.default = IgeCommand;\nmodule.exports = IgeCommand;\n",
+          "path": "test/src/IgeCommand.js"
+        },
+        "IgeSlash": {
+          "name": "IgeSlash",
+          "type": "js",
+          "content": "\"use strict\";\nvar __importDefault = (this && this.__importDefault) || function (mod) {\n    return (mod && mod.__esModule) ? mod : { \"default\": mod };\n};\nObject.defineProperty(exports, \"__esModule\", { value: true });\nconst Errrors_1 = __importDefault(require(\"./utils/Errrors\"));\n/**\n * @example\n * ```js\n * const { IgeSlash } = require(\"@igecorp/ige-djs\");\n *\n * class ping extends IgeSlash {\n *     constructor() {\n *         super({\n *             name: \"ping\",\n *             description: \"Get the bot latency\",\n *             type: \"MESSAGE\",\n *             options: null,\n *             defaultPermission: false\n *             guildOnly: true\n *         })\n *     }\n * }\n * ```\n */\nclass IgeSlash {\n    name;\n    description;\n    type;\n    options;\n    defaultPermission;\n    guildOnly;\n    /**\n     * @param {SlashOptions} slashOptions The slash command options.\n     */\n    constructor(slashOptions) {\n        if (!slashOptions)\n            throw new Error(Errrors_1.default.MISSING_SLASH_OPTIONS);\n        if (!slashOptions.name)\n            throw new TypeError(Errrors_1.default.MISSING_SLASH_NAME);\n        if (!slashOptions.description)\n            throw new TypeError(Errrors_1.default.MISSING_SLASH_DESC);\n        this.name = slashOptions.name;\n        this.description = slashOptions.description;\n        this.type = slashOptions?.type || \"CHAT_INPUT\";\n        this.options = slashOptions?.options;\n        this.defaultPermission = slashOptions?.defaultPermission || true;\n        this.guildOnly = slashOptions?.guildOnly || false;\n    }\n}\nexports.default = IgeSlash;\nmodule.exports = IgeSlash;\n",
+          "path": "test/src/IgeSlash.js"
         }
       }
     }
@@ -70,7 +93,7 @@
           "meta": {
             "line": 73,
             "file": "IgeClient.js",
-            "path": "../src"
+            "path": "test/src"
           }
         },
         {
@@ -101,7 +124,7 @@
           "meta": {
             "line": 97,
             "file": "IgeClient.js",
-            "path": "../src"
+            "path": "test/src"
           }
         },
         {
@@ -132,7 +155,7 @@
           "meta": {
             "line": 121,
             "file": "IgeClient.js",
-            "path": "../src"
+            "path": "test/src"
           }
         },
         {
@@ -163,7 +186,7 @@
           "meta": {
             "line": 146,
             "file": "IgeClient.js",
-            "path": "../src"
+            "path": "test/src"
           }
         },
         {
@@ -184,14 +207,14 @@
           "meta": {
             "line": 172,
             "file": "IgeClient.js",
-            "path": "../src"
+            "path": "test/src"
           }
         }
       ],
       "meta": {
         "line": 25,
         "file": "IgeClient.js",
-        "path": "../src"
+        "path": "test/src"
       }
     },
     {
@@ -215,7 +238,7 @@
       "meta": {
         "line": 28,
         "file": "IgeCommand.js",
-        "path": "../src"
+        "path": "test/src"
       }
     },
     {
@@ -239,7 +262,7 @@
       "meta": {
         "line": 26,
         "file": "IgeSlash.js",
-        "path": "../src"
+        "path": "test/src"
       }
     }
   ],
