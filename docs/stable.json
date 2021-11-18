@@ -2,7 +2,7 @@
   "meta": {
     "generator": "0.10.0",
     "format": 20,
-    "date": 1637252839659
+    "date": 1637257928105
   },
   "custom": {
     "general": {
@@ -87,7 +87,7 @@
             ]
           ],
           "meta": {
-            "line": 88,
+            "line": 93,
             "file": "IgeClient.js",
             "path": "./src"
           }
@@ -119,7 +119,7 @@
           ],
           "async": true,
           "meta": {
-            "line": 113,
+            "line": 118,
             "file": "IgeClient.js",
             "path": "./src"
           }
@@ -151,7 +151,7 @@
           ],
           "async": true,
           "meta": {
-            "line": 138,
+            "line": 143,
             "file": "IgeClient.js",
             "path": "./src"
           }
@@ -183,7 +183,7 @@
           ],
           "async": true,
           "meta": {
-            "line": 164,
+            "line": 169,
             "file": "IgeClient.js",
             "path": "./src"
           }
@@ -205,7 +205,7 @@
           ],
           "async": true,
           "meta": {
-            "line": 191,
+            "line": 196,
             "file": "IgeClient.js",
             "path": "./src"
           }
@@ -346,9 +346,66 @@
       "type": [
         [
           [
-            "Options"
+            "Object"
           ]
         ]
+      ],
+      "props": [
+        {
+          "name": "typescript",
+          "description": "Set default to true, set it to false to use javascript files.",
+          "type": [
+            [
+              [
+                "string"
+              ]
+            ]
+          ]
+        },
+        {
+          "name": "commandsDir",
+          "description": "The client commands directory.",
+          "type": [
+            [
+              [
+                "string"
+              ]
+            ]
+          ]
+        },
+        {
+          "name": "slashsDir",
+          "description": "The client slashs commands directory.",
+          "type": [
+            [
+              [
+                "string"
+              ]
+            ]
+          ]
+        },
+        {
+          "name": "eventsDir",
+          "description": "The client events directory.",
+          "type": [
+            [
+              [
+                "string"
+              ]
+            ]
+          ]
+        },
+        {
+          "name": "mongoUri",
+          "description": "Mongodb connection uri.",
+          "type": [
+            [
+              [
+                "string"
+              ]
+            ]
+          ]
+        }
       ],
       "meta": {
         "line": 71,
