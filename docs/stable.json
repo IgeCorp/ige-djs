@@ -2,7 +2,7 @@
   "meta": {
     "generator": "0.10.0",
     "format": 20,
-    "date": 1637257928105
+    "date": 1637260191233
   },
   "custom": {
     "general": {
@@ -77,12 +77,7 @@
           "returns": [
             [
               [
-                "Promise",
-                "<"
-              ],
-              [
-                "Options",
-                ">"
+                "object"
               ]
             ]
           ],
