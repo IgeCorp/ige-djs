@@ -2,7 +2,7 @@
   "meta": {
     "generator": "0.10.0",
     "format": 20,
-    "date": 1637146962410
+    "date": 1637251296858
   },
   "custom": {
     "general": {
@@ -20,18 +20,81 @@
   "classes": [
     {
       "name": "IgeClient",
+      "extends": [
+        [
+          [
+            "Client"
+          ]
+        ]
+      ],
+      "construct": {
+        "name": "IgeClient",
+        "params": [
+          {
+            "name": "token",
+            "description": "The discord client token",
+            "type": [
+              [
+                [
+                  "string"
+                ]
+              ]
+            ]
+          },
+          {
+            "name": "options",
+            "description": "Discord client options (replies, prefix, owner, ...)",
+            "type": [
+              [
+                [
+                  "ClientOptions"
+                ]
+              ]
+            ]
+          }
+        ]
+      },
       "methods": [
         {
           "name": "params",
+          "examples": [
+            "```js\nclient.params({\n    commandsDir: \"commands\",\n    slashsDir: \"slashs\",\n    eventsDir: \"events\",\n    mongoUri: \"mongodb connection uri\"\n});\n```"
+          ],
+          "params": [
+            {
+              "name": "options",
+              "description": "The client options (commands/slashs/events directory, mongo uri)",
+              "type": [
+                [
+                  [
+                    "Options"
+                  ]
+                ]
+              ]
+            }
+          ],
           "async": true,
+          "returns": [
+            [
+              [
+                "Promise",
+                "<"
+              ],
+              [
+                "Options",
+                ">"
+              ]
+            ]
+          ],
           "meta": {
-            "line": 74,
+            "line": 84,
             "file": "IgeClient.js",
             "path": "./src"
           }
         },
         {
           "name": "_cmdsHandler",
+          "access": "private",
           "params": [
             {
               "name": "cmdDir",
@@ -56,13 +119,14 @@
           ],
           "async": true,
           "meta": {
-            "line": 98,
+            "line": 109,
             "file": "IgeClient.js",
             "path": "./src"
           }
         },
         {
           "name": "_slashHandler",
+          "access": "private",
           "params": [
             {
               "name": "slashDir",
@@ -87,13 +151,14 @@
           ],
           "async": true,
           "meta": {
-            "line": 122,
+            "line": 134,
             "file": "IgeClient.js",
-            "path": "./src"
+            "path": "../src"
           }
         },
         {
           "name": "_evtsHandler",
+          "access": "private",
           "params": [
             {
               "name": "evtDir",
@@ -118,13 +183,14 @@
           ],
           "async": true,
           "meta": {
-            "line": 147,
+            "line": 160,
             "file": "IgeClient.js",
             "path": "./src"
           }
         },
         {
           "name": "_createConnection",
+          "access": "private",
           "params": [
             {
               "name": "mongoUri",
@@ -139,20 +205,36 @@
           ],
           "async": true,
           "meta": {
-            "line": 173,
+            "line": 187,
             "file": "IgeClient.js",
             "path": "./src"
           }
         }
       ],
       "meta": {
-        "line": 25,
+        "line": 26,
         "file": "IgeClient.js",
         "path": "./src"
       }
     },
     {
       "name": "IgeCommand",
+      "construct": {
+        "name": "IgeCommand",
+        "params": [
+          {
+            "name": "commandOptions",
+            "description": "The command options (name, category, usage, description, ...)",
+            "type": [
+              [
+                [
+                  "CommandOptions"
+                ]
+              ]
+            ]
+          }
+        ]
+      },
       "meta": {
         "line": 28,
         "file": "IgeCommand.js",
@@ -161,6 +243,22 @@
     },
     {
       "name": "IgeSlash",
+      "construct": {
+        "name": "IgeSlash",
+        "params": [
+          {
+            "name": "slashOptions",
+            "description": "The slash command options.",
+            "type": [
+              [
+                [
+                  "SlashOptions"
+                ]
+              ]
+            ]
+          }
+        ]
+      },
       "meta": {
         "line": 26,
         "file": "IgeSlash.js",
@@ -171,8 +269,24 @@
   "interfaces": [],
   "typedefs": [
     {
-      "name": "options",
-      "description": "The client options (commands/slashs/events directory, mongo uri)",
+      "name": "ClientOptions",
+      "description": "All IgeClient options",
+      "type": [
+        [
+          [
+            "ClientOptions"
+          ]
+        ]
+      ],
+      "meta": {
+        "line": 32,
+        "file": "IgeClient.js",
+        "path": "./src"
+      }
+    },
+    {
+      "name": "Options",
+      "description": "All parameters for IgeClient handler",
       "type": [
         [
           [
@@ -181,14 +295,14 @@
         ]
       ],
       "meta": {
-        "line": 61,
+        "line": 67,
         "file": "IgeClient.js",
         "path": "./src"
       }
     },
     {
-      "name": "commandOptions",
-      "description": "The command options (name, category, usage, description, ...)",
+      "name": "CommandOptions",
+      "description": "All command options",
       "type": [
         [
           [
@@ -203,8 +317,8 @@
       }
     },
     {
-      "name": "slashOptions",
-      "description": "The slash command options.",
+      "name": "SlashOptions",
+      "description": "All slash command options",
       "type": [
         [
           [
