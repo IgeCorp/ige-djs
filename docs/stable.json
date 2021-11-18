@@ -2,7 +2,7 @@
   "meta": {
     "generator": "0.10.0",
     "format": 20,
-    "date": 1637251296858
+    "date": 1637252839659
   },
   "custom": {
     "general": {
@@ -87,7 +87,7 @@
             ]
           ],
           "meta": {
-            "line": 84,
+            "line": 88,
             "file": "IgeClient.js",
             "path": "./src"
           }
@@ -119,7 +119,7 @@
           ],
           "async": true,
           "meta": {
-            "line": 109,
+            "line": 113,
             "file": "IgeClient.js",
             "path": "./src"
           }
@@ -151,9 +151,9 @@
           ],
           "async": true,
           "meta": {
-            "line": 134,
+            "line": 138,
             "file": "IgeClient.js",
-            "path": "../src"
+            "path": "./src"
           }
         },
         {
@@ -183,7 +183,7 @@
           ],
           "async": true,
           "meta": {
-            "line": 160,
+            "line": 164,
             "file": "IgeClient.js",
             "path": "./src"
           }
@@ -205,7 +205,7 @@
           ],
           "async": true,
           "meta": {
-            "line": 187,
+            "line": 191,
             "file": "IgeClient.js",
             "path": "./src"
           }
@@ -274,9 +274,65 @@
       "type": [
         [
           [
-            "ClientOptions"
+            "Object"
           ]
         ]
+      ],
+      "props": [
+        {
+          "name": "replies",
+          "description": "Its a boolean value to set if the bot mention or no a user when it reply a message.",
+          "type": [
+            [
+              [
+                "boolean"
+              ]
+            ]
+          ]
+        },
+        {
+          "name": "prefix",
+          "description": "The client prefix.",
+          "type": [
+            [
+              [
+                "string"
+              ]
+            ]
+          ]
+        },
+        {
+          "name": "owner",
+          "description": "The client owner user ID.",
+          "type": [
+            [
+              [
+                "string"
+              ]
+            ],
+            [
+              [
+                "Array",
+                "<"
+              ],
+              [
+                "string",
+                ">"
+              ]
+            ]
+          ]
+        },
+        {
+          "name": "testGuild",
+          "description": "The client test guild id.",
+          "type": [
+            [
+              [
+                "string"
+              ]
+            ]
+          ]
+        }
       ],
       "meta": {
         "line": 32,
@@ -295,7 +351,7 @@
         ]
       ],
       "meta": {
-        "line": 67,
+        "line": 71,
         "file": "IgeClient.js",
         "path": "./src"
       }
