@@ -2,7 +2,7 @@
   "meta": {
     "generator": "0.10.0",
     "format": 20,
-    "date": 1637937987378
+    "date": 1637938605309
   },
   "custom": {
     "general": {
@@ -57,6 +57,7 @@
       "methods": [
         {
           "name": "params",
+          "description": "IgeClient Options for handler and mongodb",
           "examples": [
             "```js\nclient.params({\n    commandsDir: \"commands\",\n    slashsDir: \"slashs\",\n    eventsDir: \"events\",\n    mongoUri: \"mongodb connection uri\"\n});\n```"
           ],
@@ -81,7 +82,7 @@
             ]
           ],
           "meta": {
-            "line": 93,
+            "line": 94,
             "file": "IgeClient.js",
             "path": "src"
           }
@@ -113,7 +114,7 @@
           ],
           "async": true,
           "meta": {
-            "line": 118,
+            "line": 119,
             "file": "IgeClient.js",
             "path": "src"
           }
@@ -145,7 +146,7 @@
           ],
           "async": true,
           "meta": {
-            "line": 143,
+            "line": 144,
             "file": "IgeClient.js",
             "path": "src"
           }
@@ -177,7 +178,7 @@
           ],
           "async": true,
           "meta": {
-            "line": 169,
+            "line": 170,
             "file": "IgeClient.js",
             "path": "src"
           }
@@ -199,7 +200,7 @@
           ],
           "async": true,
           "meta": {
-            "line": 196,
+            "line": 197,
             "file": "IgeClient.js",
             "path": "src"
           }
