@@ -2,7 +2,7 @@
   "meta": {
     "generator": "0.10.0",
     "format": 20,
-    "date": 1637943003181
+    "date": 1637944419397
   },
   "custom": {
     "general": {
@@ -256,7 +256,7 @@
         ]
       },
       "meta": {
-        "line": 26,
+        "line": 58,
         "file": "IgeSlash.js",
         "path": "src"
       }
@@ -545,17 +545,236 @@
       }
     },
     {
+      "name": "SlashsCommandsOptionsChoices",
+      "description": "Slash command options choices",
+      "type": [
+        [
+          [
+            "Array"
+          ]
+        ]
+      ],
+      "props": [
+        {
+          "name": "name",
+          "description": "The name of the choice",
+          "type": [
+            [
+              [
+                "string"
+              ]
+            ]
+          ]
+        },
+        {
+          "name": "value",
+          "description": "The value of the choice",
+          "type": [
+            [
+              [
+                "string"
+              ]
+            ],
+            [
+              [
+                "number"
+              ]
+            ]
+          ]
+        }
+      ],
+      "meta": {
+        "line": 25,
+        "file": "IgeSlash.js",
+        "path": "src"
+      }
+    },
+    {
+      "name": "SlashsCommandsOptions",
+      "description": "Slash command options values",
+      "type": [
+        [
+          [
+            "Array"
+          ]
+        ]
+      ],
+      "props": [
+        {
+          "name": "type",
+          "description": "The type of the option",
+          "type": [
+            [
+              [
+                "ApplicationCommandOptionType"
+              ]
+            ]
+          ]
+        },
+        {
+          "name": "name",
+          "description": "The name of the option",
+          "type": [
+            [
+              [
+                "string"
+              ]
+            ]
+          ]
+        },
+        {
+          "name": "description",
+          "description": "The description of the option",
+          "type": [
+            [
+              [
+                "string"
+              ]
+            ]
+          ]
+        },
+        {
+          "name": "required",
+          "description": "Whether the option is required",
+          "type": [
+            [
+              [
+                "boolean"
+              ]
+            ]
+          ]
+        },
+        {
+          "name": "choices",
+          "description": "The choices of the option for the user to pick from",
+          "optional": true,
+          "default": null,
+          "type": [
+            [
+              [
+                "Array",
+                "<"
+              ],
+              [
+                "SlashsCommandsOptionsChoices",
+                ">"
+              ]
+            ]
+          ]
+        },
+        {
+          "name": "options",
+          "description": "Additional options if this option is a subcommand (group)",
+          "optional": true,
+          "default": null,
+          "type": [
+            [
+              [
+                "SlashsCommandsOptions"
+              ]
+            ]
+          ]
+        }
+      ],
+      "meta": {
+        "line": 32,
+        "file": "IgeSlash.js",
+        "path": "src"
+      }
+    },
+    {
       "name": "SlashOptions",
       "description": "All slash command options",
       "type": [
         [
           [
-            "SlashOptions"
+            "Object"
           ]
         ]
       ],
+      "props": [
+        {
+          "name": "name",
+          "description": "The slash command name.",
+          "type": [
+            [
+              [
+                "string"
+              ]
+            ]
+          ]
+        },
+        {
+          "name": "description",
+          "description": "The slash command description.",
+          "type": [
+            [
+              [
+                "string"
+              ]
+            ]
+          ]
+        },
+        {
+          "name": "type",
+          "description": "The slash command type (CHAT_IMPUT, USER, MESSAGE).",
+          "optional": true,
+          "default": "\"CHAT_IMPUT\"",
+          "type": [
+            [
+              [
+                "ApplicationCommandType"
+              ]
+            ]
+          ]
+        },
+        {
+          "name": "options",
+          "description": "The slash command options (choices, ...)",
+          "optional": true,
+          "default": null,
+          "type": [
+            [
+              [
+                "Array",
+                "<"
+              ],
+              [
+                "SlashsCommandsOptions",
+                ">"
+              ]
+            ]
+          ]
+        },
+        {
+          "name": "defaultPermission",
+          "description": "The slash command defaultPermission.",
+          "optional": true,
+          "default": true,
+          "type": [
+            [
+              [
+                "boolean"
+              ]
+            ]
+          ]
+        },
+        {
+          "name": "guildOnly",
+          "description": "Boolean value if you want this command to one guild only.",
+          "optional": true,
+          "default": false,
+          "type": [
+            [
+              [
+                "boolean"
+              ]
+            ]
+          ]
+        }
+      ],
       "meta": {
-        "line": 33,
+        "line": 43,
         "file": "IgeSlash.js",
         "path": "src"
       }
@@ -570,6 +789,28 @@
       "meta": {
         "line": 13,
         "file": "IgeClient.js",
+        "path": "src"
+      }
+    },
+    {
+      "name": "ApplicationCommandType",
+      "see": [
+        "{@link https://discord.js.org/#/docs/main/stable/typedef/ApplicationCommandType}"
+      ],
+      "meta": {
+        "line": 16,
+        "file": "IgeSlash.js",
+        "path": "src"
+      }
+    },
+    {
+      "name": "ApplicationCommandOptionType",
+      "see": [
+        "{@link https://discord.js.org/#/docs/main/stable/typedef/ApplicationCommandOptionType}"
+      ],
+      "meta": {
+        "line": 20,
+        "file": "IgeSlash.js",
         "path": "src"
       }
     }
