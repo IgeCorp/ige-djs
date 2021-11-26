@@ -2,7 +2,7 @@
   "meta": {
     "generator": "0.10.0",
     "format": 20,
-    "date": 1637942167277
+    "date": 1637943003181
   },
   "custom": {
     "general": {
@@ -77,7 +77,7 @@
           "returns": [
             [
               [
-                "object"
+                "Options"
               ]
             ]
           ],
@@ -216,6 +216,7 @@
       "name": "IgeCommand",
       "construct": {
         "name": "IgeCommand",
+        "description": "Command paremeters",
         "params": [
           {
             "name": "commandOptions",
@@ -231,7 +232,7 @@
         ]
       },
       "meta": {
-        "line": 28,
+        "line": 34,
         "file": "IgeCommand.js",
         "path": "src"
       }
@@ -418,12 +419,127 @@
       "type": [
         [
           [
-            "CommandOptions"
+            "Object"
           ]
         ]
       ],
+      "props": [
+        {
+          "name": "name",
+          "description": "The command name.",
+          "type": [
+            [
+              [
+                "string"
+              ]
+            ]
+          ]
+        },
+        {
+          "name": "category",
+          "description": "The command category.",
+          "type": [
+            [
+              [
+                "string"
+              ]
+            ]
+          ]
+        },
+        {
+          "name": "description",
+          "description": "The command description.",
+          "optional": true,
+          "default": null,
+          "type": [
+            [
+              [
+                "string"
+              ]
+            ]
+          ]
+        },
+        {
+          "name": "aliases",
+          "description": "The command aliases.",
+          "optional": true,
+          "default": null,
+          "type": [
+            [
+              [
+                "Array",
+                "<"
+              ],
+              [
+                "string",
+                ">"
+              ]
+            ]
+          ]
+        },
+        {
+          "name": "usage",
+          "description": "The command usages.",
+          "type": [
+            [
+              [
+                "Array",
+                "<"
+              ],
+              [
+                "string",
+                ">"
+              ]
+            ]
+          ]
+        },
+        {
+          "name": "example",
+          "description": "The command example.",
+          "optional": true,
+          "default": null,
+          "type": [
+            [
+              [
+                "Array",
+                "<"
+              ],
+              [
+                "string",
+                ">"
+              ]
+            ]
+          ]
+        },
+        {
+          "name": "permission",
+          "description": "The command permission.",
+          "optional": true,
+          "default": null,
+          "type": [
+            [
+              [
+                "string"
+              ]
+            ]
+          ]
+        },
+        {
+          "name": "botAllowed",
+          "description": "Boolean value to define if a bot can use this command.",
+          "optional": true,
+          "default": false,
+          "type": [
+            [
+              [
+                "boolean"
+              ]
+            ]
+          ]
+        }
+      ],
       "meta": {
-        "line": 37,
+        "line": 17,
         "file": "IgeCommand.js",
         "path": "src"
       }
