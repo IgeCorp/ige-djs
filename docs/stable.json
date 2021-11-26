@@ -2,7 +2,7 @@
   "meta": {
     "generator": "0.10.0",
     "format": 20,
-    "date": 1637938815348
+    "date": 1637938966766
   },
   "custom": {
     "general": {
@@ -349,6 +349,7 @@
         {
           "name": "typescript",
           "description": "Set default to true, set it to false to use javascript files.",
+          "nullable": true,
           "type": [
             [
               [
@@ -393,6 +394,7 @@
         {
           "name": "mongoUri",
           "description": "Mongodb connection uri.",
+          "nullable": true,
           "type": [
             [
               [
