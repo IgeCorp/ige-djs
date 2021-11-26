@@ -350,6 +350,7 @@
           "name": "typescript",
           "description": "Set default to true, set it to false to use javascript files.",
           "optional": true,
+          "default": false,
           "type": [
             [
               [
@@ -395,6 +396,7 @@
           "name": "mongoUri",
           "description": "Mongodb connection uri.",
           "optional": true,
+          "default": null,
           "type": [
             [
               [
@@ -447,7 +449,7 @@
     {
       "name": "Client",
       "see": [
-        "{@link https://discord.js.org/#/docs/stable/class/Client}"
+        "{@link https://discord.js.org/#/docs/main/stable/class/Client}"
       ],
       "meta": {
         "line": 13,
