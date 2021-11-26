@@ -2,7 +2,7 @@
   "meta": {
     "generator": "0.10.0",
     "format": 20,
-    "date": 1637937727577
+    "date": 1637937987378
   },
   "custom": {
     "general": {
@@ -59,6 +59,19 @@
           "name": "params",
           "examples": [
             "```js\nclient.params({\n    commandsDir: \"commands\",\n    slashsDir: \"slashs\",\n    eventsDir: \"events\",\n    mongoUri: \"mongodb connection uri\"\n});\n```"
+          ],
+          "params": [
+            {
+              "name": "options",
+              "description": "The client options (commands/slashs/events directory, mongo uri)",
+              "type": [
+                [
+                  [
+                    "Options"
+                  ]
+                ]
+              ]
+            }
           ],
           "returns": [
             [
