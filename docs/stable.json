@@ -2,7 +2,7 @@
   "meta": {
     "generator": "0.10.0",
     "format": 20,
-    "date": 1637938605309
+    "date": 1637938815348
   },
   "custom": {
     "general": {
@@ -59,7 +59,7 @@
           "name": "params",
           "description": "IgeClient Options for handler and mongodb",
           "examples": [
-            "```js\nclient.params({\n    commandsDir: \"commands\",\n    slashsDir: \"slashs\",\n    eventsDir: \"events\",\n    mongoUri: \"mongodb connection uri\"\n});\n```"
+            "client.params({\n    commandsDir: \"commands\",\n    slashsDir: \"slashs\",\n    eventsDir: \"events\",\n    mongoUri: \"mongodb connection uri\"\n});"
           ],
           "params": [
             {
@@ -82,7 +82,7 @@
             ]
           ],
           "meta": {
-            "line": 94,
+            "line": 87,
             "file": "IgeClient.js",
             "path": "src"
           }
@@ -114,7 +114,7 @@
           ],
           "async": true,
           "meta": {
-            "line": 119,
+            "line": 112,
             "file": "IgeClient.js",
             "path": "src"
           }
@@ -146,7 +146,7 @@
           ],
           "async": true,
           "meta": {
-            "line": 144,
+            "line": 137,
             "file": "IgeClient.js",
             "path": "src"
           }
@@ -178,7 +178,7 @@
           ],
           "async": true,
           "meta": {
-            "line": 170,
+            "line": 163,
             "file": "IgeClient.js",
             "path": "src"
           }
@@ -200,14 +200,14 @@
           ],
           "async": true,
           "meta": {
-            "line": 197,
+            "line": 190,
             "file": "IgeClient.js",
             "path": "src"
           }
         }
       ],
       "meta": {
-        "line": 26,
+        "line": 21,
         "file": "IgeClient.js",
         "path": "src"
       }
@@ -330,7 +330,7 @@
         }
       ],
       "meta": {
-        "line": 32,
+        "line": 27,
         "file": "IgeClient.js",
         "path": "src"
       }
@@ -403,7 +403,7 @@
         }
       ],
       "meta": {
-        "line": 71,
+        "line": 66,
         "file": "IgeClient.js",
         "path": "src"
       }
@@ -441,5 +441,17 @@
       }
     }
   ],
-  "externals": []
+  "externals": [
+    {
+      "name": "Client",
+      "see": [
+        "{@link https://discord.js.org/#/docs/stable/class/Client}"
+      ],
+      "meta": {
+        "line": 13,
+        "file": "IgeClient.js",
+        "path": "src"
+      }
+    }
+  ]
 }
