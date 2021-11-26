@@ -2,7 +2,7 @@
   "meta": {
     "generator": "0.10.0",
     "format": 20,
-    "date": 1637263484778
+    "date": 1637937727577
   },
   "custom": {
     "general": {
@@ -11,8 +11,8 @@
         "welcome": {
           "name": "Welcome",
           "type": "md",
-          "content": "# IgeDJS\n\n## IgeDJS is a [npm](https://npmjs.com) module\n\n### Installation\n\n#### Latest version\n\n```shell\nnpm i @igecorp/ige-djs\n```\n\n#### Dev Version\n\n```shell\nnpm i https://github.com/IgeCorp/ige-djs\n```\n\n### Example\n\n#### Login CLient\n\n`index.js`\n\n```js\nconst IgeDJS = require(\"@igecorp/ige-djs\");\n\nconst client = new IgeDJS.IgeClient(\"Discord Bot Token\", { replies: true, prefix: \"!\" }); //Replace \"replies: true\" by \"replies: false\" if you don't want any mentions.\n\nclient.param({\n    commandsDir: \"commands\", //Replace it by your client commands directory.\n    eventsDir: \"events\" //Replace it by your client events directory.\n});\n```\n\n`events/ready.js`\n\n```js\nmodule.exports = async (client) => {\n    console.log(`${client.user.tag} is ready.`);\n\n    client.user.setActivity(`I'm using @igecorp/ige-djs npm module !`, { type: \"PLAYING\" });\n}\n```\n\n`events/messageCreate.js`\n\n```js\nmodule.exports = async (client, message) => {\n    if (message.content.indexOf(prefix) !== 0) return;\n\n    const args = message.content.slice(prefix.length).trim().split(/ +/g);\n    const command = args.shift().toLowerCase();\n\n    if (!command) return;\n    \n    const cmd = client.commands.get(command) || client.commands.find(x => x.aliases.includes(command));\n\n    if (!cmd) return message.reply({ content: `I have not command named ${command}.` });\n\n    cmd.run(message, args, client);\n}\n```\n\n`commands/ping.js`\n\n```js\nconst IgeDJS = require(\"@igecorp/ige-djs\");\n\nclass ping extends IgeDJS.IgeCommand {\n    constructor() {\n        super({\n            name: \"ping\",\n            category: \"utility\",\n            usage: \"ping\"\n        });\n    }\n\n    async run(message) {\n        message.channel.send(`Pong: \\`${Date.now() - message.createdTimestamp}ms\\``);\n    }\n}\n```\n\n\u00a9 2021 Copyright: IgeCorp\n",
-          "path": "./README.md"
+          "content": "# IgeDJS\n\n## IgeDJS is a [npm](https://npmjs.com) module\n\n### Installation\n\n#### Latest version\n\n```shell\nnpm i @igecorp/ige-djs\n```\n\n#### Dev Version\n\n```shell\nnpm i https://github.com/IgeCorp/ige-djs\n```\n\n### Example\n\n#### Login CLient\n\n`index.js`\n\n```js\nconst IgeDJS = require(\"@igecorp/ige-djs\");\n\nconst client = new IgeDJS.IgeClient(\"Discord Bot Token\", { replies: true, prefix: \"!\" }); //Replace \"replies: true\" by \"replies: false\" if you don't want any mentions.\n\nclient.param({\n    commandsDir: \"commands\", //Replace it by your client commands directory.\n    eventsDir: \"events\" //Replace it by your client events directory.\n});\n```\n\n`events/ready.js`\n\n```js\nmodule.exports = async (client) => {\n    console.log(`${client.user.tag} is ready.`);\n\n    client.user.setActivity(`I'm using @igecorp/ige-djs npm module !`, { type: \"PLAYING\" });\n}\n```\n\n`events/messageCreate.js`\n\n```js\nmodule.exports = async (client, message) => {\n    if (message.content.indexOf(prefix) !== 0) return;\n\n    const args = message.content.slice(prefix.length).trim().split(/ +/g);\n    const command = args.shift().toLowerCase();\n\n    if (!command) return;\n    \n    const cmd = client.commands.get(command) || client.commands.find(x => x.aliases.includes(command));\n\n    if (!cmd) return message.reply({ content: `I have not command named ${command}.` });\n\n    cmd.run(message, args, client);\n}\n```\n\n`commands/ping.js`\n\n```js\nconst IgeDJS = require(\"@igecorp/ige-djs\");\n\nclass ping extends IgeDJS.IgeCommand {\n    constructor() {\n        super({\n            name: \"ping\",\n            category: \"utility\",\n            usage: \"ping\"\n        });\n    }\n\n    async run(message) {\n        message.channel.send(`Pong: \\`${Date.now() - message.createdTimestamp}ms\\``);\n    }\n}\n```\n\n© 2021 Copyright: IgeCorp\n",
+          "path": "README.md"
         }
       }
     }
@@ -60,7 +60,6 @@
           "examples": [
             "```js\nclient.params({\n    commandsDir: \"commands\",\n    slashsDir: \"slashs\",\n    eventsDir: \"events\",\n    mongoUri: \"mongodb connection uri\"\n});\n```"
           ],
-          "async": true,
           "returns": [
             [
               [
@@ -71,7 +70,7 @@
           "meta": {
             "line": 93,
             "file": "IgeClient.js",
-            "path": "./src"
+            "path": "src"
           }
         },
         {
@@ -103,7 +102,7 @@
           "meta": {
             "line": 118,
             "file": "IgeClient.js",
-            "path": "./src"
+            "path": "src"
           }
         },
         {
@@ -135,7 +134,7 @@
           "meta": {
             "line": 143,
             "file": "IgeClient.js",
-            "path": "./src"
+            "path": "src"
           }
         },
         {
@@ -167,7 +166,7 @@
           "meta": {
             "line": 169,
             "file": "IgeClient.js",
-            "path": "./src"
+            "path": "src"
           }
         },
         {
@@ -189,14 +188,14 @@
           "meta": {
             "line": 196,
             "file": "IgeClient.js",
-            "path": "./src"
+            "path": "src"
           }
         }
       ],
       "meta": {
         "line": 26,
         "file": "IgeClient.js",
-        "path": "./src"
+        "path": "src"
       }
     },
     {
@@ -220,7 +219,7 @@
       "meta": {
         "line": 28,
         "file": "IgeCommand.js",
-        "path": "./src"
+        "path": "src"
       }
     },
     {
@@ -244,7 +243,7 @@
       "meta": {
         "line": 26,
         "file": "IgeSlash.js",
-        "path": "./src"
+        "path": "src"
       }
     }
   ],
@@ -319,7 +318,7 @@
       "meta": {
         "line": 32,
         "file": "IgeClient.js",
-        "path": "./src"
+        "path": "src"
       }
     },
     {
@@ -392,7 +391,7 @@
       "meta": {
         "line": 71,
         "file": "IgeClient.js",
-        "path": "./src"
+        "path": "src"
       }
     },
     {
@@ -408,7 +407,7 @@
       "meta": {
         "line": 37,
         "file": "IgeCommand.js",
-        "path": "./src"
+        "path": "src"
       }
     },
     {
@@ -424,7 +423,7 @@
       "meta": {
         "line": 33,
         "file": "IgeSlash.js",
-        "path": "./src"
+        "path": "src"
       }
     }
   ],
