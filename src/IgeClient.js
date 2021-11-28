@@ -10,17 +10,11 @@ const fs_1 = require("fs");
 const colors_1 = require("colors");
 const mongoose_1 = require("mongoose");
 /**
- * @example
- * ```js
- * const { IgeClient } = require("@igecorp/ige-djs");
- *
- * const client = new IgeCLient("discord bot token", {
- *     replies: true,
- *     prefix: "!",
- *     owner: "client owner id",
- *     testGuild: "test guild id"
- * });
- * ```
+ * @external Client
+ * @see {@link https://discord.js.org/#/docs/main/stable/class/Client}
+ */
+/**
+ * @extends {Client}
  */
 class IgeClient extends discord_js_1.Client {
     commands;
@@ -29,8 +23,17 @@ class IgeClient extends discord_js_1.Client {
     owner;
     testGuild;
     /**
+     * All IgeClient options
+     * @typedef {Object} ClientOptions
+     * @property {boolean} replies Its a boolean value to set if the bot mention or no a user when it reply a message.
+     * @property {string} prefix The client prefix.
+     * @property {string|string[]} owner The client owner user ID.
+     * @property {string} testGuild The client test guild id.
+     */
+    /**
      * @param {string} token The discord client token
      * @param {ClientOptions} options Discord client options (replies, prefix, owner, ...)
+     * @returns {Promise<string>} Token of the account used
      */
     constructor(token, options) {
         if (!token)
@@ -59,16 +62,25 @@ class IgeClient extends discord_js_1.Client {
         this.login(token);
     }
     /**
+     * All parameters for IgeClient handler
+     * @typedef {Object} Options
+     * @property {string} [typescript=false] Set default to true, set it to false to use javascript files.
+     * @property {string} commandsDir The client commands directory.
+     * @property {string} slashsDir The client slashs commands directory.
+     * @property {string} eventsDir The client events directory.
+     * @property {string} [mongoUri=null] Mongodb connection uri.
+     */
+    /**
+     * IgeClient Options for handler and mongodb
+     * @param {Options} options The client options (commands/slashs/events directory, mongo uri)
+     * @returns {Options}
      * @example
-     * ```js
      * client.params({
      *     commandsDir: "commands",
      *     slashsDir: "slashs",
      *     eventsDir: "events",
      *     mongoUri: "mongodb connection uri"
      * });
-     * ```
-     * @param {Options} options The client options (commands/slashs/events directory, mongo uri)
      */
     async params(options) {
         if (!options)
@@ -91,8 +103,10 @@ class IgeClient extends discord_js_1.Client {
             this._createConnection(options.mongoUri);
     }
     /**
+     * The client commands handler
      * @param {string} cmdDir
      * @param {boolean} useTs
+     * @private
      */
     async _cmdsHandler(cmdDir, useTs) {
         let fileType = (useTs === true) ? ".ts" : ".js";
@@ -115,8 +129,10 @@ class IgeClient extends discord_js_1.Client {
         });
     }
     /**
+     * The client slash commands handler
      * @param {string} slashDir
      * @param {boolean} useTs
+     * @private
      */
     async _slashHandler(slashDir, useTs) {
         let fileType = (useTs === true) ? ".ts" : ".js";
@@ -140,8 +156,10 @@ class IgeClient extends discord_js_1.Client {
         });
     }
     /**
+     * The client events handler
      * @param {string} evtDir
      * @param {boolean} useTs
+     * @private
      */
     async _evtsHandler(evtDir, useTs) {
         let fileType = (useTs === true) ? ".ts" : ".js";
@@ -167,7 +185,9 @@ class IgeClient extends discord_js_1.Client {
         });
     }
     /**
+     * Mongodb connection creator
      * @param {string} mongoUri
+     * @private
      */
     async _createConnection(mongoUri) {
         (0, mongoose_1.connect)(mongoUri).then(() => {
