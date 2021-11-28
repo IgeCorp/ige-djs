@@ -1,34 +1,34 @@
 interface CommandOptions {
     /**
-     * @description The command name
+     * @param {string} name The command name
      */
     name: string,
     /**
-     * @description The command category.
+     * @param {string} category The command category.
      */
     category: string,
     /**
-     * @description The command description.
+     * @param {string} description The command description.
      */
     description?: string,
     /**
-     * @description The command aliases.
+     * @param {string[]} aliases The command aliases.
      */
     aliases?: string[],
     /**
-     * @description The command usages.
+     * @param {string[]} usage The command usages.
      */
     usage: string[],
     /**
-     * @description The command example.
+     * @param {string[]} example The command example.
      */
     example?: string[],
     /**
-     * @description The command permission.
+     * @param {string} permission The command permission.
      */
     permission?: string,
     /**
-     * @description Set true or false to define if a bot can use this command.
+     * @param {boolean} botAllowed Set true or false to define if a bot can use this command.
      */
     botAllowed?: boolean
 }

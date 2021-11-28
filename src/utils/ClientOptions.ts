@@ -1,18 +1,18 @@
 interface ClientOptions {
     /**
-     * @description Its a boolean value to set if the bot mention or no a user when it reply a message.
+     * @param {boolean} replies Its a boolean value to set if the bot mention or no a user when it reply a message.
      */
     replies: boolean,
     /**
-     * @description The client prefix.
+     * @param {string} prefix The client prefix.
      */
     prefix: string,
     /**
-     * @description The client owner user ID.
+     * @param {string|string[]} owner The client owner user ID.
      */
-    owner: string | string[];
+    owner: string | string[],
     /**
-     * @description The client test guild id.
+     * @param {string} testGuild The client test guild id.
      */
     testGuild: string
 }

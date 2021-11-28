@@ -1,10 +1,10 @@
 interface SlashsCommandsOptionsChoices {
     /**
-     * @description The name of the choice
+     * @param {string} name The name of the choice
      */
     name: string,
     /**
-     * @description The value of the choice
+     * @param {string|number} value The value of the choice
      */
     value: string | number
 }

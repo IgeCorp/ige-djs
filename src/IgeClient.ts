@@ -8,17 +8,12 @@ import { blue, green, red } from "colors";
 import { connect } from "mongoose";
 
 /**
- * @example
- * ```js
- * const { IgeClient } = require("@igecorp/ige-djs");
- * 
- * const client = new IgeCLient("discord bot token", {
- *     replies: true,
- *     prefix: "!",
- *     owner: "client owner id",
- *     testGuild: "test guild id"
- * });
- * ```
+ * @external Client
+ * @see {@link https://discord.js.org/#/docs/main/stable/class/Client}
+ */
+
+/**
+ * @extends {Client}
  */
 export default class IgeClient extends Client {
     commands: Collection<unknown, unknown>;
@@ -26,10 +21,20 @@ export default class IgeClient extends Client {
     prefix: string;
     owner: string | string[];
     testGuild: string;
-    
+
+    /**
+     * All IgeClient options
+     * @typedef {Object} ClientOptions
+     * @property {boolean} replies Its a boolean value to set if the bot mention or no a user when it reply a message.
+     * @property {string} prefix The client prefix.
+     * @property {string|string[]} owner The client owner user ID.
+     * @property {string} testGuild The client test guild id.
+     */
+
     /**
      * @param {string} token The discord client token
      * @param {ClientOptions} options Discord client options (replies, prefix, owner, ...)
+     * @returns {Promise<string>} Token of the account used
      */
     constructor(token: string, options: ClientOptions) {
         if (!token) throw new TypeError(Errors.MISSING_TOKEN);
@@ -58,16 +63,26 @@ export default class IgeClient extends Client {
     }
 
     /**
+     * All parameters for IgeClient handler
+     * @typedef {Object} Options
+     * @property {string} [typescript=false] Set default to true, set it to false to use javascript files.
+     * @property {string} commandsDir The client commands directory.
+     * @property {string} slashsDir The client slashs commands directory.
+     * @property {string} eventsDir The client events directory.
+     * @property {string} [mongoUri=null] Mongodb connection uri.
+     */
+
+    /**
+     * IgeClient Options for handler and mongodb
+     * @param {Options} options The client options (commands/slashs/events directory, mongo uri)
+     * @returns {Options}
      * @example
-     * ```js
      * client.params({
      *     commandsDir: "commands",
      *     slashsDir: "slashs",
      *     eventsDir: "events",
      *     mongoUri: "mongodb connection uri"
      * });
-     * ```
-     * @param {Options} options The client options (commands/slashs/events directory, mongo uri)
      */
     async params(options: Options) {
         if (!options) throw new Error(Errors.MISSING_OPTIONS)
@@ -89,8 +104,10 @@ export default class IgeClient extends Client {
     }
     
     /**
+     * The client commands handler
      * @param {string} cmdDir 
      * @param {boolean} useTs
+     * @private
      */
     async _cmdsHandler(cmdDir: string, useTs: boolean) {
         let fileType = (useTs === true) ? ".ts" : ".js"
@@ -114,8 +131,10 @@ export default class IgeClient extends Client {
     }
 
     /**
+     * The client slash commands handler
      * @param {string} slashDir 
      * @param {boolean} useTs
+     * @private
      */
     async _slashHandler(slashDir: string, useTs: boolean) {
         let fileType = (useTs === true) ? ".ts" : ".js"
@@ -139,8 +158,10 @@ export default class IgeClient extends Client {
     }
 
     /**
+     * The client events handler
      * @param {string} evtDir 
      * @param {boolean} useTs
+     * @private
      */
     async _evtsHandler(evtDir: string, useTs: boolean) {
         let fileType = (useTs === true) ? ".ts" : ".js"
@@ -166,7 +187,9 @@ export default class IgeClient extends Client {
     }
 
     /**
-     * @param {string} mongoUri 
+     * Mongodb connection creator
+     * @param {string} mongoUri
+     * @private
      */
     async _createConnection(mongoUri: string) {
         connect(mongoUri).then(() => {

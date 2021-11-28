@@ -4,6 +4,12 @@ import IgeCommand from "./src/IgeCommand";
 import IgeSlash from "./src/IgeSlash";
 
 /**
+ * @external Client
+ * @see {@link https://discord.js.org/#/docs/main/stable/class/Client}
+ */
+
+/**
+ * @extends {Client}
  * @example
  * ```js
  * const { IgeClient } = require("@igecorp/ige-djs");
@@ -24,23 +30,43 @@ export class IgeClient extends Client {
     testGuild: string;
 
     /**
+     * All IgeClient options
+     * @typedef {Object} ClientOptions
+     * @property {boolean} replies Its a boolean value to set if the bot mention or no a user when it reply a message.
+     * @property {string} prefix The client prefix.
+     * @property {string|string[]} owner The client owner user ID.
+     * @property {string} testGuild The client test guild id.
+     */
+
+    /**
      * @param {string} token The discord client token
      * @param {ClientOptions} options Discord client options (replies, prefix, owner, ...)
+     * @returns {Promise<string>} Token of the account used
      */
 
     constructor(token: string, options: ClientOptions);
 
+     /**
+     * All parameters for IgeClient handler
+     * @typedef {Object} Options
+     * @property {string} [typescript=false] Set default to true, set it to false to use javascript files.
+     * @property {string} commandsDir The client commands directory.
+     * @property {string} slashsDir The client slashs commands directory.
+     * @property {string} eventsDir The client events directory.
+     * @property {string} [mongoUri=null] Mongodb connection uri.
+     */
+
     /**
+     * IgeClient Options for handler and mongodb
+     * @param {Options} options The client options (commands/slashs/events directory, mongo uri)
+     * @returns {Options}
      * @example
-     * ```js
      * client.params({
      *     commandsDir: "commands",
      *     slashsDir: "slashs",
      *     eventsDir: "events",
      *     mongoUri: "mongodb connection uri"
      * });
-     * ```
-     * @param {Options} options The client options (commands/slashs/events directory, mongo uri)
      */
 
     async params(options: Options);
@@ -78,7 +104,22 @@ export class IgeCommand {
     botAllowed?: boolean;
 
     /**
+     * All command options
+     * @typedef {Object} CommandOptions
+     * @property {string} name The command name.
+     * @property {string} category The command category.
+     * @property {string} [description=null] The command description.
+     * @property {string[]} [aliases=null] The command aliases.
+     * @property {string[]} usage The command usages.
+     * @property {string[]} [example=null] The command example.
+     * @property {string} [permission=null] The command permission.
+     * @property {boolean} [botAllowed=false] Boolean value to define if a bot can use this command.
+     */
+
+    /**
+     * Command paremeters
      * @param {CommandOptions} commandOptions The command options (name, category, usage, description, ...)
+     * @returns {Promise<IgeCommand>}
      */
      constructor(commandOptions: CommandOptions);
 }
@@ -111,7 +152,46 @@ export class IgeSlash {
     guildOnly?: boolean;
 
     /**
+     * @external ApplicationCommandType
+     * @see {@link https://discord.js.org/#/docs/main/stable/typedef/ApplicationCommandType}
+     */
+    /**
+     * @external ApplicationCommandOptionType
+     * @see {@link https://discord.js.org/#/docs/main/stable/typedef/ApplicationCommandOptionType}
+     */
+
+    /**
+     * Slash command options choices
+     * @typedef {Array} SlashsCommandsOptionsChoices
+     * @property {string} name The name of the choice
+     * @property {string|number} value The value of the choice
+     */
+
+    /**
+     * Slash command options values
+     * @typedef {Array} SlashsCommandsOptions
+     * @property {ApplicationCommandOptionType} type The type of the option
+     * @property {string} name The name of the option
+     * @property {string} description The description of the option
+     * @property {boolean} required Whether the option is required
+     * @property {SlashsCommandsOptionsChoices[]} [choices=null] The choices of the option for the user to pick from
+     * @property {SlashsCommandsOptions} [options=null] Additional options if this option is a subcommand (group)
+     */
+
+    /**
+     * All slash command options
+     * @typedef {Object} SlashOptions
+     * @property {string} name The slash command name.
+     * @property {string} description The slash command description.
+     * @property {ApplicationCommandType} [type="CHAT_IMPUT"] The slash command type (CHAT_IMPUT, USER, MESSAGE).
+     * @property {SlashsCommandsOptions[]} [options=null] The slash command options (choices, ...)
+     * @property {boolean} [defaultPermission=true] The slash command defaultPermission.
+     * @property {boolean} [guildOnly=false] Boolean value if you want this command to one guild only.
+     */
+
+    /**
      * @param {SlashOptions} slashOptions The slash command options.
+     * @returns {Promise<IgeSlash>}
      */
     constructor(slashOptions: SlashOptions);
 }

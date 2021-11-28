@@ -3,27 +3,27 @@ import SlashsCommandsOptionsChoices from "./SlashsCommandsOptionsChoices";
 
 interface SlashsCommandsOptions {
     /**
-     * @description The type of the option
+     * @param {ApplicationCommandOptionType} type The type of the option
      */
     type: ApplicationCommandOptionType,
     /**
-     * @description The name of the option
+     * @param {string} name The name of the option
      */
     name: string,
     /**
-     * @description The description of the option
+     * @param {string} description The description of the option
      */
     description: string,
     /**
-     * @description Whether the option is required
+     * @param {boolean} required Whether the option is required
      */
     required: boolean,
     /**
-     * @description The choices of the option for the user to pick from
+     * @param {SlashsCommandsOptionsChoices[]} choices The choices of the option for the user to pick from
      */
     choices?: SlashsCommandsOptionsChoices[],
     /**
-     * @description Additional options if this option is a subcommand (group)
+     * @param {options} options Additional options if this option is a subcommand (group)
      */
     options?: SlashsCommandsOptions
 }

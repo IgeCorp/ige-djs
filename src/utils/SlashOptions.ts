@@ -3,27 +3,27 @@ import SlashsCommandsOptions from "./SlashsCommandsOptions";
 
 interface SlashOptions {
     /**
-     * @description The slash command name.
+     * @param {string} name The slash command name.
      */
     name: string,
     /**
-     * @description The slash command description.
+     * @param {string} description The slash command description.
      */
     description: string,
     /**
-     * @description The slash command type (CHAT_IMPUT, USER, MESSAGE).
+     * @param {ApplicationCommandType} type The slash command type (CHAT_IMPUT, USER, MESSAGE).
      */
     type?: ApplicationCommandType,
     /**
-     * @description The slash command options (choices, ...)
+     * @param {SlashsCommandsOptions[]} options The slash command options (choices, ...)
      */
     options?: SlashsCommandsOptions[],
     /**
-     * @description The slash command defaultPermission.
+     * @param {boolean} defaultPermission The slash command defaultPermission.
      */
     defaultPermission?: boolean,
     /**
-     * @description Set true or false if you want this command to one guild only.
+     * @param {boolean} guildOnly Set true or false if you want this command to one guild only.
      */
     guildOnly?: boolean
 }
