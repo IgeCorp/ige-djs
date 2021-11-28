@@ -2,7 +2,7 @@
   "meta": {
     "generator": "0.10.0",
     "format": 20,
-    "date": 1637944419397
+    "date": 1638097288736
   },
   "custom": {
     "general": {
@@ -74,6 +74,7 @@
               ]
             }
           ],
+          "async": true,
           "returns": [
             [
               [
@@ -82,13 +83,14 @@
             ]
           ],
           "meta": {
-            "line": 87,
+            "line": 85,
             "file": "IgeClient.js",
             "path": "src"
           }
         },
         {
           "name": "_cmdsHandler",
+          "description": "The client commands handler",
           "access": "private",
           "params": [
             {
@@ -114,13 +116,14 @@
           ],
           "async": true,
           "meta": {
-            "line": 112,
+            "line": 111,
             "file": "IgeClient.js",
             "path": "src"
           }
         },
         {
           "name": "_slashHandler",
+          "description": "The client slash commands handler",
           "access": "private",
           "params": [
             {
@@ -153,6 +156,7 @@
         },
         {
           "name": "_evtsHandler",
+          "description": "The client events handler",
           "access": "private",
           "params": [
             {
@@ -178,13 +182,14 @@
           ],
           "async": true,
           "meta": {
-            "line": 163,
+            "line": 164,
             "file": "IgeClient.js",
             "path": "src"
           }
         },
         {
           "name": "_createConnection",
+          "description": "Mongodb connection creator",
           "access": "private",
           "params": [
             {
@@ -200,14 +205,14 @@
           ],
           "async": true,
           "meta": {
-            "line": 190,
+            "line": 192,
             "file": "IgeClient.js",
             "path": "src"
           }
         }
       ],
       "meta": {
-        "line": 21,
+        "line": 19,
         "file": "IgeClient.js",
         "path": "src"
       }
@@ -232,7 +237,7 @@
         ]
       },
       "meta": {
-        "line": 34,
+        "line": 33,
         "file": "IgeCommand.js",
         "path": "src"
       }
@@ -256,7 +261,7 @@
         ]
       },
       "meta": {
-        "line": 58,
+        "line": 52,
         "file": "IgeSlash.js",
         "path": "src"
       }
@@ -331,7 +336,7 @@
         }
       ],
       "meta": {
-        "line": 27,
+        "line": 25,
         "file": "IgeClient.js",
         "path": "src"
       }
@@ -408,7 +413,7 @@
         }
       ],
       "meta": {
-        "line": 66,
+        "line": 64,
         "file": "IgeClient.js",
         "path": "src"
       }
@@ -539,7 +544,7 @@
         }
       ],
       "meta": {
-        "line": 17,
+        "line": 16,
         "file": "IgeCommand.js",
         "path": "src"
       }
@@ -584,7 +589,7 @@
         }
       ],
       "meta": {
-        "line": 25,
+        "line": 22,
         "file": "IgeSlash.js",
         "path": "src"
       }
@@ -677,7 +682,7 @@
         }
       ],
       "meta": {
-        "line": 32,
+        "line": 28,
         "file": "IgeSlash.js",
         "path": "src"
       }
@@ -774,7 +779,7 @@
         }
       ],
       "meta": {
-        "line": 43,
+        "line": 38,
         "file": "IgeSlash.js",
         "path": "src"
       }
@@ -787,7 +792,7 @@
         "{@link https://discord.js.org/#/docs/main/stable/class/Client}"
       ],
       "meta": {
-        "line": 13,
+        "line": 12,
         "file": "IgeClient.js",
         "path": "src"
       }
@@ -798,7 +803,7 @@
         "{@link https://discord.js.org/#/docs/main/stable/typedef/ApplicationCommandType}"
       ],
       "meta": {
-        "line": 16,
+        "line": 14,
         "file": "IgeSlash.js",
         "path": "src"
       }
@@ -809,7 +814,7 @@
         "{@link https://discord.js.org/#/docs/main/stable/typedef/ApplicationCommandOptionType}"
       ],
       "meta": {
-        "line": 20,
+        "line": 18,
         "file": "IgeSlash.js",
         "path": "src"
       }
