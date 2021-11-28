@@ -4,27 +4,6 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const Errrors_1 = __importDefault(require("./utils/Errrors"));
-/**
- * @example
- * ```js
- * const { IgeCommand } = require("@igecorp/ige-djs");
- *
- * class ping extends IgeCommand {
- *     constructor() {
- *         super({
- *             name: "ping",
- *             category: "utilities",
- *             description: "Get the bot latency",
- *             aliases: ["pingbot", "botping"],
- *             usage: "ping",
- *             example: ["ping", "pingbot", "botping"],
- *             permission: "everyone",
- *             botAllowed: false
- *         })
- *     }
- * }
- * ```
- */
 class IgeCommand {
     name;
     category;
@@ -35,7 +14,21 @@ class IgeCommand {
     permission;
     botAllowed;
     /**
+     * All command options
+     * @typedef {Object} CommandOptions
+     * @property {string} name The command name.
+     * @property {string} category The command category.
+     * @property {string} [description=null] The command description.
+     * @property {string[]} [aliases=null] The command aliases.
+     * @property {string[]} usage The command usages.
+     * @property {string[]} [example=null] The command example.
+     * @property {string} [permission=null] The command permission.
+     * @property {boolean} [botAllowed=false] Boolean value to define if a bot can use this command.
+     */
+    /**
+     * Command paremeters
      * @param {CommandOptions} commandOptions The command options (name, category, usage, description, ...)
+     * @returns {Promise<IgeCommand>}
      */
     constructor(commandOptions) {
         if (!commandOptions)
