@@ -37,13 +37,45 @@ export default class IgeCommand {
         if (!commandOptions.permission) commandOptions.permission = "everyone";
         if (!commandOptions.botAllowed) commandOptions.botAllowed = false;
 
+        /**
+         * Command name
+         * @type {string}
+         */
         this.name = commandOptions.name;
+        /**
+         * Command category
+         * @type {string}
+         */
         this.category = commandOptions.category;
+        /**
+         * Command description
+         * @type {string}
+         */
         this.description = commandOptions?.description;
+        /**
+         * Command aliase(s)
+         * @type {string[]}
+         */
         this.aliases = commandOptions?.aliases;
+        /**
+         * Command usage(s)
+         * @type {string[]}
+         */
         this.usage = commandOptions.usage;
+        /**
+         * Command example(s)
+         * @type {string[]}
+         */
         this.example = commandOptions?.example;
+        /**
+         * Command permission
+         * @type {string}
+         */
         this.permission = commandOptions.permission;
+        /**
+         * Bot allowed or no
+         * @type {boolean}
+         */
         this.botAllowed = commandOptions.botAllowed;
     }
 }

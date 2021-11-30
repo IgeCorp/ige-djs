@@ -1,4 +1,4 @@
-import { Client, Collection } from "discord.js";
+import { Client } from "discord.js";
 import Errors from "./utils/Errrors";
 import ClientOptions from "./utils/ClientOptions";
 import Options from "./utils/Options";
@@ -16,8 +16,8 @@ import { connect } from "mongoose";
  * @extends {Client}
  */
 export default class IgeClient extends Client {
-    commands: Collection<unknown, unknown>;
-    slashs: Collection<unknown, unknown>;
+    commands: Map<unknown, unknown>;
+    slashs: Map<unknown, unknown>;
     prefix: string;
     owner: string | string[];
     testGuild: string;
@@ -51,12 +51,31 @@ export default class IgeClient extends Client {
             failIfNotExists: false,
             intents: Intents
         });
+        /**
+         * The client commands Map
+         * @type {Map}
+         */
+        this.commands = new Map();
+        /**
+         * The client slashs commands Map
+         * @type {Map}
+         */
+        this.slashs = new Map();
 
-        this.commands = new Collection();
-        this.slashs = new Collection();
-
+        /**
+         * Client prefix
+         * @type {string}
+         */
         this.prefix = options.prefix;
+        /**
+         * Client owner(s)
+         * @type {string|string[]}
+         */
         this.owner = options.owner;
+        /**
+         * Client test guild id
+         * @type {string}
+         */
         this.testGuild = options.testGuild;
 
         this.login(token);
@@ -93,13 +112,9 @@ export default class IgeClient extends Client {
         if (!options?.mongoUri) console.warn(red(`WARNING: `) + Errors.MISSING_MONGO_URI);
         (options?.typescript === true) ? useTs = true : useTs = false;
 
-        const cmdDir = `${process.cwd()}/${options.commandsDir}`,
-            slashDir = `${process.cwd()}/${options.slashsDir}`,
-            evtDir = `${process.cwd()}/${options.eventsDir}`;
-
-        this._cmdsHandler(cmdDir, useTs);
-        this._slashHandler(slashDir, useTs);
-        this._evtsHandler(evtDir, useTs);
+        this._cmdsHandler(`${process.cwd()}/${options.commandsDir}`, useTs);
+        this._slashHandler(`${process.cwd()}/${options.slashsDir}`, useTs);
+        this._evtsHandler(`${process.cwd()}/${options.eventsDir}`, useTs);
         if (options.mongoUri) this._createConnection(options.mongoUri);
     }
     
