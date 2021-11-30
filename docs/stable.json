@@ -2,7 +2,7 @@
   "meta": {
     "generator": "0.10.0",
     "format": 20,
-    "date": 1638097288736
+    "date": 1638271850130
   },
   "custom": {
     "general": {
@@ -54,6 +54,98 @@
           }
         ]
       },
+      "props": [
+        {
+          "name": "commands",
+          "description": "The client commands Map",
+          "type": [
+            [
+              [
+                "Map"
+              ]
+            ]
+          ],
+          "meta": {
+            "line": 61,
+            "file": "IgeClient.js",
+            "path": "dist"
+          }
+        },
+        {
+          "name": "slashs",
+          "description": "The client slashs commands Map",
+          "type": [
+            [
+              [
+                "Map"
+              ]
+            ]
+          ],
+          "meta": {
+            "line": 66,
+            "file": "IgeClient.js",
+            "path": "dist"
+          }
+        },
+        {
+          "name": "prefix",
+          "description": "Client prefix",
+          "type": [
+            [
+              [
+                "string"
+              ]
+            ]
+          ],
+          "meta": {
+            "line": 71,
+            "file": "IgeClient.js",
+            "path": "dist"
+          }
+        },
+        {
+          "name": "owner",
+          "description": "Client owner(s)",
+          "type": [
+            [
+              [
+                "string"
+              ]
+            ],
+            [
+              [
+                "Array",
+                "<"
+              ],
+              [
+                "string",
+                ">"
+              ]
+            ]
+          ],
+          "meta": {
+            "line": 76,
+            "file": "IgeClient.js",
+            "path": "dist"
+          }
+        },
+        {
+          "name": "testGuild",
+          "description": "Client test guild id",
+          "type": [
+            [
+              [
+                "string"
+              ]
+            ]
+          ],
+          "meta": {
+            "line": 81,
+            "file": "IgeClient.js",
+            "path": "dist"
+          }
+        }
+      ],
       "methods": [
         {
           "name": "params",
@@ -83,9 +175,9 @@
             ]
           ],
           "meta": {
-            "line": 85,
+            "line": 105,
             "file": "IgeClient.js",
-            "path": "src"
+            "path": "dist"
           }
         },
         {
@@ -116,9 +208,9 @@
           ],
           "async": true,
           "meta": {
-            "line": 111,
+            "line": 130,
             "file": "IgeClient.js",
-            "path": "src"
+            "path": "dist"
           }
         },
         {
@@ -149,9 +241,9 @@
           ],
           "async": true,
           "meta": {
-            "line": 137,
+            "line": 156,
             "file": "IgeClient.js",
-            "path": "src"
+            "path": "dist"
           }
         },
         {
@@ -182,9 +274,9 @@
           ],
           "async": true,
           "meta": {
-            "line": 164,
+            "line": 183,
             "file": "IgeClient.js",
-            "path": "src"
+            "path": "dist"
           }
         },
         {
@@ -205,16 +297,16 @@
           ],
           "async": true,
           "meta": {
-            "line": 192,
+            "line": 211,
             "file": "IgeClient.js",
-            "path": "src"
+            "path": "dist"
           }
         }
       ],
       "meta": {
         "line": 19,
         "file": "IgeClient.js",
-        "path": "src"
+        "path": "dist"
       }
     },
     {
@@ -236,10 +328,155 @@
           }
         ]
       },
+      "props": [
+        {
+          "name": "name",
+          "description": "Command name",
+          "type": [
+            [
+              [
+                "string"
+              ]
+            ]
+          ],
+          "meta": {
+            "line": 50,
+            "file": "IgeCommand.js",
+            "path": "dist"
+          }
+        },
+        {
+          "name": "category",
+          "description": "Command category",
+          "type": [
+            [
+              [
+                "string"
+              ]
+            ]
+          ],
+          "meta": {
+            "line": 55,
+            "file": "IgeCommand.js",
+            "path": "dist"
+          }
+        },
+        {
+          "name": "description",
+          "description": "Command description",
+          "type": [
+            [
+              [
+                "string"
+              ]
+            ]
+          ],
+          "meta": {
+            "line": 60,
+            "file": "IgeCommand.js",
+            "path": "dist"
+          }
+        },
+        {
+          "name": "aliases",
+          "description": "Command aliase(s)",
+          "type": [
+            [
+              [
+                "Array",
+                "<"
+              ],
+              [
+                "string",
+                ">"
+              ]
+            ]
+          ],
+          "meta": {
+            "line": 65,
+            "file": "IgeCommand.js",
+            "path": "dist"
+          }
+        },
+        {
+          "name": "usage",
+          "description": "Command usage(s)",
+          "type": [
+            [
+              [
+                "Array",
+                "<"
+              ],
+              [
+                "string",
+                ">"
+              ]
+            ]
+          ],
+          "meta": {
+            "line": 70,
+            "file": "IgeCommand.js",
+            "path": "dist"
+          }
+        },
+        {
+          "name": "example",
+          "description": "Command example(s)",
+          "type": [
+            [
+              [
+                "Array",
+                "<"
+              ],
+              [
+                "string",
+                ">"
+              ]
+            ]
+          ],
+          "meta": {
+            "line": 75,
+            "file": "IgeCommand.js",
+            "path": "dist"
+          }
+        },
+        {
+          "name": "permission",
+          "description": "Command permission",
+          "type": [
+            [
+              [
+                "string"
+              ]
+            ]
+          ],
+          "meta": {
+            "line": 80,
+            "file": "IgeCommand.js",
+            "path": "dist"
+          }
+        },
+        {
+          "name": "botAllowed",
+          "description": "Bot allowed or no",
+          "type": [
+            [
+              [
+                "boolean"
+              ]
+            ]
+          ],
+          "meta": {
+            "line": 85,
+            "file": "IgeCommand.js",
+            "path": "dist"
+          }
+        }
+      ],
       "meta": {
         "line": 33,
         "file": "IgeCommand.js",
-        "path": "src"
+        "path": "dist"
       }
     },
     {
@@ -260,10 +497,113 @@
           }
         ]
       },
+      "props": [
+        {
+          "name": "name",
+          "description": "Slash name",
+          "type": [
+            [
+              [
+                "string"
+              ]
+            ]
+          ],
+          "meta": {
+            "line": 63,
+            "file": "IgeSlash.js",
+            "path": "dist"
+          }
+        },
+        {
+          "name": "description",
+          "description": "Slash description",
+          "type": [
+            [
+              [
+                "string"
+              ]
+            ]
+          ],
+          "meta": {
+            "line": 68,
+            "file": "IgeSlash.js",
+            "path": "dist"
+          }
+        },
+        {
+          "name": "type",
+          "description": "Slash type",
+          "type": [
+            [
+              [
+                "ApplicationCommandType"
+              ]
+            ]
+          ],
+          "meta": {
+            "line": 73,
+            "file": "IgeSlash.js",
+            "path": "dist"
+          }
+        },
+        {
+          "name": "options",
+          "description": "Slash options",
+          "type": [
+            [
+              [
+                "Array",
+                "<"
+              ],
+              [
+                "SlashsCommandsOptions",
+                ">"
+              ]
+            ]
+          ],
+          "meta": {
+            "line": 78,
+            "file": "IgeSlash.js",
+            "path": "dist"
+          }
+        },
+        {
+          "name": "defaultPermission",
+          "description": "Slash default permission",
+          "type": [
+            [
+              [
+                "boolean"
+              ]
+            ]
+          ],
+          "meta": {
+            "line": 83,
+            "file": "IgeSlash.js",
+            "path": "dist"
+          }
+        },
+        {
+          "name": "guildOnly",
+          "description": "Slash guild only or not",
+          "type": [
+            [
+              [
+                "boolean"
+              ]
+            ]
+          ],
+          "meta": {
+            "line": 88,
+            "file": "IgeSlash.js",
+            "path": "dist"
+          }
+        }
+      ],
       "meta": {
         "line": 52,
         "file": "IgeSlash.js",
-        "path": "src"
+        "path": "dist"
       }
     }
   ],
@@ -338,7 +678,7 @@
       "meta": {
         "line": 25,
         "file": "IgeClient.js",
-        "path": "src"
+        "path": "dist"
       }
     },
     {
@@ -413,9 +753,9 @@
         }
       ],
       "meta": {
-        "line": 64,
+        "line": 84,
         "file": "IgeClient.js",
-        "path": "src"
+        "path": "dist"
       }
     },
     {
@@ -546,7 +886,7 @@
       "meta": {
         "line": 16,
         "file": "IgeCommand.js",
-        "path": "src"
+        "path": "dist"
       }
     },
     {
@@ -591,7 +931,7 @@
       "meta": {
         "line": 22,
         "file": "IgeSlash.js",
-        "path": "src"
+        "path": "dist"
       }
     },
     {
@@ -675,7 +1015,12 @@
           "type": [
             [
               [
-                "SlashsCommandsOptions"
+                "Array",
+                "<"
+              ],
+              [
+                "SlashsCommandsOptions",
+                ">"
               ]
             ]
           ]
@@ -684,7 +1029,7 @@
       "meta": {
         "line": 28,
         "file": "IgeSlash.js",
-        "path": "src"
+        "path": "dist"
       }
     },
     {
@@ -781,7 +1126,7 @@
       "meta": {
         "line": 38,
         "file": "IgeSlash.js",
-        "path": "src"
+        "path": "dist"
       }
     }
   ],
@@ -794,7 +1139,7 @@
       "meta": {
         "line": 12,
         "file": "IgeClient.js",
-        "path": "src"
+        "path": "dist"
       }
     },
     {
@@ -805,7 +1150,7 @@
       "meta": {
         "line": 14,
         "file": "IgeSlash.js",
-        "path": "src"
+        "path": "dist"
       }
     },
     {
@@ -816,7 +1161,7 @@
       "meta": {
         "line": 18,
         "file": "IgeSlash.js",
-        "path": "src"
+        "path": "dist"
       }
     }
   ]
