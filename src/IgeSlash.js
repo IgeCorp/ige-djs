@@ -33,7 +33,7 @@ class IgeSlash {
      * @property {string} description The description of the option
      * @property {boolean} required Whether the option is required
      * @property {SlashsCommandsOptionsChoices[]} [choices=null] The choices of the option for the user to pick from
-     * @property {SlashsCommandsOptions} [options=null] Additional options if this option is a subcommand (group)
+     * @property {SlashsCommandsOptions[]} [options=null] Additional options if this option is a subcommand (group)
      */
     /**
      * All slash command options
@@ -56,11 +56,35 @@ class IgeSlash {
             throw new TypeError(Errrors_1.default.MISSING_SLASH_NAME);
         if (!slashOptions.description)
             throw new TypeError(Errrors_1.default.MISSING_SLASH_DESC);
+        /**
+         * Slash name
+         * @type {string}
+         */
         this.name = slashOptions.name;
+        /**
+         * Slash description
+         * @type {string}
+         */
         this.description = slashOptions.description;
+        /**
+         * Slash type
+         * @type {ApplicationCommandType}
+         */
         this.type = slashOptions?.type || "CHAT_INPUT";
+        /**
+         * Slash options
+         * @type {SlashsCommandsOptions[]}
+         */
         this.options = slashOptions?.options;
+        /**
+         * Slash default permission
+         * @type {boolean}
+         */
         this.defaultPermission = slashOptions?.defaultPermission || true;
+        /**
+         * Slash guild only or not
+         * @type {boolean}
+         */
         this.guildOnly = slashOptions?.guildOnly || false;
     }
 }
