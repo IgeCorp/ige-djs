@@ -2,7 +2,7 @@
   "meta": {
     "generator": "0.10.0",
     "format": 20,
-    "date": 1638271850130
+    "date": 1638272264550
   },
   "custom": {
     "general": {
@@ -68,7 +68,7 @@
           "meta": {
             "line": 61,
             "file": "IgeClient.js",
-            "path": "dist"
+            "path": "src"
           }
         },
         {
@@ -84,7 +84,7 @@
           "meta": {
             "line": 66,
             "file": "IgeClient.js",
-            "path": "dist"
+            "path": "src"
           }
         },
         {
@@ -100,7 +100,7 @@
           "meta": {
             "line": 71,
             "file": "IgeClient.js",
-            "path": "dist"
+            "path": "src"
           }
         },
         {
@@ -126,7 +126,7 @@
           "meta": {
             "line": 76,
             "file": "IgeClient.js",
-            "path": "dist"
+            "path": "src"
           }
         },
         {
@@ -142,7 +142,7 @@
           "meta": {
             "line": 81,
             "file": "IgeClient.js",
-            "path": "dist"
+            "path": "src"
           }
         }
       ],
@@ -177,7 +177,7 @@
           "meta": {
             "line": 105,
             "file": "IgeClient.js",
-            "path": "dist"
+            "path": "src"
           }
         },
         {
@@ -210,7 +210,7 @@
           "meta": {
             "line": 130,
             "file": "IgeClient.js",
-            "path": "dist"
+            "path": "src"
           }
         },
         {
@@ -243,7 +243,7 @@
           "meta": {
             "line": 156,
             "file": "IgeClient.js",
-            "path": "dist"
+            "path": "src"
           }
         },
         {
@@ -276,7 +276,7 @@
           "meta": {
             "line": 183,
             "file": "IgeClient.js",
-            "path": "dist"
+            "path": "src"
           }
         },
         {
@@ -299,14 +299,14 @@
           "meta": {
             "line": 211,
             "file": "IgeClient.js",
-            "path": "dist"
+            "path": "src"
           }
         }
       ],
       "meta": {
         "line": 19,
         "file": "IgeClient.js",
-        "path": "dist"
+        "path": "src"
       }
     },
     {
@@ -342,7 +342,7 @@
           "meta": {
             "line": 50,
             "file": "IgeCommand.js",
-            "path": "dist"
+            "path": "src"
           }
         },
         {
@@ -358,7 +358,7 @@
           "meta": {
             "line": 55,
             "file": "IgeCommand.js",
-            "path": "dist"
+            "path": "src"
           }
         },
         {
@@ -374,7 +374,7 @@
           "meta": {
             "line": 60,
             "file": "IgeCommand.js",
-            "path": "dist"
+            "path": "src"
           }
         },
         {
@@ -395,7 +395,7 @@
           "meta": {
             "line": 65,
             "file": "IgeCommand.js",
-            "path": "dist"
+            "path": "src"
           }
         },
         {
@@ -416,7 +416,7 @@
           "meta": {
             "line": 70,
             "file": "IgeCommand.js",
-            "path": "dist"
+            "path": "src"
           }
         },
         {
@@ -437,7 +437,7 @@
           "meta": {
             "line": 75,
             "file": "IgeCommand.js",
-            "path": "dist"
+            "path": "src"
           }
         },
         {
@@ -453,7 +453,7 @@
           "meta": {
             "line": 80,
             "file": "IgeCommand.js",
-            "path": "dist"
+            "path": "src"
           }
         },
         {
@@ -469,14 +469,14 @@
           "meta": {
             "line": 85,
             "file": "IgeCommand.js",
-            "path": "dist"
+            "path": "src"
           }
         }
       ],
       "meta": {
         "line": 33,
         "file": "IgeCommand.js",
-        "path": "dist"
+        "path": "src"
       }
     },
     {
@@ -511,7 +511,7 @@
           "meta": {
             "line": 63,
             "file": "IgeSlash.js",
-            "path": "dist"
+            "path": "src"
           }
         },
         {
@@ -527,7 +527,7 @@
           "meta": {
             "line": 68,
             "file": "IgeSlash.js",
-            "path": "dist"
+            "path": "src"
           }
         },
         {
@@ -543,7 +543,7 @@
           "meta": {
             "line": 73,
             "file": "IgeSlash.js",
-            "path": "dist"
+            "path": "src"
           }
         },
         {
@@ -564,7 +564,7 @@
           "meta": {
             "line": 78,
             "file": "IgeSlash.js",
-            "path": "dist"
+            "path": "src"
           }
         },
         {
@@ -580,7 +580,7 @@
           "meta": {
             "line": 83,
             "file": "IgeSlash.js",
-            "path": "dist"
+            "path": "src"
           }
         },
         {
@@ -596,14 +596,14 @@
           "meta": {
             "line": 88,
             "file": "IgeSlash.js",
-            "path": "dist"
+            "path": "src"
           }
         }
       ],
       "meta": {
         "line": 52,
         "file": "IgeSlash.js",
-        "path": "dist"
+        "path": "src"
       }
     }
   ],
@@ -678,7 +678,7 @@
       "meta": {
         "line": 25,
         "file": "IgeClient.js",
-        "path": "dist"
+        "path": "src"
       }
     },
     {
@@ -755,7 +755,7 @@
       "meta": {
         "line": 84,
         "file": "IgeClient.js",
-        "path": "dist"
+        "path": "src"
       }
     },
     {
@@ -886,7 +886,7 @@
       "meta": {
         "line": 16,
         "file": "IgeCommand.js",
-        "path": "dist"
+        "path": "src"
       }
     },
     {
@@ -931,7 +931,7 @@
       "meta": {
         "line": 22,
         "file": "IgeSlash.js",
-        "path": "dist"
+        "path": "src"
       }
     },
     {
@@ -1029,7 +1029,7 @@
       "meta": {
         "line": 28,
         "file": "IgeSlash.js",
-        "path": "dist"
+        "path": "src"
       }
     },
     {
@@ -1126,7 +1126,7 @@
       "meta": {
         "line": 38,
         "file": "IgeSlash.js",
-        "path": "dist"
+        "path": "src"
       }
     }
   ],
@@ -1139,7 +1139,7 @@
       "meta": {
         "line": 12,
         "file": "IgeClient.js",
-        "path": "dist"
+        "path": "src"
       }
     },
     {
@@ -1150,7 +1150,7 @@
       "meta": {
         "line": 14,
         "file": "IgeSlash.js",
-        "path": "dist"
+        "path": "src"
       }
     },
     {
@@ -1161,7 +1161,7 @@
       "meta": {
         "line": 18,
         "file": "IgeSlash.js",
-        "path": "dist"
+        "path": "src"
       }
     }
   ]
