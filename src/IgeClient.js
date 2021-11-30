@@ -54,10 +54,30 @@ class IgeClient extends discord_js_1.Client {
             failIfNotExists: false,
             intents: Intents_1.default
         });
-        this.commands = new discord_js_1.Collection();
-        this.slashs = new discord_js_1.Collection();
+        /**
+         * The client commands Map
+         * @type {Map}
+         */
+        this.commands = new Map();
+        /**
+         * The client slashs commands Map
+         * @type {Map}
+         */
+        this.slashs = new Map();
+        /**
+         * Client prefix
+         * @type {string}
+         */
         this.prefix = options.prefix;
+        /**
+         * Client owner(s)
+         * @type {string|string[]}
+         */
         this.owner = options.owner;
+        /**
+         * Client test guild id
+         * @type {string}
+         */
         this.testGuild = options.testGuild;
         this.login(token);
     }
@@ -95,10 +115,9 @@ class IgeClient extends discord_js_1.Client {
         if (!options?.mongoUri)
             console.warn((0, colors_1.red)(`WARNING: `) + Errrors_1.default.MISSING_MONGO_URI);
         (options?.typescript === true) ? useTs = true : useTs = false;
-        const cmdDir = `${process.cwd()}/${options.commandsDir}`, slashDir = `${process.cwd()}/${options.slashsDir}`, evtDir = `${process.cwd()}/${options.eventsDir}`;
-        this._cmdsHandler(cmdDir, useTs);
-        this._slashHandler(slashDir, useTs);
-        this._evtsHandler(evtDir, useTs);
+        this._cmdsHandler(`${process.cwd()}/${options.commandsDir}`, useTs);
+        this._slashHandler(`${process.cwd()}/${options.slashsDir}`, useTs);
+        this._evtsHandler(`${process.cwd()}/${options.eventsDir}`, useTs);
         if (options.mongoUri)
             this._createConnection(options.mongoUri);
     }
