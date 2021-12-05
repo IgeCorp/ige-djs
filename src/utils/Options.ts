@@ -6,7 +6,7 @@ interface Options {
     /**
      * @param {string} commandsDir The client commands directory.
      */
-    commandsDir: string,
+    commandsDir?: string,
     /**
      * @param {string} slashsDir The client slashs commands directory.
      */

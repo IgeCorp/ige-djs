@@ -7,7 +7,6 @@ const Errors = {
     MISSING_OWNER_ID: "Missing Client Owner ID",
     MISSING_GUILD_ID: "Missing Test Guild ID",
     MISSING_OPTIONS: "Missing Client Parameters",
-    MISSING_CMD_DIR: "Missing Command Directory",
     MISSING_SLASH_DIR: "Missing Slash Command Directory",
     MISSING_EVT_DIR: "Missing Event Directory",
     MISSING_MONGO_URI: "Mongodb Connection Uri Not Provided",

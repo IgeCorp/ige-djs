@@ -56,14 +56,14 @@ class IgeClient extends discord_js_1.Client {
         });
         /**
          * The client commands Map
-         * @type {Map}
+         * @type {Collection}
          */
-        this.commands = new Map();
+        this.commands = new discord_js_1.Collection();
         /**
          * The client slashs commands Map
-         * @type {Map}
+         * @type {Collection}
          */
-        this.slashs = new Map();
+        this.slashs = new discord_js_1.Collection();
         /**
          * Client prefix
          * @type {string}
@@ -85,7 +85,7 @@ class IgeClient extends discord_js_1.Client {
      * All parameters for IgeClient handler
      * @typedef {Object} Options
      * @property {string} [typescript=false] Set default to true, set it to false to use javascript files.
-     * @property {string} commandsDir The client commands directory.
+     * @property {string} [commandsDir=null] The client commands directory.
      * @property {string} slashsDir The client slashs commands directory.
      * @property {string} eventsDir The client events directory.
      * @property {string} [mongoUri=null] Mongodb connection uri.
@@ -106,8 +106,6 @@ class IgeClient extends discord_js_1.Client {
         if (!options)
             throw new Error(Errrors_1.default.MISSING_OPTIONS);
         let useTs;
-        if (!options.commandsDir)
-            throw new TypeError(Errrors_1.default.MISSING_CMD_DIR);
         if (!options.slashsDir)
             throw new TypeError(Errrors_1.default.MISSING_SLASH_DIR);
         if (!options.eventsDir)
@@ -115,7 +113,8 @@ class IgeClient extends discord_js_1.Client {
         if (!options?.mongoUri)
             console.warn((0, colors_1.red)(`WARNING: `) + Errrors_1.default.MISSING_MONGO_URI);
         (options?.typescript === true) ? useTs = true : useTs = false;
-        this._cmdsHandler(`${process.cwd()}/${options.commandsDir}`, useTs);
+        if (options.commandsDir)
+            this._cmdsHandler(`${process.cwd()}/${options.commandsDir}`, useTs);
         this._slashHandler(`${process.cwd()}/${options.slashsDir}`, useTs);
         this._evtsHandler(`${process.cwd()}/${options.eventsDir}`, useTs);
         if (options.mongoUri)

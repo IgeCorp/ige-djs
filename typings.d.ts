@@ -50,7 +50,7 @@ export class IgeClient extends Client {
      * All parameters for IgeClient handler
      * @typedef {Object} Options
      * @property {string} [typescript=false] Set default to true, set it to false to use javascript files.
-     * @property {string} commandsDir The client commands directory.
+     * @property {string} [commandsDir=null] The client commands directory.
      * @property {string} slashsDir The client slashs commands directory.
      * @property {string} eventsDir The client events directory.
      * @property {string} [mongoUri=null] Mongodb connection uri.
@@ -62,7 +62,6 @@ export class IgeClient extends Client {
      * @returns {Options}
      * @example
      * client.params({
-     *     commandsDir: "commands",
      *     slashsDir: "slashs",
      *     eventsDir: "events",
      *     mongoUri: "mongodb connection uri"

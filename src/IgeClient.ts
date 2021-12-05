@@ -1,4 +1,4 @@
-import { Client } from "discord.js";
+import { Client, Collection } from "discord.js";
 import Errors from "./utils/Errrors";
 import ClientOptions from "./utils/ClientOptions";
 import Options from "./utils/Options";
@@ -16,8 +16,8 @@ import { connect } from "mongoose";
  * @extends {Client}
  */
 export default class IgeClient extends Client {
-    commands: Map<unknown, unknown>;
-    slashs: Map<unknown, unknown>;
+    commands: Collection<unknown, unknown>;
+    slashs: Collection<unknown, unknown>;
     prefix: string;
     owner: string | string[];
     testGuild: string;
@@ -53,14 +53,14 @@ export default class IgeClient extends Client {
         });
         /**
          * The client commands Map
-         * @type {Map}
+         * @type {Collection}
          */
-        this.commands = new Map();
+        this.commands = new Collection();
         /**
          * The client slashs commands Map
-         * @type {Map}
+         * @type {Collection}
          */
-        this.slashs = new Map();
+        this.slashs = new Collection();
 
         /**
          * Client prefix
@@ -85,7 +85,7 @@ export default class IgeClient extends Client {
      * All parameters for IgeClient handler
      * @typedef {Object} Options
      * @property {string} [typescript=false] Set default to true, set it to false to use javascript files.
-     * @property {string} commandsDir The client commands directory.
+     * @property {string} [commandsDir=null] The client commands directory.
      * @property {string} slashsDir The client slashs commands directory.
      * @property {string} eventsDir The client events directory.
      * @property {string} [mongoUri=null] Mongodb connection uri.
@@ -106,13 +106,12 @@ export default class IgeClient extends Client {
     async params(options: Options) {
         if (!options) throw new Error(Errors.MISSING_OPTIONS)
         let useTs;
-        if (!options.commandsDir) throw new TypeError(Errors.MISSING_CMD_DIR);
         if (!options.slashsDir) throw new TypeError(Errors.MISSING_SLASH_DIR);
         if (!options.eventsDir) throw new TypeError(Errors.MISSING_EVT_DIR);
         if (!options?.mongoUri) console.warn(red(`WARNING: `) + Errors.MISSING_MONGO_URI);
         (options?.typescript === true) ? useTs = true : useTs = false;
 
-        this._cmdsHandler(`${process.cwd()}/${options.commandsDir}`, useTs);
+        if (options.commandsDir) this._cmdsHandler(`${process.cwd()}/${options.commandsDir}`, useTs);
         this._slashHandler(`${process.cwd()}/${options.slashsDir}`, useTs);
         this._evtsHandler(`${process.cwd()}/${options.eventsDir}`, useTs);
         if (options.mongoUri) this._createConnection(options.mongoUri);

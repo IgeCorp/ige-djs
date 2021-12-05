@@ -43,7 +43,7 @@ module.exports = async (client) => {
 }
 ```
 
-`events/messageCreate.js`
+`events/interactionCreate.js`
 
 ```js
 module.exports = async (client, message) => {
