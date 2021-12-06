@@ -1,0 +1,1170 @@
+{
+  "meta": {
+    "generator": "0.10.0",
+    "format": 20,
+    "date": 1638803231061
+  },
+  "custom": {
+    "general": {
+      "name": "General",
+      "files": {
+        "welcome": {
+          "name": "Welcome",
+          "type": "md",
+          "content": "# IgeDJS\n\n## IgeDJS is a [npm](https://npmjs.com) module\n\n### Installation\n\n#### Latest version\n\n```shell\nnpm i @igecorp/ige-djs\n```\n\n#### Dev Version\n\n```shell\nnpm i https://github.com/IgeCorp/ige-djs\n```\n\n### Example\n\n#### Login CLient\n\n`index.js`\n\n```js\nconst IgeDJS = require(\"@igecorp/ige-djs\");\n\nconst client = new IgeDJS.IgeClient(\"Discord Bot Token\", { replies: true, prefix: \"!\" }); //Replace \"replies: true\" by \"replies: false\" if you don't want any mentions.\n\nclient.param({\n    commandsDir: \"commands\", //Replace it by your client commands directory.\n    eventsDir: \"events\" //Replace it by your client events directory.\n});\n```\n\n`events/ready.js`\n\n```js\nmodule.exports = async (client) => {\n    console.log(`${client.user.tag} is ready.`);\n\n    client.user.setActivity(`I'm using @igecorp/ige-djs npm module !`, { type: \"PLAYING\" });\n}\n```\n\n`events/messageCreate.js`\n\n```js\nmodule.exports = async (client, message) => {\n    if (message.content.indexOf(prefix) !== 0) return;\n\n    const args = message.content.slice(prefix.length).trim().split(/ +/g);\n    const command = args.shift().toLowerCase();\n\n    if (!command) return;\n    \n    const cmd = client.commands.get(command) || client.commands.find(x => x.aliases.includes(command));\n\n    if (!cmd) return message.reply({ content: `I have not command named ${command}.` });\n\n    cmd.run(message, args, client);\n}\n```\n\n`commands/ping.js`\n\n```js\nconst IgeDJS = require(\"@igecorp/ige-djs\");\n\nclass ping extends IgeDJS.IgeCommand {\n    constructor() {\n        super({\n            name: \"ping\",\n            category: \"utility\",\n            usage: \"ping\"\n        });\n    }\n\n    async run(message) {\n        message.channel.send(`Pong: \\`${Date.now() - message.createdTimestamp}ms\\``);\n    }\n}\n```\n\n© 2021 Copyright: IgeCorp\n",
+          "path": "README.md"
+        }
+      }
+    }
+  },
+  "classes": [
+    {
+      "name": "IgeClient",
+      "extends": [
+        [
+          [
+            "Client"
+          ]
+        ]
+      ],
+      "construct": {
+        "name": "IgeClient",
+        "params": [
+          {
+            "name": "token",
+            "description": "The discord client token",
+            "type": [
+              [
+                [
+                  "string"
+                ]
+              ]
+            ]
+          },
+          {
+            "name": "options",
+            "description": "Discord client options (replies, prefix, owner, ...)",
+            "type": [
+              [
+                [
+                  "ClientOptions"
+                ]
+              ]
+            ]
+          }
+        ]
+      },
+      "props": [
+        {
+          "name": "commands",
+          "description": "The client commands Map",
+          "type": [
+            [
+              [
+                "Collection"
+              ]
+            ]
+          ],
+          "meta": {
+            "line": 61,
+            "file": "IgeClient.js",
+            "path": "dist"
+          }
+        },
+        {
+          "name": "slashs",
+          "description": "The client slashs commands Map",
+          "type": [
+            [
+              [
+                "Collection"
+              ]
+            ]
+          ],
+          "meta": {
+            "line": 66,
+            "file": "IgeClient.js",
+            "path": "dist"
+          }
+        },
+        {
+          "name": "prefix",
+          "description": "Client prefix",
+          "type": [
+            [
+              [
+                "string"
+              ]
+            ]
+          ],
+          "meta": {
+            "line": 71,
+            "file": "IgeClient.js",
+            "path": "dist"
+          }
+        },
+        {
+          "name": "owner",
+          "description": "Client owner(s)",
+          "type": [
+            [
+              [
+                "string"
+              ]
+            ],
+            [
+              [
+                "Array",
+                "<"
+              ],
+              [
+                "string",
+                ">"
+              ]
+            ]
+          ],
+          "meta": {
+            "line": 76,
+            "file": "IgeClient.js",
+            "path": "dist"
+          }
+        },
+        {
+          "name": "testGuild",
+          "description": "Client test guild id",
+          "type": [
+            [
+              [
+                "string"
+              ]
+            ]
+          ],
+          "meta": {
+            "line": 81,
+            "file": "IgeClient.js",
+            "path": "dist"
+          }
+        }
+      ],
+      "methods": [
+        {
+          "name": "params",
+          "description": "IgeClient Options for handler and mongodb",
+          "examples": [
+            "client.params({\n    commandsDir: \"commands\",\n    slashsDir: \"slashs\",\n    eventsDir: \"events\",\n    mongoUri: \"mongodb connection uri\"\n});"
+          ],
+          "params": [
+            {
+              "name": "options",
+              "description": "The client options (commands/slashs/events directory, mongo uri)",
+              "type": [
+                [
+                  [
+                    "Options"
+                  ]
+                ]
+              ]
+            }
+          ],
+          "async": true,
+          "returns": [
+            [
+              [
+                "Options"
+              ]
+            ]
+          ],
+          "meta": {
+            "line": 105,
+            "file": "IgeClient.js",
+            "path": "dist"
+          }
+        },
+        {
+          "name": "_cmdsHandler",
+          "description": "The client commands handler",
+          "access": "private",
+          "params": [
+            {
+              "name": "cmdDir",
+              "type": [
+                [
+                  [
+                    "string"
+                  ]
+                ]
+              ]
+            },
+            {
+              "name": "useTs",
+              "type": [
+                [
+                  [
+                    "boolean"
+                  ]
+                ]
+              ]
+            }
+          ],
+          "async": true,
+          "meta": {
+            "line": 129,
+            "file": "IgeClient.js",
+            "path": "dist"
+          }
+        },
+        {
+          "name": "_slashHandler",
+          "description": "The client slash commands handler",
+          "access": "private",
+          "params": [
+            {
+              "name": "slashDir",
+              "type": [
+                [
+                  [
+                    "string"
+                  ]
+                ]
+              ]
+            },
+            {
+              "name": "useTs",
+              "type": [
+                [
+                  [
+                    "boolean"
+                  ]
+                ]
+              ]
+            }
+          ],
+          "async": true,
+          "meta": {
+            "line": 155,
+            "file": "IgeClient.js",
+            "path": "dist"
+          }
+        },
+        {
+          "name": "_evtsHandler",
+          "description": "The client events handler",
+          "access": "private",
+          "params": [
+            {
+              "name": "evtDir",
+              "type": [
+                [
+                  [
+                    "string"
+                  ]
+                ]
+              ]
+            },
+            {
+              "name": "useTs",
+              "type": [
+                [
+                  [
+                    "boolean"
+                  ]
+                ]
+              ]
+            }
+          ],
+          "async": true,
+          "meta": {
+            "line": 182,
+            "file": "IgeClient.js",
+            "path": "dist"
+          }
+        },
+        {
+          "name": "_createConnection",
+          "description": "Mongodb connection creator",
+          "access": "private",
+          "params": [
+            {
+              "name": "mongoUri",
+              "type": [
+                [
+                  [
+                    "string"
+                  ]
+                ]
+              ]
+            }
+          ],
+          "async": true,
+          "meta": {
+            "line": 210,
+            "file": "IgeClient.js",
+            "path": "dist"
+          }
+        }
+      ],
+      "meta": {
+        "line": 19,
+        "file": "IgeClient.js",
+        "path": "dist"
+      }
+    },
+    {
+      "name": "IgeCommand",
+      "construct": {
+        "name": "IgeCommand",
+        "description": "Command paremeters",
+        "params": [
+          {
+            "name": "commandOptions",
+            "description": "The command options (name, category, usage, description, ...)",
+            "type": [
+              [
+                [
+                  "CommandOptions"
+                ]
+              ]
+            ]
+          }
+        ]
+      },
+      "props": [
+        {
+          "name": "name",
+          "description": "Command name",
+          "type": [
+            [
+              [
+                "string"
+              ]
+            ]
+          ],
+          "meta": {
+            "line": 50,
+            "file": "IgeCommand.js",
+            "path": "dist"
+          }
+        },
+        {
+          "name": "category",
+          "description": "Command category",
+          "type": [
+            [
+              [
+                "string"
+              ]
+            ]
+          ],
+          "meta": {
+            "line": 55,
+            "file": "IgeCommand.js",
+            "path": "dist"
+          }
+        },
+        {
+          "name": "description",
+          "description": "Command description",
+          "type": [
+            [
+              [
+                "string"
+              ]
+            ]
+          ],
+          "meta": {
+            "line": 60,
+            "file": "IgeCommand.js",
+            "path": "dist"
+          }
+        },
+        {
+          "name": "aliases",
+          "description": "Command aliase(s)",
+          "type": [
+            [
+              [
+                "Array",
+                "<"
+              ],
+              [
+                "string",
+                ">"
+              ]
+            ]
+          ],
+          "meta": {
+            "line": 65,
+            "file": "IgeCommand.js",
+            "path": "dist"
+          }
+        },
+        {
+          "name": "usage",
+          "description": "Command usage(s)",
+          "type": [
+            [
+              [
+                "Array",
+                "<"
+              ],
+              [
+                "string",
+                ">"
+              ]
+            ]
+          ],
+          "meta": {
+            "line": 70,
+            "file": "IgeCommand.js",
+            "path": "dist"
+          }
+        },
+        {
+          "name": "example",
+          "description": "Command example(s)",
+          "type": [
+            [
+              [
+                "Array",
+                "<"
+              ],
+              [
+                "string",
+                ">"
+              ]
+            ]
+          ],
+          "meta": {
+            "line": 75,
+            "file": "IgeCommand.js",
+            "path": "dist"
+          }
+        },
+        {
+          "name": "permission",
+          "description": "Command permission",
+          "type": [
+            [
+              [
+                "string"
+              ]
+            ]
+          ],
+          "meta": {
+            "line": 80,
+            "file": "IgeCommand.js",
+            "path": "dist"
+          }
+        },
+        {
+          "name": "botAllowed",
+          "description": "Bot allowed or no",
+          "type": [
+            [
+              [
+                "boolean"
+              ]
+            ]
+          ],
+          "meta": {
+            "line": 85,
+            "file": "IgeCommand.js",
+            "path": "dist"
+          }
+        }
+      ],
+      "meta": {
+        "line": 33,
+        "file": "IgeCommand.js",
+        "path": "dist"
+      }
+    },
+    {
+      "name": "IgeSlash",
+      "construct": {
+        "name": "IgeSlash",
+        "params": [
+          {
+            "name": "slashOptions",
+            "description": "The slash command options.",
+            "type": [
+              [
+                [
+                  "SlashOptions"
+                ]
+              ]
+            ]
+          }
+        ]
+      },
+      "props": [
+        {
+          "name": "name",
+          "description": "Slash name",
+          "type": [
+            [
+              [
+                "string"
+              ]
+            ]
+          ],
+          "meta": {
+            "line": 63,
+            "file": "IgeSlash.js",
+            "path": "dist"
+          }
+        },
+        {
+          "name": "description",
+          "description": "Slash description",
+          "type": [
+            [
+              [
+                "string"
+              ]
+            ]
+          ],
+          "meta": {
+            "line": 68,
+            "file": "IgeSlash.js",
+            "path": "dist"
+          }
+        },
+        {
+          "name": "type",
+          "description": "Slash type",
+          "type": [
+            [
+              [
+                "ApplicationCommandType"
+              ]
+            ]
+          ],
+          "meta": {
+            "line": 73,
+            "file": "IgeSlash.js",
+            "path": "dist"
+          }
+        },
+        {
+          "name": "options",
+          "description": "Slash options",
+          "type": [
+            [
+              [
+                "Array",
+                "<"
+              ],
+              [
+                "SlashsCommandsOptions",
+                ">"
+              ]
+            ]
+          ],
+          "meta": {
+            "line": 78,
+            "file": "IgeSlash.js",
+            "path": "dist"
+          }
+        },
+        {
+          "name": "defaultPermission",
+          "description": "Slash default permission",
+          "type": [
+            [
+              [
+                "boolean"
+              ]
+            ]
+          ],
+          "meta": {
+            "line": 83,
+            "file": "IgeSlash.js",
+            "path": "dist"
+          }
+        },
+        {
+          "name": "guildOnly",
+          "description": "Slash guild only or not",
+          "type": [
+            [
+              [
+                "boolean"
+              ]
+            ]
+          ],
+          "meta": {
+            "line": 88,
+            "file": "IgeSlash.js",
+            "path": "dist"
+          }
+        }
+      ],
+      "meta": {
+        "line": 52,
+        "file": "IgeSlash.js",
+        "path": "dist"
+      }
+    }
+  ],
+  "interfaces": [],
+  "typedefs": [
+    {
+      "name": "ClientOptions",
+      "description": "All IgeClient options",
+      "type": [
+        [
+          [
+            "Object"
+          ]
+        ]
+      ],
+      "props": [
+        {
+          "name": "replies",
+          "description": "Its a boolean value to set if the bot mention or no a user when it reply a message.",
+          "type": [
+            [
+              [
+                "boolean"
+              ]
+            ]
+          ]
+        },
+        {
+          "name": "prefix",
+          "description": "The client prefix.",
+          "type": [
+            [
+              [
+                "string"
+              ]
+            ]
+          ]
+        },
+        {
+          "name": "owner",
+          "description": "The client owner user ID.",
+          "type": [
+            [
+              [
+                "string"
+              ]
+            ],
+            [
+              [
+                "Array",
+                "<"
+              ],
+              [
+                "string",
+                ">"
+              ]
+            ]
+          ]
+        },
+        {
+          "name": "testGuild",
+          "description": "The client test guild id.",
+          "type": [
+            [
+              [
+                "string"
+              ]
+            ]
+          ]
+        }
+      ],
+      "meta": {
+        "line": 25,
+        "file": "IgeClient.js",
+        "path": "dist"
+      }
+    },
+    {
+      "name": "Options",
+      "description": "All parameters for IgeClient handler",
+      "type": [
+        [
+          [
+            "Object"
+          ]
+        ]
+      ],
+      "props": [
+        {
+          "name": "typescript",
+          "description": "Set default to true, set it to false to use javascript files.",
+          "optional": true,
+          "default": false,
+          "type": [
+            [
+              [
+                "string"
+              ]
+            ]
+          ]
+        },
+        {
+          "name": "commandsDir",
+          "description": "The client commands directory.",
+          "optional": true,
+          "default": null,
+          "type": [
+            [
+              [
+                "string"
+              ]
+            ]
+          ]
+        },
+        {
+          "name": "slashsDir",
+          "description": "The client slashs commands directory.",
+          "type": [
+            [
+              [
+                "string"
+              ]
+            ]
+          ]
+        },
+        {
+          "name": "eventsDir",
+          "description": "The client events directory.",
+          "type": [
+            [
+              [
+                "string"
+              ]
+            ]
+          ]
+        },
+        {
+          "name": "mongoUri",
+          "description": "Mongodb connection uri.",
+          "optional": true,
+          "default": null,
+          "type": [
+            [
+              [
+                "string"
+              ]
+            ]
+          ]
+        }
+      ],
+      "meta": {
+        "line": 84,
+        "file": "IgeClient.js",
+        "path": "dist"
+      }
+    },
+    {
+      "name": "CommandOptions",
+      "description": "All command options",
+      "type": [
+        [
+          [
+            "Object"
+          ]
+        ]
+      ],
+      "props": [
+        {
+          "name": "name",
+          "description": "The command name.",
+          "type": [
+            [
+              [
+                "string"
+              ]
+            ]
+          ]
+        },
+        {
+          "name": "category",
+          "description": "The command category.",
+          "type": [
+            [
+              [
+                "string"
+              ]
+            ]
+          ]
+        },
+        {
+          "name": "description",
+          "description": "The command description.",
+          "optional": true,
+          "default": null,
+          "type": [
+            [
+              [
+                "string"
+              ]
+            ]
+          ]
+        },
+        {
+          "name": "aliases",
+          "description": "The command aliases.",
+          "optional": true,
+          "default": null,
+          "type": [
+            [
+              [
+                "Array",
+                "<"
+              ],
+              [
+                "string",
+                ">"
+              ]
+            ]
+          ]
+        },
+        {
+          "name": "usage",
+          "description": "The command usages.",
+          "type": [
+            [
+              [
+                "Array",
+                "<"
+              ],
+              [
+                "string",
+                ">"
+              ]
+            ]
+          ]
+        },
+        {
+          "name": "example",
+          "description": "The command example.",
+          "optional": true,
+          "default": null,
+          "type": [
+            [
+              [
+                "Array",
+                "<"
+              ],
+              [
+                "string",
+                ">"
+              ]
+            ]
+          ]
+        },
+        {
+          "name": "permission",
+          "description": "The command permission.",
+          "optional": true,
+          "default": null,
+          "type": [
+            [
+              [
+                "string"
+              ]
+            ]
+          ]
+        },
+        {
+          "name": "botAllowed",
+          "description": "Boolean value to define if a bot can use this command.",
+          "optional": true,
+          "default": false,
+          "type": [
+            [
+              [
+                "boolean"
+              ]
+            ]
+          ]
+        }
+      ],
+      "meta": {
+        "line": 16,
+        "file": "IgeCommand.js",
+        "path": "dist"
+      }
+    },
+    {
+      "name": "SlashsCommandsOptionsChoices",
+      "description": "Slash command options choices",
+      "type": [
+        [
+          [
+            "Array"
+          ]
+        ]
+      ],
+      "props": [
+        {
+          "name": "name",
+          "description": "The name of the choice",
+          "type": [
+            [
+              [
+                "string"
+              ]
+            ]
+          ]
+        },
+        {
+          "name": "value",
+          "description": "The value of the choice",
+          "type": [
+            [
+              [
+                "string"
+              ]
+            ],
+            [
+              [
+                "number"
+              ]
+            ]
+          ]
+        }
+      ],
+      "meta": {
+        "line": 22,
+        "file": "IgeSlash.js",
+        "path": "dist"
+      }
+    },
+    {
+      "name": "SlashsCommandsOptions",
+      "description": "Slash command options values",
+      "type": [
+        [
+          [
+            "Array"
+          ]
+        ]
+      ],
+      "props": [
+        {
+          "name": "type",
+          "description": "The type of the option",
+          "type": [
+            [
+              [
+                "ApplicationCommandOptionType"
+              ]
+            ]
+          ]
+        },
+        {
+          "name": "name",
+          "description": "The name of the option",
+          "type": [
+            [
+              [
+                "string"
+              ]
+            ]
+          ]
+        },
+        {
+          "name": "description",
+          "description": "The description of the option",
+          "type": [
+            [
+              [
+                "string"
+              ]
+            ]
+          ]
+        },
+        {
+          "name": "required",
+          "description": "Whether the option is required",
+          "type": [
+            [
+              [
+                "boolean"
+              ]
+            ]
+          ]
+        },
+        {
+          "name": "choices",
+          "description": "The choices of the option for the user to pick from",
+          "optional": true,
+          "default": null,
+          "type": [
+            [
+              [
+                "Array",
+                "<"
+              ],
+              [
+                "SlashsCommandsOptionsChoices",
+                ">"
+              ]
+            ]
+          ]
+        },
+        {
+          "name": "options",
+          "description": "Additional options if this option is a subcommand (group)",
+          "optional": true,
+          "default": null,
+          "type": [
+            [
+              [
+                "Array",
+                "<"
+              ],
+              [
+                "SlashsCommandsOptions",
+                ">"
+              ]
+            ]
+          ]
+        }
+      ],
+      "meta": {
+        "line": 28,
+        "file": "IgeSlash.js",
+        "path": "dist"
+      }
+    },
+    {
+      "name": "SlashOptions",
+      "description": "All slash command options",
+      "type": [
+        [
+          [
+            "Object"
+          ]
+        ]
+      ],
+      "props": [
+        {
+          "name": "name",
+          "description": "The slash command name.",
+          "type": [
+            [
+              [
+                "string"
+              ]
+            ]
+          ]
+        },
+        {
+          "name": "description",
+          "description": "The slash command description.",
+          "type": [
+            [
+              [
+                "string"
+              ]
+            ]
+          ]
+        },
+        {
+          "name": "type",
+          "description": "The slash command type (CHAT_IMPUT, USER, MESSAGE).",
+          "optional": true,
+          "default": "\"CHAT_IMPUT\"",
+          "type": [
+            [
+              [
+                "ApplicationCommandType"
+              ]
+            ]
+          ]
+        },
+        {
+          "name": "options",
+          "description": "The slash command options (choices, ...)",
+          "optional": true,
+          "default": null,
+          "type": [
+            [
+              [
+                "Array",
+                "<"
+              ],
+              [
+                "SlashsCommandsOptions",
+                ">"
+              ]
+            ]
+          ]
+        },
+        {
+          "name": "defaultPermission",
+          "description": "The slash command defaultPermission.",
+          "optional": true,
+          "default": true,
+          "type": [
+            [
+              [
+                "boolean"
+              ]
+            ]
+          ]
+        },
+        {
+          "name": "guildOnly",
+          "description": "Boolean value if you want this command to one guild only.",
+          "optional": true,
+          "default": false,
+          "type": [
+            [
+              [
+                "boolean"
+              ]
+            ]
+          ]
+        }
+      ],
+      "meta": {
+        "line": 38,
+        "file": "IgeSlash.js",
+        "path": "dist"
+      }
+    }
+  ],
+  "externals": [
+    {
+      "name": "Client",
+      "see": [
+        "{@link https://discord.js.org/#/docs/main/stable/class/Client}"
+      ],
+      "meta": {
+        "line": 12,
+        "file": "IgeClient.js",
+        "path": "dist"
+      }
+    },
+    {
+      "name": "ApplicationCommandType",
+      "see": [
+        "{@link https://discord.js.org/#/docs/main/stable/typedef/ApplicationCommandType}"
+      ],
+      "meta": {
+        "line": 14,
+        "file": "IgeSlash.js",
+        "path": "dist"
+      }
+    },
+    {
+      "name": "ApplicationCommandOptionType",
+      "see": [
+        "{@link https://discord.js.org/#/docs/main/stable/typedef/ApplicationCommandOptionType}"
+      ],
+      "meta": {
+        "line": 18,
+        "file": "IgeSlash.js",
+        "path": "dist"
+      }
+    }
+  ]
+}
