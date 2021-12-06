@@ -11,6 +11,7 @@ class IgeSlash {
     options;
     defaultPermission;
     guildOnly;
+    category;
     /**
      * @external ApplicationCommandType
      * @see {@link https://discord.js.org/#/docs/main/stable/typedef/ApplicationCommandType}
@@ -44,6 +45,7 @@ class IgeSlash {
      * @property {SlashsCommandsOptions[]} [options=null] The slash command options (choices, ...)
      * @property {boolean} [defaultPermission=true] The slash command defaultPermission.
      * @property {boolean} [guildOnly=false] Boolean value if you want this command to one guild only.
+     * @property {string} [category=null] The slash command category
      */
     /**
      * @param {SlashOptions} slashOptions The slash command options.
@@ -86,6 +88,11 @@ class IgeSlash {
          * @type {boolean}
          */
         this.guildOnly = slashOptions?.guildOnly || false;
+        /**
+         * Slash command category
+         * @type {string}
+         */
+        this.category = slashOptions?.category;
     }
 }
 exports.default = IgeSlash;

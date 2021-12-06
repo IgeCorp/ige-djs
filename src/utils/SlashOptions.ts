@@ -25,7 +25,11 @@ interface SlashOptions {
     /**
      * @param {boolean} guildOnly Set true or false if you want this command to one guild only.
      */
-    guildOnly?: boolean
+    guildOnly?: boolean,
+    /**
+     * @param {string} category The slash command category
+     */
+    category?: string
 }
 
 export default SlashOptions;

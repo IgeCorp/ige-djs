@@ -10,6 +10,7 @@ export default class IgeSlash {
     options?: SlashsCommandsOptions[];
     defaultPermission?: boolean;
     guildOnly?: boolean;
+    category?: string;
 
     /**
      * @external ApplicationCommandType
@@ -47,6 +48,7 @@ export default class IgeSlash {
      * @property {SlashsCommandsOptions[]} [options=null] The slash command options (choices, ...)
      * @property {boolean} [defaultPermission=true] The slash command defaultPermission.
      * @property {boolean} [guildOnly=false] Boolean value if you want this command to one guild only.
+     * @property {string} [category=null] The slash command category
      */
 
     /**
@@ -88,6 +90,11 @@ export default class IgeSlash {
          * @type {boolean}
          */
         this.guildOnly = slashOptions?.guildOnly || false;
+        /**
+         * Slash command category
+         * @type {string}
+         */
+        this.category = slashOptions?.category;
     }
 }
 

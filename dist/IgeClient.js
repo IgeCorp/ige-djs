@@ -84,11 +84,12 @@ class IgeClient extends discord_js_1.Client {
     /**
      * All parameters for IgeClient handler
      * @typedef {Object} Options
-     * @property {string} [typescript=false] Set default to true, set it to false to use javascript files.
+     * @property {boolean} [typescript=false] Set default to false, set it to true to use typescript files.
      * @property {string} [commandsDir=null] The client commands directory.
      * @property {string} slashsDir The client slashs commands directory.
      * @property {string} eventsDir The client events directory.
      * @property {string} [mongoUri=null] Mongodb connection uri.
+     * @property {boolean} [cmdsInFolders=false] Set this to true if you want to use basic commands and slashs command in folders.
      */
     /**
      * IgeClient Options for handler and mongodb
@@ -105,17 +106,17 @@ class IgeClient extends discord_js_1.Client {
     async params(options) {
         if (!options)
             throw new Error(Errrors_1.default.MISSING_OPTIONS);
-        let useTs;
         if (!options.slashsDir)
             throw new TypeError(Errrors_1.default.MISSING_SLASH_DIR);
         if (!options.eventsDir)
             throw new TypeError(Errrors_1.default.MISSING_EVT_DIR);
         if (!options?.mongoUri)
             console.warn((0, colors_1.red)(`WARNING: `) + Errrors_1.default.MISSING_MONGO_URI);
-        (options?.typescript === true) ? useTs = true : useTs = false;
+        let useTs = (options?.typescript === true) ? true : false;
+        let useFolders = (options?.cmdsInFolders === true) ? true : false;
         if (options.commandsDir)
-            this._cmdsHandler(`${process.cwd()}/${options.commandsDir}`, useTs);
-        this._slashHandler(`${process.cwd()}/${options.slashsDir}`, useTs);
+            this._cmdsHandler(`${process.cwd()}/${options.commandsDir}`, useTs, useFolders);
+        this._slashHandler(`${process.cwd()}/${options.slashsDir}`, useTs, useFolders);
         this._evtsHandler(`${process.cwd()}/${options.eventsDir}`, useTs);
         if (options.mongoUri)
             this._createConnection(options.mongoUri);
@@ -124,54 +125,101 @@ class IgeClient extends discord_js_1.Client {
      * The client commands handler
      * @param {string} cmdDir
      * @param {boolean} useTs
+     * @param {boolean} useFolders
      * @private
      */
-    async _cmdsHandler(cmdDir, useTs) {
+    async _cmdsHandler(cmdDir, useTs, useFolders) {
         let fileType = (useTs === true) ? ".ts" : ".js";
-        (0, fs_1.readdir)(cmdDir, (_err, files) => {
-            let size = files.length, count = 0;
-            files.forEach(file => {
-                if (!file.endsWith(fileType))
-                    return size = size - 1;
-                try {
-                    const command = require(`${cmdDir}/${file}`);
-                    this.commands.set(command.name, command);
-                    count = count + 1;
-                }
-                catch (err) {
-                    const cmdName = file.split(".")[0];
-                    console.log(`${(0, colors_1.red)("Error")} | Failed to load ${(0, colors_1.blue)(cmdName)} command.\n${err}`);
-                }
+        if (useFolders !== true) {
+            (0, fs_1.readdir)(cmdDir, (_err, files) => {
+                let size = files.length, count = 0;
+                files.forEach(file => {
+                    if (!file.endsWith(fileType))
+                        return size = size - 1;
+                    try {
+                        const command = require(`${cmdDir}/${file}`);
+                        this.commands.set(command.name, command);
+                        count = count + 1;
+                    }
+                    catch (err) {
+                        const cmdName = file.split(".")[0];
+                        console.log(`${(0, colors_1.red)("Error")} | Failed to load ${(0, colors_1.blue)(cmdName)} command.\n${err}`);
+                    }
+                });
+                console.log(`${(0, colors_1.green)("Success")} | Loaded ${count}/${size} commands.`);
             });
-            console.log(`${(0, colors_1.green)("Success")} | Loaded ${count}/${size} commands.`);
-        });
+        }
+        else {
+            let count = 0;
+            const folders = (0, fs_1.readdirSync)(cmdDir);
+            for (let i = 0; i < folders.length; i++) {
+                const commands = (0, fs_1.readdirSync)(`${cmdDir}/${folders[i]}`);
+                count = count + commands.length;
+                for (const c of commands) {
+                    if (!c.endsWith(fileType))
+                        return count = count - 1;
+                    try {
+                        const command = require(`${cmdDir}/${folders[i]}/${c}`);
+                        this.commands.set(command.name, command);
+                    }
+                    catch (err) {
+                        const cmdName = c.split(".")[0];
+                        console.log(`${(0, colors_1.red)("Error")} | Failed to load ${(0, colors_1.blue)(cmdName)} command.\n${err}`);
+                    }
+                }
+            }
+            console.log(`${(0, colors_1.green)("Success")} | Loaded ${this.commands.size}/${count} commands.`);
+        }
     }
     /**
      * The client slash commands handler
      * @param {string} slashDir
      * @param {boolean} useTs
+     * @param {boolean} useFolders
      * @private
      */
-    async _slashHandler(slashDir, useTs) {
+    async _slashHandler(slashDir, useTs, useFolders) {
         let fileType = (useTs === true) ? ".ts" : ".js";
-        (0, fs_1.readdir)(slashDir, async (_err, files) => {
-            let size = files.length, count = 0;
-            files.forEach(async (file) => {
-                if (!file.endsWith(fileType))
-                    return size = size - 1;
-                ;
-                try {
-                    const command = require(`${slashDir}/${file}`);
-                    this.slashs.set(command.name, command);
-                    count = count + 1;
-                }
-                catch (err) {
-                    const slashName = file.split(".")[0];
-                    console.log(`${(0, colors_1.red)("Error")} | Failed to load ${(0, colors_1.blue)(slashName)} slash command.\n${err}`);
-                }
+        if (useFolders !== true) {
+            (0, fs_1.readdir)(slashDir, async (_err, files) => {
+                let size = files.length, count = 0;
+                files.forEach(async (file) => {
+                    if (!file.endsWith(fileType))
+                        return size = size - 1;
+                    try {
+                        const slash = require(`${slashDir}/${file}`);
+                        this.slashs.set(slash.name, slash);
+                        count = count + 1;
+                    }
+                    catch (err) {
+                        const slashName = file.split(".")[0];
+                        console.log(`${(0, colors_1.red)("Error")} | Failed to load ${(0, colors_1.blue)(slashName)} slash command.\n${err}`);
+                    }
+                });
+                console.log(`${(0, colors_1.green)("Success")} | Loaded ${count}/${size} slashs commands.`);
             });
-            console.log(`${(0, colors_1.green)("Success")} | Loaded ${count}/${size} slashs commands.`);
-        });
+        }
+        else {
+            let count = 0;
+            const folders = (0, fs_1.readdirSync)(slashDir);
+            for (let i = 0; i < folders.length; i++) {
+                const commands = (0, fs_1.readdirSync)(`${slashDir}/${folders[i]}`);
+                count = count + commands.length;
+                for (const s of commands) {
+                    if (!s.endsWith(fileType))
+                        return count = count - 1;
+                    try {
+                        const slash = require(`${slashDir}/${folders[i]}/${s}`);
+                        this.slashs.set(slash.name, slash);
+                    }
+                    catch (err) {
+                        const slashName = s.split(".")[0];
+                        console.log(`${(0, colors_1.red)("Error")} | Failed to load ${(0, colors_1.blue)(slashName)} slash command.\n${err}`);
+                    }
+                }
+            }
+            console.log(`${(0, colors_1.green)("Success")} | Loaded ${this.slashs.size}/${count} slashs commands.`);
+        }
     }
     /**
      * The client events handler

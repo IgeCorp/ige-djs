@@ -49,11 +49,12 @@ export class IgeClient extends Client {
      /**
      * All parameters for IgeClient handler
      * @typedef {Object} Options
-     * @property {string} [typescript=false] Set default to true, set it to false to use javascript files.
+     * @property {boolean} [typescript=false] Set default to true, set it to false to use javascript files.
      * @property {string} [commandsDir=null] The client commands directory.
      * @property {string} slashsDir The client slashs commands directory.
      * @property {string} eventsDir The client events directory.
      * @property {string} [mongoUri=null] Mongodb connection uri.
+     * @property {boolean} [cmdsInFolders=false] Set this to true if you want to use basic commands and slashs command in folders.
      */
 
     /**
@@ -149,6 +150,7 @@ export class IgeSlash {
     options?: SlashsCommandsOptions[];
     defaultPermission?: boolean;
     guildOnly?: boolean;
+    category?: string;
 
     /**
      * @external ApplicationCommandType
@@ -186,6 +188,7 @@ export class IgeSlash {
      * @property {SlashsCommandsOptions[]} [options=null] The slash command options (choices, ...)
      * @property {boolean} [defaultPermission=true] The slash command defaultPermission.
      * @property {boolean} [guildOnly=false] Boolean value if you want this command to one guild only.
+     * @property {string} [category=null] The slash command category
      */
 
     /**
@@ -197,142 +200,150 @@ export class IgeSlash {
 
 interface ClientOptions {
     /**
-     * @description Its a boolean value to set if the bot mention or no a user when it reply a message.
+     * @param {boolean} replies Its a boolean value to set if the bot mention or no a user when it reply a message.
      */
-    replies: boolean,
-    /**
-     * @description The client prefix.
-     */
-    prefix: string,
-    /**
-     * @description The client owner user ID.
-     */
-    owner: string | string[];
-    /**
-     * @description The client test guild id.
-     */
-    testGuild: string
+     replies: boolean,
+     /**
+      * @param {string} prefix The client prefix.
+      */
+     prefix: string,
+     /**
+      * @param {string|string[]} owner The client owner user ID.
+      */
+     owner: string | string[],
+     /**
+      * @param {string} testGuild The client test guild id.
+      */
+     testGuild: string
 }
 
 interface Options {
     /**
-     * @description Set default to true, set it to false to use javascript files.
+     * @param {string} typescript Set default to false, set it to true to use typescript files.
      */
-    typescript?: boolean,
-    /**
-     * @description The client commands directory.
-     */
-    commandsDir: string,
-    /**
-     * @description The client slashs commands directory.
-     */
-    slashsDir: string,
-    /**
-     * @description The client events directory.
-     */
-    eventsDir: string,
-    /**
-     * @description Mongodb connection uri.
-     */
-    mongoUri?: string
+     typescript?: boolean,
+     /**
+      * @param {string} commandsDir The client commands directory.
+      */
+     commandsDir?: string,
+     /**
+      * @param {string} slashsDir The client slashs commands directory.
+      */
+     slashsDir: string,
+     /**
+      * @param {string} eventsDir The client events directory.
+      */
+     eventsDir: string,
+     /**
+      * @param {string} mongoUri Mongodb connection uri.
+      */
+     mongoUri?: string
+     /**
+      * @param {boolean} cmdsInFolders Set this to true if you want to use basic commands and slashs command in folders.
+      */
+     cmdsInFolders?: boolean
 }
 
 interface CommandOptions {
     /**
-     * @description The command name
+     * @param {string} name The command name
      */
-    name: string,
-    /**
-     * @description The command category.
-     */
-    category: string,
-    /**
-     * @description The command description.
-     */
-    description?: string,
-    /**
-     * @description The command aliases.
-     */
-    aliases?: string[],
-    /**
-     * @description The command usages.
-     */
-    usage: string[],
-    /**
-     * @description The command example.
-     */
-    example?: string[],
-    /**
-     * @description The command permission.
-     */
-    permission?: string,
-    /**
-     * @description Set true or false to define if a bot can use this command.
-     */
-    botAllowed?: boolean
+     name: string,
+     /**
+      * @param {string} category The command category.
+      */
+     category: string,
+     /**
+      * @param {string} description The command description.
+      */
+     description?: string,
+     /**
+      * @param {string[]} aliases The command aliases.
+      */
+     aliases?: string[],
+     /**
+      * @param {string[]} usage The command usages.
+      */
+     usage: string[],
+     /**
+      * @param {string[]} example The command example.
+      */
+     example?: string[],
+     /**
+      * @param {string} permission The command permission.
+      */
+     permission?: string,
+     /**
+      * @param {boolean} botAllowed Set true or false to define if a bot can use this command.
+      */
+     botAllowed?: boolean
 }
 
 interface SlashOptions {
     /**
-     * @description The slash command name.
+     * @param {string} name The slash command name.
      */
-    name: string,
-    /**
-     * @description The slash command description.
-     */
-    description: string,
-    /**
-     * @description The slash command type (CHAT_IMPUT, USER, MESSAGE).
-     */
-    type?: ApplicationCommandType,
-    /**
-     * @description The slash command options (choices, ...)
-     */
-    options?: SlashsCommandsOptions[],
-    /**
-     * @description The slash command defaultPermission.
-     */
-    defaultPermission?: boolean,
-    /**
-     * @description Set true or false if you want this command to one guild only.
-     */
-    guildOnly?: boolean
+     name: string,
+     /**
+      * @param {string} description The slash command description.
+      */
+     description: string,
+     /**
+      * @param {ApplicationCommandType} type The slash command type (CHAT_IMPUT, USER, MESSAGE).
+      */
+     type?: ApplicationCommandType,
+     /**
+      * @param {SlashsCommandsOptions[]} options The slash command options (choices, ...)
+      */
+     options?: SlashsCommandsOptions[],
+     /**
+      * @param {boolean} defaultPermission The slash command defaultPermission.
+      */
+     defaultPermission?: boolean,
+     /**
+      * @param {boolean} guildOnly Set true or false if you want this command to one guild only.
+      */
+     guildOnly?: boolean,
+     /**
+      * @param {string} category The slash command category
+      */
+     category?: string
 }
 
 interface SlashsCommandsOptions {
     /**
-     * @description The type of the option
+     * @param {ApplicationCommandOptionType} type The type of the option
      */
-    type: ApplicationCommandOptionType,
-    /**
-     * @description The name of the option
-     */
-    name: string,
-    /**
-     * @description The description of the option
-     */
-    description: string,
-    /**
-     * @description Whether the option is required
-     */
-    required: boolean,
-    /**
-     * @description The choices of the option for the user to pick from
-     */
-    choices?: SlashsCommandsOptionsChoices[],
-    /**
-     * @description Additional options if this option is a subcommand (group)
-     */
-    options?: SlashsCommandsOptions
+     type: ApplicationCommandOptionType,
+     /**
+      * @param {string} name The name of the option
+      */
+     name: string,
+     /**
+      * @param {string} description The description of the option
+      */
+     description: string,
+     /**
+      * @param {boolean} required Whether the option is required
+      */
+     required: boolean,
+     /**
+      * @param {SlashsCommandsOptionsChoices[]} choices The choices of the option for the user to pick from
+      */
+     choices?: SlashsCommandsOptionsChoices[],
+     /**
+      * @param {options} options Additional options if this option is a subcommand (group)
+      */
+     options?: SlashsCommandsOptions
 }
 
 interface SlashsCommandsOptionsChoices {
     /**
-     * @description The name of the choice
+     * @param {string} name The name of the choice
      */
-    name: string,
-    /**
-     * @description The value of the choice
-     */
-    value: string | number
+     name: string,
+     /**
+      * @param {string|number} value The value of the choice
+      */
+     value: string | number
 }

@@ -1,6 +1,6 @@
 interface Options {
     /**
-     * @param {string} typescript Set default to true, set it to false to use javascript files.
+     * @param {string} typescript Set default to false, set it to true to use typescript files.
      */
     typescript?: boolean,
     /**
@@ -19,6 +19,10 @@ interface Options {
      * @param {string} mongoUri Mongodb connection uri.
      */
     mongoUri?: string
+    /**
+     * @param {boolean} cmdsInFolders Set this to true if you want to use basic commands and slashs command in folders.
+     */
+    cmdsInFolders?: boolean
 }
 
 export default Options;
