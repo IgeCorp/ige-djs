@@ -2,7 +2,7 @@
   "meta": {
     "generator": "0.10.0",
     "format": 20,
-    "date": 1638803231061
+    "date": 1638808960295
   },
   "custom": {
     "general": {
@@ -11,7 +11,7 @@
         "welcome": {
           "name": "Welcome",
           "type": "md",
-          "content": "# IgeDJS\n\n## IgeDJS is a [npm](https://npmjs.com) module\n\n### Installation\n\n#### Latest version\n\n```shell\nnpm i @igecorp/ige-djs\n```\n\n#### Dev Version\n\n```shell\nnpm i https://github.com/IgeCorp/ige-djs\n```\n\n### Example\n\n#### Login CLient\n\n`index.js`\n\n```js\nconst IgeDJS = require(\"@igecorp/ige-djs\");\n\nconst client = new IgeDJS.IgeClient(\"Discord Bot Token\", { replies: true, prefix: \"!\" }); //Replace \"replies: true\" by \"replies: false\" if you don't want any mentions.\n\nclient.param({\n    commandsDir: \"commands\", //Replace it by your client commands directory.\n    eventsDir: \"events\" //Replace it by your client events directory.\n});\n```\n\n`events/ready.js`\n\n```js\nmodule.exports = async (client) => {\n    console.log(`${client.user.tag} is ready.`);\n\n    client.user.setActivity(`I'm using @igecorp/ige-djs npm module !`, { type: \"PLAYING\" });\n}\n```\n\n`events/messageCreate.js`\n\n```js\nmodule.exports = async (client, message) => {\n    if (message.content.indexOf(prefix) !== 0) return;\n\n    const args = message.content.slice(prefix.length).trim().split(/ +/g);\n    const command = args.shift().toLowerCase();\n\n    if (!command) return;\n    \n    const cmd = client.commands.get(command) || client.commands.find(x => x.aliases.includes(command));\n\n    if (!cmd) return message.reply({ content: `I have not command named ${command}.` });\n\n    cmd.run(message, args, client);\n}\n```\n\n`commands/ping.js`\n\n```js\nconst IgeDJS = require(\"@igecorp/ige-djs\");\n\nclass ping extends IgeDJS.IgeCommand {\n    constructor() {\n        super({\n            name: \"ping\",\n            category: \"utility\",\n            usage: \"ping\"\n        });\n    }\n\n    async run(message) {\n        message.channel.send(`Pong: \\`${Date.now() - message.createdTimestamp}ms\\``);\n    }\n}\n```\n\n© 2021 Copyright: IgeCorp\n",
+          "content": "# IgeDJS\n\n## IgeDJS is a [npm](https://npmjs.com) module\n\n### Installation\n\n#### Latest version\n\n```shell\nnpm i @igecorp/ige-djs\n```\n\n#### Dev Version\n\n```shell\nnpm i https://github.com/IgeCorp/ige-djs\n```\n\n### Example\n\n#### Login CLient\n\n`index.js`\n\n```js\nconst IgeDJS = require(\"@igecorp/ige-djs\");\n\nconst client = new IgeDJS.IgeClient(\"Discord Bot Token\", { replies: true, prefix: \"!\" }); //Replace \"replies: true\" by \"replies: false\" if you don't want any mentions.\n\nclient.param({\n    commandsDir: \"commands\", //Replace it by your client commands directory.\n    eventsDir: \"events\" //Replace it by your client events directory.\n});\n```\n\n`events/ready.js`\n\n```js\nmodule.exports = async (client) => {\n    console.log(`${client.user.tag} is ready.`);\n\n    client.user.setActivity(`I'm using @igecorp/ige-djs npm module !`, { type: \"PLAYING\" });\n}\n```\n\n`events/messageCreate.js`\n\n```js\nmodule.exports = async (client, message) => {\n    if (message.content.indexOf(prefix) !== 0) return;\n\n    const args = message.content.slice(prefix.length).trim().split(/ +/g);\n    const command = args.shift().toLowerCase();\n\n    if (!command) return;\n    \n    const cmd = client.commands.get(command) || client.commands.find(x => x.aliases.includes(command));\n\n    if (!cmd) return message.reply({ content: `I have not command named ${command}.` });\n\n    cmd.run(message, args, client);\n}\n```\n\n`commands/ping.js`\n\n```js\nconst IgeDJS = require(\"@igecorp/ige-djs\");\n\nclass ping extends IgeDJS.IgeCommand {\n    constructor() {\n        super({\n            name: \"ping\",\n            category: \"utility\",\n            usage: \"ping\"\n        });\n    }\n\n    async run(message) {\n        message.channel.send(`Pong: \\`${Date.now() - message.createdTimestamp}ms\\``);\n    }\n}\n```\n\n\u00a9 2021 Copyright: IgeCorp\n",
           "path": "README.md"
         }
       }
@@ -175,7 +175,7 @@
             ]
           ],
           "meta": {
-            "line": 105,
+            "line": 106,
             "file": "IgeClient.js",
             "path": "dist"
           }
@@ -204,11 +204,21 @@
                   ]
                 ]
               ]
+            },
+            {
+              "name": "useFolders",
+              "type": [
+                [
+                  [
+                    "boolean"
+                  ]
+                ]
+              ]
             }
           ],
           "async": true,
           "meta": {
-            "line": 129,
+            "line": 131,
             "file": "IgeClient.js",
             "path": "dist"
           }
@@ -237,11 +247,21 @@
                   ]
                 ]
               ]
+            },
+            {
+              "name": "useFolders",
+              "type": [
+                [
+                  [
+                    "boolean"
+                  ]
+                ]
+              ]
             }
           ],
           "async": true,
           "meta": {
-            "line": 155,
+            "line": 181,
             "file": "IgeClient.js",
             "path": "dist"
           }
@@ -274,7 +294,7 @@
           ],
           "async": true,
           "meta": {
-            "line": 182,
+            "line": 230,
             "file": "IgeClient.js",
             "path": "dist"
           }
@@ -297,7 +317,7 @@
           ],
           "async": true,
           "meta": {
-            "line": 210,
+            "line": 258,
             "file": "IgeClient.js",
             "path": "dist"
           }
@@ -509,7 +529,7 @@
             ]
           ],
           "meta": {
-            "line": 63,
+            "line": 65,
             "file": "IgeSlash.js",
             "path": "dist"
           }
@@ -525,7 +545,7 @@
             ]
           ],
           "meta": {
-            "line": 68,
+            "line": 70,
             "file": "IgeSlash.js",
             "path": "dist"
           }
@@ -541,7 +561,7 @@
             ]
           ],
           "meta": {
-            "line": 73,
+            "line": 75,
             "file": "IgeSlash.js",
             "path": "dist"
           }
@@ -562,7 +582,7 @@
             ]
           ],
           "meta": {
-            "line": 78,
+            "line": 80,
             "file": "IgeSlash.js",
             "path": "dist"
           }
@@ -578,7 +598,7 @@
             ]
           ],
           "meta": {
-            "line": 83,
+            "line": 85,
             "file": "IgeSlash.js",
             "path": "dist"
           }
@@ -594,14 +614,30 @@
             ]
           ],
           "meta": {
-            "line": 88,
+            "line": 90,
+            "file": "IgeSlash.js",
+            "path": "dist"
+          }
+        },
+        {
+          "name": "category",
+          "description": "Slash command category",
+          "type": [
+            [
+              [
+                "string"
+              ]
+            ]
+          ],
+          "meta": {
+            "line": 95,
             "file": "IgeSlash.js",
             "path": "dist"
           }
         }
       ],
       "meta": {
-        "line": 52,
+        "line": 54,
         "file": "IgeSlash.js",
         "path": "dist"
       }
@@ -694,13 +730,13 @@
       "props": [
         {
           "name": "typescript",
-          "description": "Set default to true, set it to false to use javascript files.",
+          "description": "Set default to false, set it to true to use typescript files.",
           "optional": true,
           "default": false,
           "type": [
             [
               [
-                "string"
+                "boolean"
               ]
             ]
           ]
@@ -749,6 +785,19 @@
             [
               [
                 "string"
+              ]
+            ]
+          ]
+        },
+        {
+          "name": "cmdsInFolders",
+          "description": "Set this to true if you want to use basic commands and slashs command in folders.",
+          "optional": true,
+          "default": false,
+          "type": [
+            [
+              [
+                "boolean"
               ]
             ]
           ]
@@ -931,7 +980,7 @@
         }
       ],
       "meta": {
-        "line": 22,
+        "line": 23,
         "file": "IgeSlash.js",
         "path": "dist"
       }
@@ -1029,7 +1078,7 @@
         }
       ],
       "meta": {
-        "line": 28,
+        "line": 29,
         "file": "IgeSlash.js",
         "path": "dist"
       }
@@ -1123,10 +1172,23 @@
               ]
             ]
           ]
+        },
+        {
+          "name": "category",
+          "description": "The slash command category",
+          "optional": true,
+          "default": null,
+          "type": [
+            [
+              [
+                "string"
+              ]
+            ]
+          ]
         }
       ],
       "meta": {
-        "line": 38,
+        "line": 39,
         "file": "IgeSlash.js",
         "path": "dist"
       }
@@ -1150,7 +1212,7 @@
         "{@link https://discord.js.org/#/docs/main/stable/typedef/ApplicationCommandType}"
       ],
       "meta": {
-        "line": 14,
+        "line": 15,
         "file": "IgeSlash.js",
         "path": "dist"
       }
@@ -1161,7 +1223,7 @@
         "{@link https://discord.js.org/#/docs/main/stable/typedef/ApplicationCommandOptionType}"
       ],
       "meta": {
-        "line": 18,
+        "line": 19,
         "file": "IgeSlash.js",
         "path": "dist"
       }
