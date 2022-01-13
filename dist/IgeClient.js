@@ -7,7 +7,6 @@ const discord_js_1 = require("discord.js");
 const Errrors_1 = __importDefault(require("./utils/Errrors"));
 const Intents_1 = __importDefault(require("./utils/Intents"));
 const fs_1 = require("fs");
-const colors_1 = require("colors");
 const mongoose_1 = require("mongoose");
 /**
  * @external Client
@@ -24,7 +23,7 @@ class IgeClient extends discord_js_1.Client {
     testGuild;
     /**
      * All IgeClient options
-     * @typedef {Object} ClientOptions
+     * @typedef {Object} IgeOptions
      * @property {boolean} replies Its a boolean value to set if the bot mention or no a user when it reply a message.
      * @property {string} prefix The client prefix.
      * @property {string|string[]} owner The client owner user ID.
@@ -32,7 +31,7 @@ class IgeClient extends discord_js_1.Client {
      */
     /**
      * @param {string} token The discord client token
-     * @param {ClientOptions} options Discord client options (replies, prefix, owner, ...)
+     * @param {IgeOptions} options Discord client options (replies, prefix, owner, ...)
      * @returns {Promise<string>} Token of the account used
      */
     constructor(token, options) {
@@ -111,7 +110,7 @@ class IgeClient extends discord_js_1.Client {
         if (!options.eventsDir)
             throw new TypeError(Errrors_1.default.MISSING_EVT_DIR);
         if (!options?.mongoUri)
-            console.warn((0, colors_1.red)(`WARNING: `) + Errrors_1.default.MISSING_MONGO_URI);
+            console.warn(`WARNING: ` + Errrors_1.default.MISSING_MONGO_URI);
         let useTs = (options?.typescript === true) ? true : false;
         let useFolders = (options?.cmdsInFolders === true) ? true : false;
         if (options.commandsDir)
@@ -122,6 +121,27 @@ class IgeClient extends discord_js_1.Client {
             this._createConnection(options.mongoUri);
     }
     /**
+     * Slashs commands post method
+     * @param {any} slashsArray
+     */
+    async postSlashs(slashsArray) {
+        if (this.isReady() !== true)
+            throw new Error(Errrors_1.default.IS_NOT_LOGGED_IN);
+        const guild = this.guilds.cache?.get(this.testGuild);
+        if (!guild)
+            throw new Error(Errrors_1.default.FAILED_TO_FETCH_GUILD);
+        const clientSlashs = slashsArray.filter((slash) => slash?.guildOnly !== true).toJSON();
+        const guildSlashs = slashsArray.filter((slash) => slash?.guildOnly === true).toJSON();
+        try {
+            await this?.application?.commands.set(clientSlashs);
+            await guild.commands.set(guildSlashs);
+        }
+        catch (error) {
+            throw new Error(error);
+        }
+        console.log(`[Success] Slashs Commands Posted\nClient Commands: ${this?.application?.commands.cache.size}\nGuild Commands: ${guild.commands.cache.size}`);
+    }
+    /**
      * The client commands handler
      * @param {string} cmdDir
      * @param {boolean} useTs
@@ -130,46 +150,42 @@ class IgeClient extends discord_js_1.Client {
      */
     async _cmdsHandler(cmdDir, useTs, useFolders) {
         let fileType = (useTs === true) ? ".ts" : ".js";
+        let count = 0;
+        const files = (0, fs_1.readdirSync)(cmdDir);
         if (useFolders !== true) {
-            (0, fs_1.readdir)(cmdDir, (_err, files) => {
-                let size = files.length, count = 0;
-                files.forEach(file => {
-                    if (!file.endsWith(fileType))
-                        return size = size - 1;
-                    try {
-                        const command = require(`${cmdDir}/${file}`);
-                        this.commands.set(command.name, command);
-                        count = count + 1;
-                    }
-                    catch (err) {
-                        const cmdName = file.split(".")[0];
-                        console.log(`${(0, colors_1.red)("Error")} | Failed to load ${(0, colors_1.blue)(cmdName)} command.\n${err}`);
-                    }
-                });
-                console.log(`${(0, colors_1.green)("Success")} | Loaded ${count}/${size} commands.`);
-            });
+            count = count + files.length;
+            for (const c of files) {
+                if (!c.endsWith(fileType))
+                    return count = count - 1;
+                try {
+                    const command = require(`${cmdDir}/${c}`);
+                    this.commands.set(command.name, command);
+                }
+                catch (err) {
+                    const cmdName = c.split(".")[0];
+                    console.log(`[Error] | Failed to load ${cmdName} command.\n${err}`);
+                }
+            }
         }
         else {
-            let count = 0;
-            const folders = (0, fs_1.readdirSync)(cmdDir);
-            for (let i = 0; i < folders.length; i++) {
-                const commands = (0, fs_1.readdirSync)(`${cmdDir}/${folders[i]}`);
+            for (let i = 0; i < files.length; i++) {
+                const commands = (0, fs_1.readdirSync)(`${cmdDir}/${files[i]}`);
                 count = count + commands.length;
                 for (const c of commands) {
                     if (!c.endsWith(fileType))
                         return count = count - 1;
                     try {
-                        const command = require(`${cmdDir}/${folders[i]}/${c}`);
+                        const command = require(`${cmdDir}/${files[i]}/${c}`);
                         this.commands.set(command.name, command);
                     }
                     catch (err) {
                         const cmdName = c.split(".")[0];
-                        console.log(`${(0, colors_1.red)("Error")} | Failed to load ${(0, colors_1.blue)(cmdName)} command.\n${err}`);
+                        console.log(`[Error] | Failed to load ${cmdName} command.\n${err}`);
                     }
                 }
             }
-            console.log(`${(0, colors_1.green)("Success")} | Loaded ${this.commands.size}/${count} commands.`);
         }
+        console.log(`[Success] | Loaded ${this.commands.size}/${count} commands.`);
     }
     /**
      * The client slash commands handler
@@ -180,46 +196,42 @@ class IgeClient extends discord_js_1.Client {
      */
     async _slashHandler(slashDir, useTs, useFolders) {
         let fileType = (useTs === true) ? ".ts" : ".js";
+        let count = 0;
+        const files = (0, fs_1.readdirSync)(slashDir);
         if (useFolders !== true) {
-            (0, fs_1.readdir)(slashDir, async (_err, files) => {
-                let size = files.length, count = 0;
-                files.forEach(async (file) => {
-                    if (!file.endsWith(fileType))
-                        return size = size - 1;
-                    try {
-                        const slash = require(`${slashDir}/${file}`);
-                        this.slashs.set(slash.name, slash);
-                        count = count + 1;
-                    }
-                    catch (err) {
-                        const slashName = file.split(".")[0];
-                        console.log(`${(0, colors_1.red)("Error")} | Failed to load ${(0, colors_1.blue)(slashName)} slash command.\n${err}`);
-                    }
-                });
-                console.log(`${(0, colors_1.green)("Success")} | Loaded ${count}/${size} slashs commands.`);
-            });
+            count = count + files.length;
+            for (const c of files) {
+                if (!c.endsWith(fileType))
+                    return count = count - 1;
+                try {
+                    const command = require(`${slashDir}/${c}`);
+                    this.commands.set(command.name, command);
+                }
+                catch (err) {
+                    const cmdName = c.split(".")[0];
+                    console.log(`[Error] | Failed to load ${cmdName} command.\n${err}`);
+                }
+            }
         }
         else {
-            let count = 0;
-            const folders = (0, fs_1.readdirSync)(slashDir);
-            for (let i = 0; i < folders.length; i++) {
-                const commands = (0, fs_1.readdirSync)(`${slashDir}/${folders[i]}`);
+            for (let i = 0; i < files.length; i++) {
+                const commands = (0, fs_1.readdirSync)(`${slashDir}/${files[i]}`);
                 count = count + commands.length;
-                for (const s of commands) {
-                    if (!s.endsWith(fileType))
+                for (const c of commands) {
+                    if (!c.endsWith(fileType))
                         return count = count - 1;
                     try {
-                        const slash = require(`${slashDir}/${folders[i]}/${s}`);
-                        this.slashs.set(slash.name, slash);
+                        const slash = require(`${slashDir}/${files[i]}/${c}`);
+                        this.commands.set(slash.name, slash);
                     }
                     catch (err) {
-                        const slashName = s.split(".")[0];
-                        console.log(`${(0, colors_1.red)("Error")} | Failed to load ${(0, colors_1.blue)(slashName)} slash command.\n${err}`);
+                        const slashName = c.split(".")[0];
+                        console.log(`[Error] | Failed to load ${slashName} slash command.\n${err}`);
                     }
                 }
             }
-            console.log(`${(0, colors_1.green)("Success")} | Loaded ${this.slashs.size}/${count} slashs commands.`);
         }
+        console.log(`[Success] | Loaded ${this.slashs.size}/${count} slashs commands.`);
     }
     /**
      * The client events handler
@@ -244,10 +256,10 @@ class IgeClient extends discord_js_1.Client {
                 }
                 catch (err) {
                     let eventName = file.split(".")[0];
-                    throw new Error(`${(0, colors_1.red)("Error")} | Failed to load ${(0, colors_1.blue)(eventName)} event\n${err}`);
+                    throw new Error(`[Error] | Failed to load ${eventName} event\n${err}`);
                 }
             });
-            console.log(`${(0, colors_1.green)("Success")} | Loaded ${count}/${size} events.`);
+            console.log(`[Success] | Loaded ${count}/${size} events.`);
         });
     }
     /**
@@ -257,11 +269,10 @@ class IgeClient extends discord_js_1.Client {
      */
     async _createConnection(mongoUri) {
         (0, mongoose_1.connect)(mongoUri).then(() => {
-            console.log(`[${(0, colors_1.green)("Success")}] | Connected to MongoDB database.`);
+            console.log(`[Success] | Connected to MongoDB database.`);
         }).catch((err) => {
             throw new Error(err);
         });
     }
 }
-exports.default = IgeClient;
-module.exports = IgeClient;
+exports.IgeClient = IgeClient;

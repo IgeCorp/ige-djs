@@ -1,7 +1,7 @@
 import { ApplicationCommandOptionType } from "discord.js";
 import SlashsCommandsOptionsChoices from "./SlashsCommandsOptionsChoices";
 
-interface SlashsCommandsOptions {
+export default interface SlashsCommandsOptions {
     /**
      * @param {ApplicationCommandOptionType} type The type of the option
      */
@@ -27,5 +27,3 @@ interface SlashsCommandsOptions {
      */
     options?: SlashsCommandsOptions
 }
-
-export default SlashsCommandsOptions;

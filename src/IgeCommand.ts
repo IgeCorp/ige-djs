@@ -1,7 +1,7 @@
 import CommandOptions from "./utils/CommandOptions";
 import Errors from "./utils/Errrors";
 
-export default class IgeCommand {
+class IgeCommand {
     name: string;
     category: string;
     description?: string;
@@ -80,4 +80,4 @@ export default class IgeCommand {
     }
 }
 
-module.exports = IgeCommand;
+exports.IgeCommand = IgeCommand;

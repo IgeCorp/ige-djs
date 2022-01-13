@@ -1,7 +1,7 @@
 import { ApplicationCommandType } from "discord.js";
 import SlashsCommandsOptions from "./SlashsCommandsOptions";
 
-interface SlashOptions {
+export default interface SlashOptions {
     /**
      * @param {string} name The slash command name.
      */
@@ -31,5 +31,3 @@ interface SlashOptions {
      */
     category?: string
 }
-
-export default SlashOptions;

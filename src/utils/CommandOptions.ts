@@ -1,4 +1,4 @@
-interface CommandOptions {
+export default interface CommandOptions {
     /**
      * @param {string} name The command name
      */
@@ -32,5 +32,3 @@ interface CommandOptions {
      */
     botAllowed?: boolean
 }
-
-export default CommandOptions;

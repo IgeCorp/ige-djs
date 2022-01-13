@@ -1,6 +1,6 @@
 {
   "name": "@igecorp/ige-djs",
-  "version": "0.1.0-dev-4",
+  "version": "0.1.0-dev-5",
   "description": "Ige-DJS is a discord.js extends module made by IgeCorp",
   "main": "dist/index.js",
   "typings": "./typings.d.ts",
@@ -17,15 +17,13 @@
     "ige"
   ],
   "dependencies": {
-    "colors": "^1.4.0",
-    "discord.js": "^13.3.1",
+    "discord.js": "^13.5.1",
     "fs": "^0.0.1-security",
     "mongoose": "^6.0.6",
     "raw-body": "^2.4.1"
   },
   "devDependencies": {
     "@types/node": "^16.9.1",
-    "jsdoc-to-markdown": "^7.0.1",
     "nodemon": "^2.0.13",
     "ts-node-dev": "^1.1.8",
     "typescript": "^4.4.3"

@@ -1,4 +1,4 @@
-interface ClientOptions {
+export default interface IgeOptions {
     /**
      * @param {boolean} replies Its a boolean value to set if the bot mention or no a user when it reply a message.
      */
@@ -16,5 +16,3 @@ interface ClientOptions {
      */
     testGuild: string
 }
-
-export default ClientOptions;

@@ -1,4 +1,4 @@
-interface Options {
+export default interface Options {
     /**
      * @param {string} typescript Set default to false, set it to true to use typescript files.
      */
@@ -24,5 +24,3 @@ interface Options {
      */
     cmdsInFolders?: boolean
 }
-
-export default Options;

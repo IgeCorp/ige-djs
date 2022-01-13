@@ -95,5 +95,4 @@ class IgeSlash {
         this.category = slashOptions?.category;
     }
 }
-exports.default = IgeSlash;
-module.exports = IgeSlash;
+exports.IgeSlash = IgeSlash;

@@ -1,4 +1,4 @@
-interface SlashsCommandsOptionsChoices {
+export default interface SlashsCommandsOptionsChoices {
     /**
      * @param {string} name The name of the choice
      */
@@ -8,5 +8,3 @@ interface SlashsCommandsOptionsChoices {
      */
     value: string | number
 }
-
-export default SlashsCommandsOptionsChoices;

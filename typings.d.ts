@@ -70,6 +70,12 @@ export class IgeClient extends Client {
      */
 
     async params(options: Options);
+
+    /**
+     * Slashs commands post method
+     * @param {any} slashsArray The slashs commands array (use <IgeClient>.slashs to get them)
+     */
+    async postSlashs(slashsArray: any);
 }
 
 /**

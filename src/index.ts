@@ -1,10 +1,7 @@
-import IgeClient from "./IgeClient";
-import IgeCommand from "./IgeCommand";
-import IgeSlash from "./IgeSlash";
+export * from "./IgeClient";
+export * from "./IgeCommand";
+export * from "./IgeSlash";
+
 const { version } = require("../package.json");
-module.exports = {
-    IgeClient,
-    IgeCommand,
-    IgeSlash,
-    version
-}
+
+exports.version = version;
