@@ -4,7 +4,7 @@ export default interface IgeOptions {
      */
     replies: boolean,
     /**
-     * @param {string} prefix The client prefix.
+     * @param {string} [prefix=null] The client prefix.
      */
     prefix: string,
     /**

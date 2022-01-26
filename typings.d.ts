@@ -16,7 +16,6 @@ import IgeSlash from "./src/IgeSlash";
  * 
  * const client = new IgeCLient("discord bot token", {
  *     replies: true,
- *     prefix: "!",
  *     owner: "client owner id",
  *     testGuild: "test guild id"
  * });
@@ -25,7 +24,7 @@ import IgeSlash from "./src/IgeSlash";
 export class IgeClient extends Client {
     commands: Collection<unknown, unknown>;
     slashs: Collection<unknown, unknown>;
-    prefix: string;
+    prefix?: string;
     owner: string | string[];
     testGuild: string;
 
@@ -33,7 +32,7 @@ export class IgeClient extends Client {
      * All IgeClient options
      * @typedef {Object} ClientOptions
      * @property {boolean} replies Its a boolean value to set if the bot mention or no a user when it reply a message.
-     * @property {string} prefix The client prefix.
+     * @property {string} [prefix=null] The client prefix.
      * @property {string|string[]} owner The client owner user ID.
      * @property {string} testGuild The client test guild id.
      */

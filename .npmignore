@@ -1,7 +1,7 @@
 ### Folders ###
 node_modules/
 src/
-docs/
 
 ### Files ###
 package-lock.json
+tsconfig.json

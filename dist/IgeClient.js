@@ -25,7 +25,7 @@ class IgeClient extends discord_js_1.Client {
      * All IgeClient options
      * @typedef {Object} IgeOptions
      * @property {boolean} replies Its a boolean value to set if the bot mention or no a user when it reply a message.
-     * @property {string} prefix The client prefix.
+     * @property {string} [prefix=null] The client prefix.
      * @property {string|string[]} owner The client owner user ID.
      * @property {string} testGuild The client test guild id.
      */
@@ -39,8 +39,6 @@ class IgeClient extends discord_js_1.Client {
             throw new TypeError(Errrors_1.default.MISSING_TOKEN);
         if (!options)
             throw new TypeError(Errrors_1.default.MISSING_CLIENT_OPTIONS);
-        if (!options.prefix)
-            throw new TypeError(Errrors_1.default.MISSING_PREFIX);
         if (!options.owner)
             throw new TypeError(Errrors_1.default.MISSING_OWNER_ID);
         if (!options.testGuild)
@@ -96,7 +94,6 @@ class IgeClient extends discord_js_1.Client {
      * @returns {Options}
      * @example
      * client.params({
-     *     commandsDir: "commands",
      *     slashsDir: "slashs",
      *     eventsDir: "events",
      *     mongoUri: "mongodb connection uri"
@@ -149,6 +146,8 @@ class IgeClient extends discord_js_1.Client {
      * @private
      */
     async _cmdsHandler(cmdDir, useTs, useFolders) {
+        if (this.prefix === null)
+            throw new Error(Errrors_1.default.MISSING_PREFIX);
         let fileType = (useTs === true) ? ".ts" : ".js";
         let count = 0;
         const files = (0, fs_1.readdirSync)(cmdDir);
@@ -204,25 +203,25 @@ class IgeClient extends discord_js_1.Client {
                 if (!c.endsWith(fileType))
                     return count = count - 1;
                 try {
-                    const command = require(`${slashDir}/${c}`);
-                    this.commands.set(command.name, command);
+                    const slash = require(`${slashDir}/${c}`);
+                    this.slashs.set(slash.name, slash);
                 }
                 catch (err) {
-                    const cmdName = c.split(".")[0];
-                    console.log(`[Error] | Failed to load ${cmdName} command.\n${err}`);
+                    const slashName = c.split(".")[0];
+                    console.log(`[Error] | Failed to load ${slashName} command.\n${err}`);
                 }
             }
         }
         else {
             for (let i = 0; i < files.length; i++) {
-                const commands = (0, fs_1.readdirSync)(`${slashDir}/${files[i]}`);
-                count = count + commands.length;
-                for (const c of commands) {
+                const slashs = (0, fs_1.readdirSync)(`${slashDir}/${files[i]}`);
+                count = count + slashs.length;
+                for (const c of slashs) {
                     if (!c.endsWith(fileType))
                         return count = count - 1;
                     try {
                         const slash = require(`${slashDir}/${files[i]}/${c}`);
-                        this.commands.set(slash.name, slash);
+                        this.slashs.set(slash.name, slash);
                     }
                     catch (err) {
                         const slashName = c.split(".")[0];

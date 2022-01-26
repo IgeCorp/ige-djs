@@ -17,7 +17,7 @@ import { connect } from "mongoose";
 class IgeClient extends Client {
     commands: Collection<unknown, unknown>;
     slashs: Collection<unknown, unknown>;
-    prefix: string;
+    prefix?: string;
     owner: string | string[];
     testGuild: string;
 
@@ -25,7 +25,7 @@ class IgeClient extends Client {
      * All IgeClient options
      * @typedef {Object} IgeOptions
      * @property {boolean} replies Its a boolean value to set if the bot mention or no a user when it reply a message.
-     * @property {string} prefix The client prefix.
+     * @property {string} [prefix=null] The client prefix.
      * @property {string|string[]} owner The client owner user ID.
      * @property {string} testGuild The client test guild id.
      */
@@ -38,7 +38,6 @@ class IgeClient extends Client {
     constructor(token: string, options: IgeOptions) {
         if (!token) throw new TypeError(Errors.MISSING_TOKEN);
         if (!options) throw new TypeError(Errors.MISSING_CLIENT_OPTIONS);
-        if (!options.prefix) throw new TypeError(Errors.MISSING_PREFIX);
         if (!options.owner) throw new TypeError(Errors.MISSING_OWNER_ID);
         if (!options.testGuild) throw new TypeError(Errors.MISSING_GUILD_ID);
 
@@ -97,7 +96,6 @@ class IgeClient extends Client {
      * @returns {Options}
      * @example
      * client.params({
-     *     commandsDir: "commands",
      *     slashsDir: "slashs",
      *     eventsDir: "events",
      *     mongoUri: "mongodb connection uri"
@@ -148,6 +146,7 @@ class IgeClient extends Client {
      * @private
      */
     async _cmdsHandler(cmdDir: string, useTs: boolean, useFolders: boolean) {
+        if (this.prefix === null) throw new Error(Errors.MISSING_PREFIX);
         let fileType = (useTs === true) ? ".ts" : ".js"
         let count = 0;
         const files = readdirSync(cmdDir);
@@ -201,22 +200,22 @@ class IgeClient extends Client {
             for (const c of files) {
                 if (!c.endsWith(fileType)) return count = count-1;
                 try {
-                    const command = require(`${slashDir}/${c}`);
-                    this.commands.set(command.name, command);
+                    const slash = require(`${slashDir}/${c}`);
+                    this.slashs.set(slash.name, slash);
                 } catch (err) {
-                    const cmdName = c.split(".")[0];
-                    console.log(`[Error] | Failed to load ${cmdName} command.\n${err}`);
+                    const slashName = c.split(".")[0];
+                    console.log(`[Error] | Failed to load ${slashName} command.\n${err}`);
                 }
             }
         } else {
             for (let i = 0; i < files.length; i++) {
-                const commands = readdirSync(`${slashDir}/${files[i]}`);
-                count = count + commands.length;
-                for(const c of commands){
+                const slashs = readdirSync(`${slashDir}/${files[i]}`);
+                count = count + slashs.length;
+                for(const c of slashs){
                     if (!c.endsWith(fileType)) return count = count-1;
                     try {
                         const slash = require(`${slashDir}/${files[i]}/${c}`);
-                        this.commands.set(slash.name, slash);
+                        this.slashs.set(slash.name, slash);
                     } catch (err) {
                         const slashName = c.split(".")[0];
                         console.log(`[Error] | Failed to load ${slashName} slash command.\n${err}`);
@@ -224,7 +223,7 @@ class IgeClient extends Client {
                 }
             }
         }
-            console.log(`[Success] | Loaded ${this.slashs.size}/${count} slashs commands.`);
+        console.log(`[Success] | Loaded ${this.slashs.size}/${count} slashs commands.`);
     }
 
     /**
