@@ -85,4 +85,5 @@ class IgeCommand {
         this.botAllowed = commandOptions.botAllowed;
     }
 }
+exports.IgeCommand = IgeCommand;
 exports.default = IgeCommand;
