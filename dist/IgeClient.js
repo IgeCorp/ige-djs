@@ -4,13 +4,17 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const discord_js_1 = require("discord.js");
-const Errrors_1 = __importDefault(require("./utils/Errrors"));
-const Intents_1 = __importDefault(require("./utils/Intents"));
 const fs_1 = require("fs");
 const mongoose_1 = require("mongoose");
+const Errrors_1 = __importDefault(require("./utils/Errrors"));
+const Intents_1 = __importDefault(require("./utils/Intents"));
 /**
  * @external Client
  * @see {@link https://discord.js.org/#/docs/main/stable/class/Client}
+ */
+/**
+ * @external Collection
+ * @see {@link https://discord.js.org/#/docs/collection/stable/class/Collection}
  */
 /**
  * @extends {Client}

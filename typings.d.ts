@@ -9,6 +9,11 @@ import IgeSlash from "./src/IgeSlash";
  */
 
 /**
+ * @external Collection
+ * @see {@link https://discord.js.org/#/docs/collection/stable/class/Collection}
+ */
+
+/**
  * @extends {Client}
  * @example
  * ```js
@@ -22,8 +27,8 @@ import IgeSlash from "./src/IgeSlash";
  * ```
  */
 export class IgeClient extends Client {
-    commands: Collection<unknown, unknown>;
-    slashs: Collection<unknown, unknown>;
+    commands: Collection<string, IgeCommand>;
+    slashs: Collection<string, IgeSlash>;
     prefix?: string;
     owner: string | string[];
     testGuild: string;

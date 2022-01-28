@@ -1,10 +1,12 @@
 import { Client, Collection } from "discord.js";
+import { readdir, readdirSync } from "fs";
+import { connect } from "mongoose";
+import IgeCommand from "./IgeCommand";
+import IgeSlash from "./IgeSlash";
 import Errors from "./utils/Errrors";
 import IgeOptions from "./utils/IgeOptions";
 import Options from "./utils/Options";
 import Intents from "./utils/Intents";
-import { readdir, readdirSync } from "fs";
-import { connect } from "mongoose";
 
 /**
  * @external Client
@@ -12,11 +14,16 @@ import { connect } from "mongoose";
  */
 
 /**
+ * @external Collection
+ * @see {@link https://discord.js.org/#/docs/collection/stable/class/Collection}
+ */
+
+/**
  * @extends {Client}
  */
 class IgeClient extends Client {
-    commands: Collection<unknown, unknown>;
-    slashs: Collection<unknown, unknown>;
+    commands: Collection<string, IgeCommand>;
+    slashs: Collection<string, IgeSlash>;
     prefix?: string;
     owner: string | string[];
     testGuild: string;

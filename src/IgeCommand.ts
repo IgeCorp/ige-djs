@@ -1,7 +1,7 @@
 import CommandOptions from "./utils/CommandOptions";
 import Errors from "./utils/Errrors";
 
-class IgeCommand {
+export default class IgeCommand {
     name: string;
     category: string;
     description?: string;
@@ -79,5 +79,3 @@ class IgeCommand {
         this.botAllowed = commandOptions.botAllowed;
     }
 }
-
-exports.IgeCommand = IgeCommand;

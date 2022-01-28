@@ -3,7 +3,7 @@ import Errors from "./utils/Errrors";
 import { ApplicationCommandType } from "discord.js";
 import SlashsCommandsOptions from "./utils/SlashsCommandsOptions";
 
-class IgeSlash {
+export default class IgeSlash {
     name: string;
     description: string;
     type?: ApplicationCommandType;
@@ -97,5 +97,3 @@ class IgeSlash {
         this.category = slashOptions?.category;
     }
 }
-
-exports.IgeSlash = IgeSlash;
