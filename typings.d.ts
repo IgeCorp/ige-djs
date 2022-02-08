@@ -1,4 +1,7 @@
 import { ApplicationCommandOptionType, ApplicationCommandType, Client, Collection } from "discord.js";
+
+import type { ClientOptions } from "discord.js";
+
 import IgeClient from "./src/IgeClient";
 import IgeCommand from "./src/IgeCommand";
 import IgeSlash from "./src/IgeSlash";
@@ -35,8 +38,7 @@ export class IgeClient extends Client {
 
     /**
      * All IgeClient options
-     * @typedef {Object} ClientOptions
-     * @property {boolean} replies Its a boolean value to set if the bot mention or no a user when it reply a message.
+     * @typedef {Object} IgeOptions
      * @property {string} [prefix=null] The client prefix.
      * @property {string|string[]} owner The client owner user ID.
      * @property {string} testGuild The client test guild id.
@@ -44,11 +46,12 @@ export class IgeClient extends Client {
 
     /**
      * @param {string} token The discord client token
-     * @param {ClientOptions} options Discord client options (replies, prefix, owner, ...)
+     * @param {options} IgeOptions Discord client options (replies, prefix, owner, ...)
+     * @param {clientOptions} [ClientOptions] discord.js client options
      * @returns {Promise<string>} Token of the account used
      */
 
-    constructor(token: string, options: ClientOptions);
+    constructor(token: string, options: IgeOptions, clientOptions?: ClientOptions);
 
      /**
      * All parameters for IgeClient handler
@@ -208,23 +211,19 @@ export class IgeSlash {
     constructor(slashOptions: SlashOptions);
 }
 
-interface ClientOptions {
+export default interface IgeOptions extends ClientOptions {
     /**
-     * @param {boolean} replies Its a boolean value to set if the bot mention or no a user when it reply a message.
+     * @param {string} [prefix=null] The client prefix.
      */
-     replies: boolean,
-     /**
-      * @param {string} prefix The client prefix.
-      */
-     prefix: string,
-     /**
-      * @param {string|string[]} owner The client owner user ID.
-      */
-     owner: string | string[],
-     /**
-      * @param {string} testGuild The client test guild id.
-      */
-     testGuild: string
+    prefix: string,
+    /**
+     * @param {string|string[]} owner The client owner user ID.
+     */
+    owner: string | string[],
+    /**
+     * @param {string} testGuild The client test guild id.
+     */
+    testGuild: string
 }
 
 interface Options {

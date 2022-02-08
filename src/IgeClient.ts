@@ -1,21 +1,28 @@
 import { Client, Collection } from "discord.js";
 import { readdir, readdirSync } from "fs";
 import { connect } from "mongoose";
+
+import type { ClientOptions } from "discord.js";
+
 import IgeCommand from "./IgeCommand";
 import IgeSlash from "./IgeSlash";
 import Errors from "./utils/Errrors";
 import IgeOptions from "./utils/IgeOptions";
 import Options from "./utils/Options";
-import Intents from "./utils/Intents";
 
 /**
  * @external Client
- * @see {@link https://discord.js.org/#/docs/main/stable/class/Client}
+ * @see {@link https://discord.js.org/#/docs/discord.js/stable/class/Client}
  */
 
 /**
  * @external Collection
  * @see {@link https://discord.js.org/#/docs/collection/stable/class/Collection}
+ */
+
+/**
+ * @external ClientOptions
+ * @see {@link https://discord.js.org/#/docs/discord.js/stable/typedef/ClientOptions}
  */
 
 /**
@@ -31,7 +38,6 @@ class IgeClient extends Client {
     /**
      * All IgeClient options
      * @typedef {Object} IgeOptions
-     * @property {boolean} replies Its a boolean value to set if the bot mention or no a user when it reply a message.
      * @property {string} [prefix=null] The client prefix.
      * @property {string|string[]} owner The client owner user ID.
      * @property {string} testGuild The client test guild id.
@@ -40,22 +46,16 @@ class IgeClient extends Client {
     /**
      * @param {string} token The discord client token
      * @param {IgeOptions} options Discord client options (replies, prefix, owner, ...)
+     * @param {clientOptions} [ClientOptions] discord.js client options
      * @returns {Promise<string>} Token of the account used
      */
-    constructor(token: string, options: IgeOptions) {
+    constructor(token: string, options: IgeOptions, clientOptions?: ClientOptions) {
         if (!token) throw new TypeError(Errors.MISSING_TOKEN);
         if (!options) throw new TypeError(Errors.MISSING_CLIENT_OPTIONS);
         if (!options.owner) throw new TypeError(Errors.MISSING_OWNER_ID);
         if (!options.testGuild) throw new TypeError(Errors.MISSING_GUILD_ID);
 
-        super({
-            partials: ["USER","CHANNEL","GUILD_MEMBER","MESSAGE","REACTION"],
-            allowedMentions: {
-                repliedUser: options.replies || false
-            },
-            failIfNotExists: false,
-            intents: Intents
-        });
+        super(options || clientOptions);
         /**
          * The client commands Map
          * @type {Collection}

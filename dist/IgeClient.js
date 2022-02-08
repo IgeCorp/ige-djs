@@ -7,14 +7,17 @@ const discord_js_1 = require("discord.js");
 const fs_1 = require("fs");
 const mongoose_1 = require("mongoose");
 const Errrors_1 = __importDefault(require("./utils/Errrors"));
-const Intents_1 = __importDefault(require("./utils/Intents"));
 /**
  * @external Client
- * @see {@link https://discord.js.org/#/docs/main/stable/class/Client}
+ * @see {@link https://discord.js.org/#/docs/discord.js/stable/class/Client}
  */
 /**
  * @external Collection
  * @see {@link https://discord.js.org/#/docs/collection/stable/class/Collection}
+ */
+/**
+ * @external ClientOptions
+ * @see {@link https://discord.js.org/#/docs/discord.js/stable/typedef/ClientOptions}
  */
 /**
  * @extends {Client}
@@ -28,7 +31,6 @@ class IgeClient extends discord_js_1.Client {
     /**
      * All IgeClient options
      * @typedef {Object} IgeOptions
-     * @property {boolean} replies Its a boolean value to set if the bot mention or no a user when it reply a message.
      * @property {string} [prefix=null] The client prefix.
      * @property {string|string[]} owner The client owner user ID.
      * @property {string} testGuild The client test guild id.
@@ -36,9 +38,10 @@ class IgeClient extends discord_js_1.Client {
     /**
      * @param {string} token The discord client token
      * @param {IgeOptions} options Discord client options (replies, prefix, owner, ...)
+     * @param {clientOptions} [ClientOptions] discord.js client options
      * @returns {Promise<string>} Token of the account used
      */
-    constructor(token, options) {
+    constructor(token, options, clientOptions) {
         if (!token)
             throw new TypeError(Errrors_1.default.MISSING_TOKEN);
         if (!options)
@@ -47,14 +50,7 @@ class IgeClient extends discord_js_1.Client {
             throw new TypeError(Errrors_1.default.MISSING_OWNER_ID);
         if (!options.testGuild)
             throw new TypeError(Errrors_1.default.MISSING_GUILD_ID);
-        super({
-            partials: ["USER", "CHANNEL", "GUILD_MEMBER", "MESSAGE", "REACTION"],
-            allowedMentions: {
-                repliedUser: options.replies || false
-            },
-            failIfNotExists: false,
-            intents: Intents_1.default
-        });
+        super(options || clientOptions);
         /**
          * The client commands Map
          * @type {Collection}

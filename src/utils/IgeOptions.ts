@@ -1,8 +1,6 @@
-export default interface IgeOptions {
-    /**
-     * @param {boolean} replies Its a boolean value to set if the bot mention or no a user when it reply a message.
-     */
-    replies: boolean,
+import type { ClientOptions } from "discord.js";
+
+export default interface IgeOptions extends ClientOptions {
     /**
      * @param {string} [prefix=null] The client prefix.
      */
