@@ -108,7 +108,7 @@ class IgeClient extends Client {
      *     mongoUri: "mongodb connection uri"
      * });
      */
-    async params(options: Options) {
+    async params(options: Options): Promise<void> {
         if (!options) throw new Error(Errors.MISSING_OPTIONS)
         if (!options.slashsDir) throw new TypeError(Errors.MISSING_SLASH_DIR);
         if (!options.eventsDir) throw new TypeError(Errors.MISSING_EVT_DIR);
@@ -126,7 +126,7 @@ class IgeClient extends Client {
      * Slashs commands post method
      * @param {any} slashsArray
      */
-    async postSlashs(slashsArray: any) {
+    async postSlashs(slashsArray: any): Promise<void> {
         if (this.isReady() !== true) throw new Error(Errors.IS_NOT_LOGGED_IN);
 
         const guild = this.guilds.cache?.get(this.testGuild);
@@ -152,7 +152,7 @@ class IgeClient extends Client {
      * @param {boolean} useFolders
      * @private
      */
-    async _cmdsHandler(cmdDir: string, useTs: boolean, useFolders: boolean) {
+    async _cmdsHandler(cmdDir: string, useTs: boolean, useFolders: boolean): Promise<number | undefined> {
         if (this.prefix === null) throw new Error(Errors.MISSING_PREFIX);
         let fileType = (useTs === true) ? ".ts" : ".js"
         let count = 0;
@@ -197,7 +197,7 @@ class IgeClient extends Client {
      * @param {boolean} useFolders
      * @private
      */
-    async _slashHandler(slashDir: string, useTs: boolean, useFolders: boolean) {
+    async _slashHandler(slashDir: string, useTs: boolean, useFolders: boolean): Promise<number | undefined> {
         let fileType = (useTs === true) ? ".ts" : ".js"
         let count = 0;
         const files = readdirSync(slashDir);
@@ -239,7 +239,7 @@ class IgeClient extends Client {
      * @param {boolean} useTs
      * @private
      */
-    async _evtsHandler(evtDir: string, useTs: boolean) {
+    async _evtsHandler(evtDir: string, useTs: boolean): Promise<void> {
         let fileType = (useTs === true) ? ".ts" : ".js"
         readdir(evtDir, (_err, files) => {
             let size = files.length,
@@ -267,7 +267,7 @@ class IgeClient extends Client {
      * @param {string} mongoUri
      * @private
      */
-    async _createConnection(mongoUri: string) {
+    async _createConnection(mongoUri: string): Promise<void> {
         connect(mongoUri).then(() => {
             console.log(`[Success] | Connected to MongoDB database.`);
         }).catch((err) => {

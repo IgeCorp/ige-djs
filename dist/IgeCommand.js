@@ -84,6 +84,30 @@ class IgeCommand {
          */
         this.botAllowed = commandOptions.botAllowed;
     }
+    setName(name) {
+        this.name = name;
+    }
+    setCategory(category) {
+        this.category = category;
+    }
+    setDescription(description) {
+        this.description = description;
+    }
+    setAliases(aliases) {
+        this.aliases = aliases;
+    }
+    setUsage(usage) {
+        this.usage = usage;
+    }
+    setExample(example) {
+        this.example = example;
+    }
+    setPermission(permission) {
+        this.permission = permission;
+    }
+    setBotAllowed(status) {
+        this.botAllowed = status;
+    }
 }
 exports.IgeCommand = IgeCommand;
 exports.default = IgeCommand;
