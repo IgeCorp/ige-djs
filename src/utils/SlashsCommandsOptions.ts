@@ -1,4 +1,6 @@
 import { ApplicationCommandOptionType } from "discord.js";
+import SlashDescriptionLocalizations from "./SlashDescriptionLocalizations";
+import SlashNameLocalizations from "./SlashNameLocalizations";
 import SlashsCommandsOptionsChoices from "./SlashsCommandsOptionsChoices";
 
 export default interface SlashsCommandsOptions {
@@ -11,9 +13,17 @@ export default interface SlashsCommandsOptions {
      */
     name: string,
     /**
+     * @param {SlashNameLocalizations} name_localizations Option name in differents locales
+     */
+    name_localizations: SlashNameLocalizations,
+    /**
      * @param {string} description The description of the option
      */
     description: string,
+    /**
+     * @param {SlashDescriptionLocalizations} description_localizations Option description in differents locales
+     */
+    description_localizations: SlashDescriptionLocalizations,
     /**
      * @param {boolean} required Whether the option is required
      */

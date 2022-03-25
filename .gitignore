@@ -3,4 +3,5 @@ node_modules/
 
 ### Files ###
 package-lock.json
-yarn.lock
+*.lock
+*.log

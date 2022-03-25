@@ -2,6 +2,8 @@ import SlashOptions from "./utils/SlashOptions";
 import Errors from "./utils/Errrors";
 import { ApplicationCommandType } from "discord.js";
 import SlashsCommandsOptions from "./utils/SlashsCommandsOptions";
+import SlashNameLocalizations from "./utils/SlashNameLocalizations";
+import SlashDescriptionLocalizations from "./utils/SlashDescriptionLocalizations";
 
 class IgeSlash {
     name: string;
@@ -11,6 +13,8 @@ class IgeSlash {
     defaultPermission?: boolean;
     guildOnly?: boolean;
     category?: string;
+    name_localizations: SlashNameLocalizations;
+    description_localizations: SlashDescriptionLocalizations;
 
     /**
      * @external ApplicationCommandType
@@ -29,11 +33,83 @@ class IgeSlash {
      */
 
     /**
+     * Description in differents locales
+     * @typedef {Object} SlashDescriptionLocalizations
+     * @property {string} da
+     * @property {string} de
+     * @property {string} "en-GB"
+     * @property {string} "en-US"
+     * @property {string} "es-ES"
+     * @property {string} fr
+     * @property {string} hr
+     * @property {string} it
+     * @property {string} lt
+     * @property {string} hu
+     * @property {string} nl
+     * @property {string} no
+     * @property {string} pl
+     * @property {string} "pt-BR"
+     * @property {string} ro
+     * @property {string} fi
+     * @property {string} "sv-SE"
+     * @property {string} vi
+     * @property {string} tr
+     * @property {string} cs
+     * @property {string} el
+     * @property {string} bg
+     * @property {string} ru
+     * @property {string} uk
+     * @property {string} hi
+     * @property {string} th
+     * @property {string} "zh-CN"
+     * @property {string} ja
+     * @property {string} "zh-TW"
+     * @property {string} ko
+     */
+
+    /**
+     * Name in differents locales
+     * @typedef {Object} SlashNameLocalizations
+     * @property {string} da
+     * @property {string} de
+     * @property {string} "en-GB"
+     * @property {string} "en-US"
+     * @property {string} "es-ES"
+     * @property {string} fr
+     * @property {string} hr
+     * @property {string} it
+     * @property {string} lt
+     * @property {string} hu
+     * @property {string} nl
+     * @property {string} no
+     * @property {string} pl
+     * @property {string} "pt-BR"
+     * @property {string} ro
+     * @property {string} fi
+     * @property {string} "sv-SE"
+     * @property {string} vi
+     * @property {string} tr
+     * @property {string} cs
+     * @property {string} el
+     * @property {string} bg
+     * @property {string} ru
+     * @property {string} uk
+     * @property {string} hi
+     * @property {string} th
+     * @property {string} "zh-CN"
+     * @property {string} ja
+     * @property {string} "zh-TW"
+     * @property {string} ko
+     */
+
+    /**
      * Slash command options values
      * @typedef {Array} SlashsCommandsOptions
      * @property {ApplicationCommandOptionType} type The type of the option
      * @property {string} name The name of the option
+     * @property {SlashNameLocalizations} name_localizations Option name in differents locales
      * @property {string} description The description of the option
+     * @property {SlashDescriptionLocalizations} description_localizations Option description in differents locales
      * @property {boolean} required Whether the option is required
      * @property {SlashsCommandsOptionsChoices[]} [choices=null] The choices of the option for the user to pick from
      * @property {SlashsCommandsOptions[]} [options=null] Additional options if this option is a subcommand (group)
@@ -43,7 +119,9 @@ class IgeSlash {
      * All slash command options
      * @typedef {Object} SlashOptions
      * @property {string} name The slash command name.
+     * @property {SlashNameLocalizations} name_localizations Command name in differents locales
      * @property {string} description The slash command description.
+     * @property {SlashDescriptionLocalizations} description_localizations Command description in differents locales
      * @property {ApplicationCommandType} [type="CHAT_IMPUT"] The slash command type (CHAT_IMPUT, USER, MESSAGE).
      * @property {SlashsCommandsOptions[]} [options=null] The slash command options (choices, ...)
      * @property {boolean} [defaultPermission=true] The slash command defaultPermission.
@@ -66,10 +144,20 @@ class IgeSlash {
          */
         this.name = slashOptions.name;
         /**
+         * Name in different locales
+         * @type {SlashNameLocalizations}
+         */
+        this.name_localizations = slashOptions?.name_localizations
+        /**
          * Slash description
          * @type {string}
          */
         this.description = slashOptions.description;
+        /**
+         * Name in different locales
+         * @type {SlashDescriptionLocalizations}
+         */
+         this.description_localizations = slashOptions?.description_localizations
         /**
          * Slash type
          * @type {ApplicationCommandType}

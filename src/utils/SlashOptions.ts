@@ -1,4 +1,6 @@
 import { ApplicationCommandType } from "discord.js";
+import SlashDescriptionLocalizations from "./SlashDescriptionLocalizations";
+import SlashNameLocalizations from "./SlashNameLocalizations";
 import SlashsCommandsOptions from "./SlashsCommandsOptions";
 
 export default interface SlashOptions {
@@ -7,9 +9,17 @@ export default interface SlashOptions {
      */
     name: string,
     /**
+     * @param {SlashNameLocalizations} name_localizations Command name in differents locales
+     */
+    name_localizations: SlashNameLocalizations,
+    /**
      * @param {string} description The slash command description.
      */
     description: string,
+    /**
+     * @param {SlashDescriptionLocalizations} description_localizations Command description in differents locales
+     */
+    description_localizations: SlashDescriptionLocalizations
     /**
      * @param {ApplicationCommandType} type The slash command type (CHAT_IMPUT, USER, MESSAGE).
      */

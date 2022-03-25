@@ -5,4 +5,5 @@ src/
 ### Files ###
 package-lock.json
 tsconfig.json
-yarn.lock
+*.lock
+*.log
