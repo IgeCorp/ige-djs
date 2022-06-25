@@ -1,0 +1,14 @@
+# FOLDERS
+
+node_modules
+src
+.idea
+.vscode
+
+# FILES
+
+*.log
+yarn.lock
+package-lock.json
+.gitignore
+tsconfig.json

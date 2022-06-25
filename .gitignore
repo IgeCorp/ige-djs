@@ -1,0 +1,12 @@
+# FOLDERS
+
+node_modules
+dist
+.idea
+.vscode
+
+# FILES
+
+*.log
+yarn.lock
+package-lock.json
