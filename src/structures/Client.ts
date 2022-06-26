@@ -4,7 +4,7 @@ import { resolve } from "path";
 
 import { ClientOptions, ClientData, Errors } from "../interfaces";
 import type { ClientOptions as DiscordClientOptions } from "discord.js";
-import { ApplicationCommand } from "../interfaces/command";
+import { CommandBase } from "./CommandBase";
 
 /**
  * IgeCorp framework Client
@@ -46,9 +46,9 @@ export class Client extends DiscordClient
 
     /**
      * Post a slash command to discord api
-     * @param slash {ApplicationCommand}
+     * @param slash {CommandBase}
      */
-    private async postSlash(slash: ApplicationCommand): Promise<void>
+    private async postSlash(slash: CommandBase): Promise<void>
     {
         const { api } = this.data;
 

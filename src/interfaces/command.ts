@@ -1,16 +1,18 @@
 import type { LocalizationMap } from "discord.js"
 
 export declare type ApplicationCommand = {
-    data: {
-        name: string,
-        name_localizations?: LocalizationMap,
-        description: string,
-        description_localizations?: LocalizationMap,
-        default_member_mermissions?: string
-        dm_mermission?: string,
-        options?: ApplicationCommandOptions[]
-    },
+    data: ApplicationCommandData,
     guild_only?: boolean
+}
+
+export declare type ApplicationCommandData = {
+    name: string,
+    name_localizations?: LocalizationMap,
+    description: string,
+    description_localizations?: LocalizationMap,
+    default_member_mermissions?: string
+    dm_mermission?: string,
+    options?: ApplicationCommandOptions[]
 }
 
 export declare type ApplicationCommandOptions = {
