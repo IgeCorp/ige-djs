@@ -19,7 +19,7 @@
   "dependencies": {
     "discord.js": "^13.6.0",
     "fs": "^0.0.1-security",
-    "mongoose": "^6.2.8",
+    "mongoose": "^7.0.0",
     "raw-body": "^2.5.1"
   },
   "devDependencies": {
